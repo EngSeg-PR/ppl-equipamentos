@@ -32,13 +32,11 @@
     const old=await receipt('get',r.key);if(old?.received_at||(!force&&old?.retryAt>Date.now()))continue;
     status('Enviando inspeções preservadas…');
     try{
-     let cached=await transaction('pdfs','readonly',s=>s.get(r.key));
-     // Registros restaurados do backup também precisam da cópia PDF antes do envio.
-     if(!cached?.blob){await generateAndStore(r);cached=await transaction('pdfs','readonly',s=>s.get(r.key));}
-     const result=await api('submit',{record:r,pdf:await base64(cached.blob)},false);
+     const blob=await preparedPDF(r);
+     const result=await api('submit',{record:r,pdf:await base64(blob)},false);
      if(result.key!==r.key||!Number.isFinite(Date.parse(result.received_at)))throw Error('Confirmação de recebimento inválida.');
      await receipt('put',{key:r.key,received_at:result.received_at});count++;window.dispatchEvent(new Event('ppl-cloud-received'));
-    }catch(error){failed++;lastError=`${r.id.slice(0,8)} · r${r.revision}: ${error.message}`;try{await receipt('put',{key:r.key,error:error.message,retryAt:Date.now()+300000});}catch{};}
+    }catch(error){failed++;lastError=`${r.id.slice(0,8)} · r${r.revision}: ${storageError(error)}`;try{await receipt('put',{key:r.key,error:error.message,retryAt:Date.now()+300000});}catch{};}
    }
    const received=(await Promise.all(records.map(r=>receipt('get',r.key)))).filter(r=>r?.received_at).length;
    status(`${received} de ${records.length} revisões deste aparelho recebidas pelo servidor.${received<records.length?' Há pendências; sua cópia local está preservada.':''}${lastError?' '+lastError:''}`,received<records.length);
