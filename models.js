@@ -1,0 +1,5035 @@
+// Modelos transcritos do XLS fornecido. Não alterar snapshots de versões já registradas.
+const ADDITIONAL_MODELS=[
+  {
+    "id": "ppl-gerador",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Gerador",
+    "title": "CHECKLIST DE SEGURANÇA · GERADOR",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "GERADOR",
+      "form": "FMO-SSMA-01-05 REV.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "O aterramento está instalado adequadamente?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "O cabo com duplo isolamento está livre de emendas, avarias e danos?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "A carcaça está livre de avarias e danos?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "A descarga de fumaça preta está em local ventilado, afastada de pessoas e regulada?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "O gerador encontra-se instalado em área isolada e sinalizada?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "O escapamento tem proteção de partes quentes?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "Há bacia de contenção que atenda a demanda de todo o óléo para consumo em caso de derrame?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "Há um extintor de incêndio dimensionado adequadamente, inspecionado periodicamente e carregado?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "Há um interruptor liga-desliga no gerador funcionando adequadamente?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "O gerador está isento de vazamentos de óleo/Gasolina?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "O gerador, quando em funcionamento, está isento de vibrações e ruídos anormais?",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "São utilizados plugues padrão industrial ou stacks?",
+        "sourceNumber": "12",
+        "sourceRow": 23
+      },
+      {
+        "id": "linha-24",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "O sistema de reboque do gerador está em bom estado de conservação e de uso?",
+        "sourceNumber": "13",
+        "sourceRow": 24
+      },
+      {
+        "id": "linha-25",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "Há uma chave de parada de emergência no gerador?",
+        "sourceNumber": "14",
+        "sourceRow": 25
+      },
+      {
+        "id": "linha-26",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "Há um controle da emissão de gases poluentes e ruídos?",
+        "sourceNumber": "15",
+        "sourceRow": 26
+      },
+      {
+        "id": "linha-27",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "Há proteção de partes móveis e correias no gerador?",
+        "sourceNumber": "16",
+        "sourceRow": 27
+      },
+      {
+        "id": "linha-28",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "O gerador possui proteção contra intempéries?",
+        "sourceNumber": "17",
+        "sourceRow": 28
+      },
+      {
+        "id": "linha-29",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "Os manômetros e amperímetros do gerador estão funcionando adequadamente?",
+        "sourceNumber": "18",
+        "sourceRow": 29
+      },
+      {
+        "id": "linha-30",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "O gerador possui o logotipo da empresa e número seqüencial?",
+        "sourceNumber": "19",
+        "sourceRow": 30
+      },
+      {
+        "id": "linha-31",
+        "category": "Verificação do equipamento",
+        "target": "Gerador",
+        "text": "O gerador possui identificação de tensão?",
+        "sourceNumber": "20",
+        "sourceRow": 31
+      }
+    ]
+  },
+  {
+    "id": "ppl-cinto-iratas-acesso-corda",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Cinto de segurança para acesso por corda (IRATA)",
+    "title": "CHECKLIST DE SEGURANÇA · CINTO DE SEGURANÇA PARA ACESSO POR CORDA (IRATA)",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Cinto de Segurança / TAG",
+    "identifiers": [
+      {
+        "name": "componentTag1",
+        "label": "Trava Quedas / TAG"
+      },
+      {
+        "name": "componentTag2",
+        "label": "Ascensor de Punho / TAG"
+      },
+      {
+        "name": "componentTag3",
+        "label": "Ascensor de Peitoral / TAG"
+      },
+      {
+        "name": "componentTag4",
+        "label": "Descensor / TAG"
+      }
+    ],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "CINTO IRATAS ACESSO CORDA",
+      "form": "FMO-SSMA-01-05 REV 05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-13",
+        "category": "Cinto de Segurança",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "O material está dentro do prazo da vida útil recomendado pelo fabricante?",
+        "sourceNumber": "1.1",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Cinto de Segurança",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de desgastes excessivo?",
+        "sourceNumber": "1.2",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Cinto de Segurança",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de contaminação por produtos químicos?",
+        "sourceNumber": "1.3",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Cinto de Segurança",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Possui Deformações ou cortes?",
+        "sourceNumber": "1.4",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Cinto de Segurança",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Possui Corrosão?",
+        "sourceNumber": "1.5",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Cinto de Segurança",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "A partes metálicas possuem rebarbas ou amassados?",
+        "sourceNumber": "1.6",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Cinto de Segurança",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "1.7",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Cinto de Segurança",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Possui Cortes ou puídos\t?",
+        "sourceNumber": "1.8",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Cinto de Segurança",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "O encordoamento está em bom estado?",
+        "sourceNumber": "1.9",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-23",
+        "category": "Trava Quedas",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de desgates execessivos?",
+        "sourceNumber": "2.1",
+        "sourceRow": 23
+      },
+      {
+        "id": "linha-24",
+        "category": "Trava Quedas",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre corrosão?",
+        "sourceNumber": "2.2",
+        "sourceRow": 24
+      },
+      {
+        "id": "linha-25",
+        "category": "Trava Quedas",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de Trincas?",
+        "sourceNumber": "2.3",
+        "sourceRow": 25
+      },
+      {
+        "id": "linha-26",
+        "category": "Trava Quedas",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Funcionamento correto para partes móveis?",
+        "sourceNumber": "2.4",
+        "sourceRow": 26
+      },
+      {
+        "id": "linha-27",
+        "category": "Trava Quedas",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de Deformações?",
+        "sourceNumber": "2.5",
+        "sourceRow": 27
+      },
+      {
+        "id": "linha-28",
+        "category": "Trava Quedas",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Contaminação Produtos Quimícos?",
+        "sourceNumber": "2.6",
+        "sourceRow": 28
+      },
+      {
+        "id": "linha-29",
+        "category": "Trava Quedas",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "2.7",
+        "sourceRow": 29
+      },
+      {
+        "id": "linha-31",
+        "category": "Ascensor de Punho",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de desgates execessivos?",
+        "sourceNumber": "3.1",
+        "sourceRow": 31
+      },
+      {
+        "id": "linha-32",
+        "category": "Ascensor de Punho",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre corrosão?",
+        "sourceNumber": "3.2",
+        "sourceRow": 32
+      },
+      {
+        "id": "linha-33",
+        "category": "Ascensor de Punho",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de Trincas?",
+        "sourceNumber": "3.3",
+        "sourceRow": 33
+      },
+      {
+        "id": "linha-36",
+        "category": "Ascensor de Punho",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Funcionamento correto para partes móveis?",
+        "sourceNumber": "3.4",
+        "sourceRow": 36
+      },
+      {
+        "id": "linha-37",
+        "category": "Ascensor de Punho",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de Deformações?",
+        "sourceNumber": "3.5",
+        "sourceRow": 37
+      },
+      {
+        "id": "linha-38",
+        "category": "Ascensor de Punho",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Contaminação Produtos Quimícos?",
+        "sourceNumber": "3.6",
+        "sourceRow": 38
+      },
+      {
+        "id": "linha-39",
+        "category": "Ascensor de Punho",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "3.7",
+        "sourceRow": 39
+      },
+      {
+        "id": "linha-41",
+        "category": "Ascensor de Peitoral",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de desgates execessivos?",
+        "sourceNumber": "4.1",
+        "sourceRow": 41
+      },
+      {
+        "id": "linha-42",
+        "category": "Ascensor de Peitoral",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre corrosão?",
+        "sourceNumber": "4.2",
+        "sourceRow": 42
+      },
+      {
+        "id": "linha-43",
+        "category": "Ascensor de Peitoral",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de Trincas?",
+        "sourceNumber": "4.3",
+        "sourceRow": 43
+      },
+      {
+        "id": "linha-44",
+        "category": "Ascensor de Peitoral",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Funcionamento correto para partes móveis?",
+        "sourceNumber": "4.4",
+        "sourceRow": 44
+      },
+      {
+        "id": "linha-45",
+        "category": "Ascensor de Peitoral",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de Deformações?",
+        "sourceNumber": "4.5",
+        "sourceRow": 45
+      },
+      {
+        "id": "linha-46",
+        "category": "Ascensor de Peitoral",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Contaminação Produtos Quimícos?",
+        "sourceNumber": "4.6",
+        "sourceRow": 46
+      },
+      {
+        "id": "linha-47",
+        "category": "Ascensor de Peitoral",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "4.7",
+        "sourceRow": 47
+      },
+      {
+        "id": "linha-49",
+        "category": "Descensor",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de desgates execessivos?",
+        "sourceNumber": "5.1",
+        "sourceRow": 49
+      },
+      {
+        "id": "linha-50",
+        "category": "Descensor",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre corrosão?",
+        "sourceNumber": "5.2",
+        "sourceRow": 50
+      },
+      {
+        "id": "linha-51",
+        "category": "Descensor",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de Trincas?",
+        "sourceNumber": "5.3",
+        "sourceRow": 51
+      },
+      {
+        "id": "linha-52",
+        "category": "Descensor",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Funcionamento correto para partes móveis?",
+        "sourceNumber": "5.4",
+        "sourceRow": 52
+      },
+      {
+        "id": "linha-53",
+        "category": "Descensor",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Livre de Deformações?",
+        "sourceNumber": "5.5",
+        "sourceRow": 53
+      },
+      {
+        "id": "linha-54",
+        "category": "Descensor",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Contaminação Produtos Quimícos?",
+        "sourceNumber": "5.6",
+        "sourceRow": 54
+      },
+      {
+        "id": "linha-55",
+        "category": "Descensor",
+        "target": "Cinto de segurança para acesso por corda (IRATA)",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "5.7",
+        "sourceRow": 55
+      }
+    ]
+  },
+  {
+    "id": "ppl-corda",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Corda",
+    "title": "CHECKLIST DE SEGURANÇA · CORDA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "CORDA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Corda",
+        "text": "O material está dentro do prazo da vida útil recomendado pelo fabricante?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Corda",
+        "text": "Livre de desgaste de excessivo?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Corda",
+        "text": "Livre de Contaminação por produtos químicos?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Corda",
+        "text": "Livre de puídos?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      }
+    ]
+  },
+  {
+    "id": "ppl-fita-tubular",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Fita tubular",
+    "title": "CHECKLIST DE SEGURANÇA · FITA TUBULAR",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "FITA TUBULAR",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Fita tubular",
+        "text": "O material está dentro do prazo da vida útil recomendado pelo fabricante?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Fita tubular",
+        "text": "Livre de desgastes excessivos?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Fita tubular",
+        "text": "Livre de contaminação por produto químicos?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Fita tubular",
+        "text": "Livres de puídos?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Fita tubular",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      }
+    ]
+  },
+  {
+    "id": "ppl-corrente",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Corrente",
+    "title": "CHECKLIST DE SEGURANÇA · CORRENTE",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "CORRENTE",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Corrente",
+        "text": "O material está dentro do prazo da vida útil recomendado pelo fabricante?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Corrente",
+        "text": "Livre de desgastes excessivos?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Corrente",
+        "text": "Livre de corrosão?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Corrente",
+        "text": "Livre de marcas de impacto?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Corrente",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      }
+    ]
+  },
+  {
+    "id": "ppl-polia-simples",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Polia simples",
+    "title": "CHECKLIST DE SEGURANÇA · POLIA SIMPLES",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "POLIA SIMPLES",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Polia simples",
+        "text": "Livre de desgastes excessivo?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Polia simples",
+        "text": "Livre de corrosão?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Polia simples",
+        "text": "Livre de trincas?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Polia simples",
+        "text": "Funcionamento correto das partes móveis?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Polia simples",
+        "text": "Livre de marcas de impacto?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Polia simples",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      }
+    ]
+  },
+  {
+    "id": "ppl-polia-dupla",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Polia dupla",
+    "title": "CHECKLIST DE SEGURANÇA · POLIA DUPLA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "POLIA DUPLA",
+      "form": "FMO-SSMA-01-05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Polia dupla",
+        "text": "Livre de desgastes excessivo?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Polia dupla",
+        "text": "Livre de corrosão?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Polia dupla",
+        "text": "Livre de trincas?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Polia dupla",
+        "text": "Funcionamento correto das partes móveis?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Polia dupla",
+        "text": "Livre de marcas de impacto?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Polia dupla",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      }
+    ]
+  },
+  {
+    "id": "ppl-mosquetao-conector",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Mosquetão conector",
+    "title": "CHECKLIST DE SEGURANÇA · MOSQUETÃO CONECTOR",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "MOSQUETÃO CONECTOR",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Mosquetão conector",
+        "text": "Livre de desgastes excessivo?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Mosquetão conector",
+        "text": "Livre de corrosão?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Mosquetão conector",
+        "text": "Livre de trincas?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Mosquetão conector",
+        "text": "Livres de deformação?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Mosquetão conector",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Mosquetão conector",
+        "text": "Gatilho e dobradiça com funcionamento integro?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Mosquetão conector",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      }
+    ]
+  },
+  {
+    "id": "ppl-ferramentas-manuais",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Ferramentas manuais (modelo de 7 itens)",
+    "title": "CHECKLIST DE SEGURANÇA · FERRAMENTAS MANUAIS (MODELO DE 7 ITENS)",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "FERRAMENTAS MANUAIS",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais (modelo de 7 itens)",
+        "text": "Livre de desgastes excessivo?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais (modelo de 7 itens)",
+        "text": "Livre de corrosão?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais (modelo de 7 itens)",
+        "text": "Livre de trincas?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais (modelo de 7 itens)",
+        "text": "Livres de deformação?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais (modelo de 7 itens)",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais (modelo de 7 itens)",
+        "text": "Gatilho e dobradiça com funcionamento integro?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais (modelo de 7 itens)",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      }
+    ]
+  },
+  {
+    "id": "ppl-painel-eletrico",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Painel elétrico",
+    "title": "CHECKLIST DE SEGURANÇA · PAINEL ELÉTRICO",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "PAINEL ELÉTRICO",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Painel elétrico",
+        "text": "O painél elétrico está em boas condições de uso?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Painel elétrico",
+        "text": "Os envolvidos no serviço estão orientados que o painél elétrico deve ser posicionado sempre em local seguro e fora do local de passagem de pessoas?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Painel elétrico",
+        "text": "Contatos e terminais dos condutores da chave liga/desliga estão fixos?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Painel elétrico",
+        "text": "Plug possui guia para a tomada de 440v?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      }
+    ]
+  },
+  {
+    "id": "ppl-extensao-eletrica",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Extensão elétrica",
+    "title": "CHECKLIST DE SEGURANÇA · EXTENSÃO ELÉTRICA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "EXTENSÃO ELÉTRICA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Extensão elétrica",
+        "text": "A extensão elétrica está em boas condições de uso sem emendas e rachaduras?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Extensão elétrica",
+        "text": "Os envolvidos no serviço estão orientados que o cabo elétrico deve ser mantidos sempre em local seguro e fora de poças d' àgua?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Extensão elétrica",
+        "text": "Os cabos estão ligados corretamente no plug?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Extensão elétrica",
+        "text": "A extenção elétrica está com o plug em condições de uso?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Extensão elétrica",
+        "text": "A extensão é adequada para o equipamento em uso?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Extensão elétrica",
+        "text": "A tomada é tipo Steck (industrial)?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      }
+    ]
+  },
+  {
+    "id": "ppl-fuga-a-terra",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Fuga à terra (DR)",
+    "title": "CHECKLIST DE SEGURANÇA · FUGA À TERRA (DR)",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "FUGA À TERRA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Fuga à terra (DR)",
+        "text": "A carcaça  do fuga terra - DR (diferencial residual)  apresenta bom estado de conservação?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Fuga à terra (DR)",
+        "text": "O cabo elétrico está em boas condições de uso sem emendas e rachaduras?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Fuga à terra (DR)",
+        "text": "O visor do  fuga terra está em bom estado de conservação?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Fuga à terra (DR)",
+        "text": "O fuga terra póssui cordão de rearme do dijuntor?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Fuga à terra (DR)",
+        "text": "O LED (sinalizador de presença de tenção) do fuga terra está funcionando?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Fuga à terra (DR)",
+        "text": "O equipamento está limpo externamente?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Fuga à terra (DR)",
+        "text": "Os cabos estão ligados corretamente?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      }
+    ]
+  },
+  {
+    "id": "ppl-luminaria",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Luminária",
+    "title": "CHECKLIST DE SEGURANÇA · LUMINÁRIA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "LUMINÁRIA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Luminária",
+        "text": "A carcaça  da luminária  apresenta bom estado de conservação?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Luminária",
+        "text": "O cabo elétrico está em boas condições de uso sem emendas e rachaduras?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Luminária",
+        "text": "A luminária possui o fio terra?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Luminária",
+        "text": "O vidro da luminária está em bom estado de conservação?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Luminária",
+        "text": "Os envolvidos no serviço estão orientados que o cabo elétrico deve ser mantidos sempre em local seguro e fora de poças d' àgua?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Luminária",
+        "text": "O equipamento está limpo externamente?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Luminária",
+        "text": "Os cabos estão ligados corretamente?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      }
+    ]
+  },
+  {
+    "id": "ppl-martelete",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Martelete",
+    "title": "CHECKLIST DE SEGURANÇA · MARTELETE",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "MARTELETE ",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Martelete",
+        "text": "Estado de Conservação",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Martelete",
+        "text": "Comandos Elétricos",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Martelete",
+        "text": "Alça de transporte",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Martelete",
+        "text": "Estados dos canos elétricos",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Martelete",
+        "text": "Conexões",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Martelete",
+        "text": "Plug (s)",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Martelete",
+        "text": "Identificação",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Martelete",
+        "text": "Aterramento",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Martelete",
+        "text": "Isolamento",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Martelete",
+        "text": "Proteção de Segurança  (DR)",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      }
+    ]
+  },
+  {
+    "id": "ppl-tanque-de-pintura",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Tanque de pintura",
+    "title": "CHECKLIST DE SEGURANÇA · TANQUE DE PINTURA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "TANQUE DE PINTURA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "A manivela está em perfeito estado de conservação?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "O eixo agitador está travando?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "A válvula de segurança está em perfeito estado?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "O manômetro está em perfeito estado?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "A tampa do tanque está em perfeita condições de uso?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "A válvula de alívio está em condições de uso?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "A guarnição da tampa está vedando corretamente?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "O tubo de fluido está desobstruído?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "O filtro está limpo e em condições de uso?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "A tampa apresenta mossas a desgaste?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "Os parafusos apresentam desgaste?",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "Os grampos apresentam desgaste?",
+        "sourceNumber": "12",
+        "sourceRow": 23
+      },
+      {
+        "id": "linha-24",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "A válvula de esfera apresenta desgaste?",
+        "sourceNumber": "13",
+        "sourceRow": 24
+      },
+      {
+        "id": "linha-25",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "O \"T\"  está em perfeito estado de funcionamento?",
+        "sourceNumber": "14",
+        "sourceRow": 25
+      },
+      {
+        "id": "linha-26",
+        "category": "Verificação do equipamento",
+        "target": "Tanque de pintura",
+        "text": "O regulador de Ar funciona corretamente?",
+        "sourceNumber": "15",
+        "sourceRow": 26
+      }
+    ]
+  },
+  {
+    "id": "ppl-bomba-de-tinta",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Bomba de tinta",
+    "title": "CHECKLIST DE SEGURANÇA · BOMBA DE TINTA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "BOMBA DE TINTA ",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Bomba de tinta",
+        "text": "O manômetro está em perfeito estado?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Bomba de tinta",
+        "text": "A Válvula de entrada de ar está em perfeito estado?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Bomba de tinta",
+        "text": "A válvula de saída de AR para Pistola apresenta apresenta alguma alteração?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Bomba de tinta",
+        "text": "O pescador de  mangueira está em perfeito estado?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Bomba de tinta",
+        "text": "O tanque de armazenamento está em bom estado?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Bomba de tinta",
+        "text": "O copo da Bomba está em bom estado de conservação?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Bomba de tinta",
+        "text": "O filtro de material está em condições de uso?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Bomba de tinta",
+        "text": "O regulador de Ar funciona corretamente?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Bomba de tinta",
+        "text": "Braçadeiras das mangueiras está em perfeito estado?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Bomba de tinta",
+        "text": "A Base de sustentação apresenta em perfeito estado os parafusos estão fixados?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      }
+    ]
+  },
+  {
+    "id": "ppl-bomba-airless",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Bomba airless",
+    "title": "CHECKLIST DE SEGURANÇA · BOMBA AIRLESS",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "BOMBA AIRLESS",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Foi verificado se as conexões estão seguras antes de iniciar a atividade?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Entrada de ar",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Válvula pneumática principal de purga",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Válvula reguladora de pressão",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Filtro de ar",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Indicador de pressão pneumática",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Botão de ajuste do regulador de ar",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Válvula de drenagem/purga de produto",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Filtro de produto",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Pistão de bombagem",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Tubo flexível e tubo de aspiração",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Saída de líquido",
+        "sourceNumber": "12",
+        "sourceRow": 23
+      },
+      {
+        "id": "linha-24",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Porca de empanque",
+        "sourceNumber": "13",
+        "sourceRow": 24
+      },
+      {
+        "id": "linha-25",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Regulador de descongelação",
+        "sourceNumber": "14",
+        "sourceRow": 25
+      },
+      {
+        "id": "linha-26",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Condiçoes da pistola de pulverização",
+        "sourceNumber": "15",
+        "sourceRow": 26
+      },
+      {
+        "id": "linha-27",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Maquina esta limpa",
+        "sourceNumber": "16",
+        "sourceRow": 27
+      },
+      {
+        "id": "linha-28",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Apresentar danos em sua carcaça ( amassamento, corrosao etc)",
+        "sourceNumber": "17",
+        "sourceRow": 28
+      },
+      {
+        "id": "linha-29",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "O sistema de controle datatrak está protegido",
+        "sourceNumber": "18",
+        "sourceRow": 29
+      },
+      {
+        "id": "linha-30",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Motor pneumatico em boas condiçoes",
+        "sourceNumber": "19",
+        "sourceRow": 30
+      },
+      {
+        "id": "linha-31",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Linha de adução de ar",
+        "sourceNumber": "20",
+        "sourceRow": 31
+      },
+      {
+        "id": "linha-32",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "A carcaça do motor e demais partes metálicas encontram-se em bom estado?",
+        "sourceNumber": "21",
+        "sourceRow": 32
+      },
+      {
+        "id": "linha-33",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Mangueiras em bom estado de conservação (sem rasgos ou vazamentos)?",
+        "sourceNumber": "22",
+        "sourceRow": 33
+      },
+      {
+        "id": "linha-36",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "A adaptação das mangueiras aos engates adequadas (abraçadeiras adequadas, tipo bi-partidas ou rosca sem fim)?",
+        "sourceNumber": "23",
+        "sourceRow": 36
+      },
+      {
+        "id": "linha-37",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Engates das mangueiras estão travando de forma adequada?",
+        "sourceNumber": "24",
+        "sourceRow": 37
+      },
+      {
+        "id": "linha-38",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Acesso limpo e nivelado?",
+        "sourceNumber": "25",
+        "sourceRow": 38
+      },
+      {
+        "id": "linha-39",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Existe proteção de partes móveis (correias, polias, etc...)?",
+        "sourceNumber": "26",
+        "sourceRow": 39
+      },
+      {
+        "id": "linha-40",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Foi aterrado o equipamento",
+        "sourceNumber": "27",
+        "sourceRow": 40
+      },
+      {
+        "id": "linha-41",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Verificar das condiçoes da trava (gatilho ) de segurança da pistola",
+        "sourceNumber": "28",
+        "sourceRow": 41
+      },
+      {
+        "id": "linha-42",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Pneus e sistema de reboque em bom estado de uso e\nconservação?",
+        "sourceNumber": "29",
+        "sourceRow": 42
+      },
+      {
+        "id": "linha-43",
+        "category": "Verificação do equipamento",
+        "target": "Bomba airless",
+        "text": "Equipamento está com a identificação cor do trimestre?",
+        "sourceNumber": "30",
+        "sourceRow": 43
+      }
+    ]
+  },
+  {
+    "id": "ppl-arcofil",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Arcofil",
+    "title": "CHECKLIST DE SEGURANÇA · ARCOFIL",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "ARCOFIL ",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Arcofil",
+        "text": "Os engates do ARCO FIL estão em perfeitas condições?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Arcofil",
+        "text": "O manômetro do ARCO FIL foi calibrado e está em perfeitas condições?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Arcofil",
+        "text": "Foi realizada limpeza dos Filtros do ARCO FIL?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Arcofil",
+        "text": "Equipamento está com a identificação cor do trimestre?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      }
+    ]
+  },
+  {
+    "id": "ppl-caixa-de-ferramentas",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Caixa de ferramentas",
+    "title": "CHECKLIST DE SEGURANÇA · CAIXA DE FERRAMENTAS",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "CAIXA DE FERRAMENTAS",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Caixa de ferramentas",
+        "text": "Os cabos das ferramentas estão em bom estado de conservação?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Caixa de ferramentas",
+        "text": "Os cabos estão limpos?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Caixa de ferramentas",
+        "text": "Apresentam trincas e rachaduras?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Caixa de ferramentas",
+        "text": "Apresentam formação de cogumelos\n( risco de soltar)?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Caixa de ferramentas",
+        "text": "O cabo não está curto para ser segurado?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Caixa de ferramentas",
+        "text": "As laminas estão sem dentes?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Caixa de ferramentas",
+        "text": "As laminas estão com deformação?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Caixa de ferramentas",
+        "text": "O cabo está preso?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Caixa de ferramentas",
+        "text": "O cabo está sem folgas?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Caixa de ferramentas",
+        "text": "Há proteção para as laminas?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      }
+    ]
+  },
+  {
+    "id": "ppl-carrinho-argonio",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Carrinho de argônio",
+    "title": "CHECKLIST DE SEGURANÇA · CARRINHO DE ARGÔNIO",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "CARRINHO ARGONIO",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Carrinho de argônio",
+        "text": "O carrinho de transporte encontra-se perfeito?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Carrinho de argônio",
+        "text": "Os cilindros encontram-se presos?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Carrinho de argônio",
+        "text": "Válvulas reguladoras em bom estado?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Carrinho de argônio",
+        "text": "Conexões com encaixe perfeito?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Carrinho de argônio",
+        "text": "Manômetros funcionando perfeitamente?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Carrinho de argônio",
+        "text": "Braçadeiras estão em bom estado?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Carrinho de argônio",
+        "text": "Mangueiras sem ressecamento/rachaduras/emendas?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Carrinho de argônio",
+        "text": "O cilindro encontra-se identificado?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      }
+    ]
+  },
+  {
+    "id": "ppl-compressor",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Compressor",
+    "title": "CHECKLIST DE SEGURANÇA · COMPRESSOR",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "COMPRESSOR",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Compressor em bom estado e sem corrosão acentuada?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Pneus em boas condições?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Tampas e suportes para ventilação em boas condições ?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Inexistência de vazamento no motor do tanque de óleo, conexões e mangueiras?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Sistema elétrico em boas condições sem fios desencapados?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Sistema de ignição em bom estado?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Existência de corta-chama?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "O nível de óleo do motor ?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "O sistema para atrelar o reboque esta em bom estado?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "O freio de mão está funcionando?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "A área esta sinalizada e isolada ?",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Existência de extintor de pó químico?",
+        "sourceNumber": "12",
+        "sourceRow": 23
+      },
+      {
+        "id": "linha-24",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "O compressor possui placa de identificação conforme  NR 13 (Vaso de Pressão)?",
+        "sourceNumber": "13",
+        "sourceRow": 24
+      },
+      {
+        "id": "linha-25",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Existe dique de contenção no equipamento?",
+        "sourceNumber": "14",
+        "sourceRow": 25
+      },
+      {
+        "id": "linha-26",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Existe proteção para a ventoinha? (hélice)",
+        "sourceNumber": "15",
+        "sourceRow": 26
+      },
+      {
+        "id": "linha-27",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Existe proteção para a ventoinha? (hélice)",
+        "sourceNumber": "16",
+        "sourceRow": 27
+      },
+      {
+        "id": "linha-28",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Existe proteção para a correia?",
+        "sourceNumber": "17",
+        "sourceRow": 28
+      },
+      {
+        "id": "linha-29",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "As conexões de engate para as mangueiras estão em boas condições?",
+        "sourceNumber": "18",
+        "sourceRow": 29
+      },
+      {
+        "id": "linha-30",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "O compressor está aterrado?",
+        "sourceNumber": "19",
+        "sourceRow": 30
+      },
+      {
+        "id": "linha-31",
+        "category": "Verificação do equipamento",
+        "target": "Compressor",
+        "text": "Equipamento está com a identificação cor do TRIMESTRE?",
+        "sourceNumber": "20",
+        "sourceRow": 31
+      }
+    ]
+  },
+  {
+    "id": "ppl-desingrustador",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Desincrustador",
+    "title": "CHECKLIST DE SEGURANÇA · DESINCRUSTADOR",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "DESINGRUSTADOR",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Desincrustador",
+        "text": "Plug / Engate da desincrustador elétrico em boas condições?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Desincrustador",
+        "text": "As agulhas ou pistão são adequadas para a atividade?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Desincrustador",
+        "text": "As agulhas ou pistão estão em boas condições?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Desincrustador",
+        "text": "Todas as conecções das mangueiras estão com dispositivo de segurança?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Desincrustador",
+        "text": "A empunhadura está em boas condições?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Desincrustador",
+        "text": "A extenção está em boas condições?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Desincrustador",
+        "text": "As conexões e a mangueira de ar estão em boas condições?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Desincrustador",
+        "text": "Chave de liga/desliga está em boas condições?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Desincrustador",
+        "text": "Existe Identificação de voltagem no desincrustador elétrico?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      }
+    ]
+  },
+  {
+    "id": "ppl-distribuidor-de-ar",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Distribuidor de ar",
+    "title": "CHECKLIST DE SEGURANÇA · DISTRIBUIDOR DE AR",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "DISTRIBUIDOR DE AR",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Distribuidor de ar",
+        "text": "Existe indentificação no corpo do equipamento?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Distribuidor de ar",
+        "text": "Existe corrosão no equipamento?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Distribuidor de ar",
+        "text": "As conexões estão com sinais de trinca?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Distribuidor de ar",
+        "text": "As conexões possuem corrosão?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Distribuidor de ar",
+        "text": "As mangueiras estão em boas condições e validas para uso?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Distribuidor de ar",
+        "text": "As conexões possuem dispositivo salva guardas?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Distribuidor de ar",
+        "text": "A válvula possuem dispositivo de acionamento?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Distribuidor de ar",
+        "text": "Equipamento está com a identificação cor do TRIMESTRE?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      }
+    ]
+  },
+  {
+    "id": "ppl-escada",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Escada",
+    "title": "CHECKLIST DE SEGURANÇA · ESCADA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "ESCADA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Escada",
+        "text": "Possui rachadura, empeno",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Escada",
+        "text": "A escada tem piso antiderrapante",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Escada",
+        "text": "As dimensões estão corretas? É compatível com a altura desjável?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Escada",
+        "text": "Possui e está em perfeita condição o limitador de curso (escada extensível)?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Escada",
+        "text": "Possui e estar em perfeita condição Corda (escada extensível)?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Escada",
+        "text": "Os degraus estão em bom estado de condições de uso?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Escada",
+        "text": "A Capacidade do usuário está de acordo com a escada.",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Escada",
+        "text": "Equipamento está com a identificação cor do TRIMESTRE?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      }
+    ]
+  },
+  {
+    "id": "ppl-arco-de-serra",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Arco de serra",
+    "title": "CHECKLIST DE SEGURANÇA · ARCO DE SERRA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "ARCO DE SERRA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Arco de serra",
+        "text": "A estrutura do arco de serra está em boas condições de uso?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Arco de serra",
+        "text": "O cabo do arco de serra está trincado/danificado?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Arco de serra",
+        "text": "A serra está com alinhamento e dentes em perfeito estado de uso?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Arco de serra",
+        "text": "O esticador com borboleta do arco de serra está em boas condições uso?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      }
+    ]
+  },
+  {
+    "id": "ppl-ferramentas-manuais--geral",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Ferramentas manuais",
+    "title": "CHECKLIST DE SEGURANÇA · FERRAMENTAS MANUAIS",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "FERRAMENTAS MANUAIS ",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais",
+        "text": "As marretas e martelos estão em bom estado de conservação sem apresentar rebarbas, com cabos bem fixados e isentos de rachaduras?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais",
+        "text": "O serrote/arco de serra apresenta proteção de seus dentes quando não utilizados e segurança para não ocorrer risco de quebrar? Os dentes estão afiados sem apresentar desgastes ou quebras e o cabo sem rachaduras e sem parafusos de fixação soltando?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais",
+        "text": "O pneu do carrinho de mão está cheio e a roda firme sem apresentar risco de soltar? Os punhos estão protegidos com punhadeiras de borracha? A bacia do carrinho está em bom estado de conservação? Os braços do carrinho sem risco de desprender da bacia? As bases de sustentação do carrinho estão firmes e presas adequadamente na estrutura do carrinho de mão?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais",
+        "text": "O nível de mão está em bom estado de conservação? O nível de mão foi aferido?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Ferramentas manuais",
+        "text": "A turqueza está em bom estado de conservação e sem rebarba?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      }
+    ]
+  },
+  {
+    "id": "ppl-esmerilhadeira",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Esmerilhadeira (lixadeira)",
+    "title": "CHECKLIST DE SEGURANÇA · ESMERILHADEIRA (LIXADEIRA)",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "ESMERILHADEIRA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Esmerilhadeira (lixadeira)",
+        "text": "Com plugue e sem emendas",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Esmerilhadeira (lixadeira)",
+        "text": "Sem trincas e partes quebradas",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Esmerilhadeira (lixadeira)",
+        "text": "Proteção fixada corretamente",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Esmerilhadeira (lixadeira)",
+        "text": "Fixado corretamente e em condições de uso",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Esmerilhadeira (lixadeira)",
+        "text": "Intacto, ligando e desligando normalmente",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Esmerilhadeira (lixadeira)",
+        "text": "Fixo e em bom estado de uso",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Esmerilhadeira (lixadeira)",
+        "text": "Chave de liga/desliga está em boas condições?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Esmerilhadeira (lixadeira)",
+        "text": "Existe Identificação de voltagem na lixadeira",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Esmerilhadeira (lixadeira)",
+        "text": "A extenção está em boas condições e sem emendas?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Esmerilhadeira (lixadeira)",
+        "text": "Equipamento está com a identificação cor do TRIMESTRE?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      }
+    ]
+  },
+  {
+    "id": "ppl-furadeira-parafusadeira-port",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Furadeira / parafusadeira portátil",
+    "title": "CHECKLIST DE SEGURANÇA · FURADEIRA / PARAFUSADEIRA PORTÁTIL",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "FURADEIRA.PARAFUSADEIRA PORT.",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira portátil",
+        "text": "A chave do mandril se encontra em bom estado?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira portátil",
+        "text": "A estrutura do equipamento está livre de sinais aparentes de danos mecânicos ou componentes soltos?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira portátil",
+        "text": "A ferramenta dispõe de empunhadeira auxiliar e essa está bem posicionada?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira portátil",
+        "text": "As fiações, isolamento e fixações estão em boas condições (sem emendas, improvisos, protegidas em eletrodutos)?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira portátil",
+        "text": "Gatilho funciona perfeitamente (não está travado ou quebrado)?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira portátil",
+        "text": "O equipamento possui cabo com dupla isolação e aterramento elétrico?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira portátil",
+        "text": "O mandril se encontra em perfeito estado (fornecendo aperto, ajustes e etc)?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira portátil",
+        "text": "Possui protetor de cabo articulado (localizado abaixo da empunhadeira)?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira portátil",
+        "text": "Todas as partes cortantes/giratórias ou móveis do equipamento possuem proteção contra o acesso intencional ou não intencional?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira portátil",
+        "text": "A carcaça/tampa e a chave de liga/desliga da tomada onde será conectado o equipamento estão em boas condições?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira portátil",
+        "text": "O disjuntor ou DR onde será conectado o equipamento está funcionando?",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      }
+    ]
+  },
+  {
+    "id": "ppl-furadeira-parafusadeira-cabo",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Furadeira / parafusadeira com cabo",
+    "title": "CHECKLIST DE SEGURANÇA · FURADEIRA / PARAFUSADEIRA COM CABO",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "FURADEIRA PARAFUSADEIRA CABO",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira com cabo",
+        "text": "CABOS DE ALIMENTAÇÃO (SE ELÉTRICA) Sem fissuras /  sem emendas / com plug",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira com cabo",
+        "text": "CARCAÇA DA MÁQUINA (CONDIÇÕES DO EQUIPAMENTO) - Sem trincas e sem partes quebradas.",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira com cabo",
+        "text": "CONDIÇÕES DA BROCA - Travando e destravando normalmente.",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira com cabo",
+        "text": "GATILHO (INTERRUPTOR) LIGA / DESLIGA. - Intacto, ligando e desligando normalmente.",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira com cabo",
+        "text": "BOTÃO SELETOR LIGA DESLIGA - Travando e destravando normalmente.",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira com cabo",
+        "text": "FIXAÇÃO DO MIOLO - Travando e destravando normalmente.",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira com cabo",
+        "text": "PINO - Sem trincas e sem partes quebradas.",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira com cabo",
+        "text": "ACIONAMENTO (CHAVE LIGA / DESLIGA) - Sem trincas e sem partes quebradas.",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira com cabo",
+        "text": "FUNCIONAMENTO DO MOTOR - Sem ruídos e  vribração excessiva",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira com cabo",
+        "text": "PUNHO DE SEGURANÇA - Fixo ;sem trincas e partes quebradas",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Furadeira / parafusadeira com cabo",
+        "text": "Equipamento está com a identificação cor do TRIMESTRE?",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      }
+    ]
+  },
+  {
+    "id": "ppl-maquina-de-jato",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Máquina de jato",
+    "title": "CHECKLIST DE SEGURANÇA · MÁQUINA DE JATO",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "MAQUINA DE JATO",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "Existe indentificação no corpo do equipamento?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "O teste Hidrostatico está válido?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "Existe corrosão no equipamento?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "O manômetro foi calibrado?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "O manômetro está em perfeitas Condições?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "As conexões estão com sinais de trinca?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "As conexões possuem corrosão?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "As mangueiras estão em boas condições e validas para uso?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "As conexões possuem dispositivo salva guarda?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "Foi relacionado teste operacional nas válvulas?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "A maquina está aterrada?",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "As rodas para transporte estão em condições de uso?",
+        "sourceNumber": "12",
+        "sourceRow": 23
+      },
+      {
+        "id": "linha-24",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "O bico do jato está em bom estado de conservação e funcionando corretamente?",
+        "sourceNumber": "13",
+        "sourceRow": 24
+      },
+      {
+        "id": "linha-25",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "Os funcionarios estão treinandos para operar o equipamento?",
+        "sourceNumber": "14",
+        "sourceRow": 25
+      },
+      {
+        "id": "linha-26",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "O equipamento está em local adequado, sem interferência na circulação de pessoas?",
+        "sourceNumber": "15",
+        "sourceRow": 26
+      },
+      {
+        "id": "linha-27",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "O ajuste da válvula de segurança é compátivel com a PMTA (PRESSÃO MÁXIMA DE TRABALHO ADMISSIVEL)",
+        "sourceNumber": "15",
+        "sourceRow": 27
+      },
+      {
+        "id": "linha-28",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de jato",
+        "text": "Equipamento está com a identificação cor do TRIMESTRE?",
+        "sourceNumber": "15",
+        "sourceRow": 28
+      }
+    ]
+  },
+  {
+    "id": "ppl-maquina-de-solda",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Máquina de solda",
+    "title": "CHECKLIST DE SEGURANÇA · MÁQUINA DE SOLDA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "MÁQUINA DE SOLDA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "O local encontra-se limpo, sem umidade e sem materiais combustíveis e inflamáveis nas proximidades?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "A ligação de energia está sendo realizada por intermédio de conjunto plugue e tomada?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "A manivela e os medidores de corrente de tensão estão funcionando e são legíveis?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "A peça a ser soldada está devidamente aterrada por pinça ou alicate apropriados e em bom estado de conservação?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "A alavanca e pedais estão funcionando e estão conservados?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "As conexões estão isentas de rupturas de fios e sem cabos e/ou fios expostos?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "As ligações fase, neutro e terra (inclusive o aterramento da carcaça) foram devidamente instaladas por um eletricista?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "O cabo com duplo isolamento está instalado suspenso (esticado e não enrolado para evitar a formação de campo magnético), livre de emendas, avarias, danos e contato com água?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "A carcaça, alças, manoplas, presilhas e outros dispositivos de transporte e manobra do equipamento estão isentos de trincas, avarias ou deformações?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "As máquinas encontram-se instaladas em área isolada e sinalizada?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "As máquinas de solda, quando em funcionamento, estão isentas de vibrações e ruídos anormais?",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Existe uma identificação de tensão no equipamento e no ramal/tomada de energia?",
+        "sourceNumber": "12",
+        "sourceRow": 23
+      },
+      {
+        "id": "linha-24",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "As máquinas de solda possuem interruptor liga-desliga funcionando?",
+        "sourceNumber": "13",
+        "sourceRow": 24
+      },
+      {
+        "id": "linha-25",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Existe um programa de manutenção preventiva das máquinas de solda?",
+        "sourceNumber": "14",
+        "sourceRow": 25
+      },
+      {
+        "id": "linha-26",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Existem placas de sinalização (segurança, uso de EPI e identificação do operador?",
+        "sourceNumber": "15",
+        "sourceRow": 26
+      },
+      {
+        "id": "linha-27",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Existem proteções mecânicas contra contato acidental em rebolos, lâminas, discos, brocas, correias, pontos de prensagem e outras partes móveis?",
+        "sourceNumber": "16",
+        "sourceRow": 27
+      },
+      {
+        "id": "linha-28",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "O extintor de incêndio está dimensionado adequadamente, é inspecionado periodicamente e está carregado?",
+        "sourceNumber": "17",
+        "sourceRow": 28
+      },
+      {
+        "id": "linha-29",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "O local encontra-se limpo e sem materiais combustíveis nas proximidades?",
+        "sourceNumber": "18",
+        "sourceRow": 29
+      },
+      {
+        "id": "linha-30",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "O ramal de energia possui proteção por interruptor diferencial residual (DR) ou disjuntor diferencial residual (DDR)?",
+        "sourceNumber": "19",
+        "sourceRow": 30
+      },
+      {
+        "id": "linha-31",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Os fios condutores, as pinças ou alicates são mantidos longe de locais com óleo, graxa ou umidade e são deixados em descanso sobre superfícies isolantes?",
+        "sourceNumber": "20",
+        "sourceRow": 31
+      },
+      {
+        "id": "linha-32",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Os terminais elétricos (alicates) estão em bom estado de conservação e de uso?",
+        "sourceNumber": "21",
+        "sourceRow": 32
+      },
+      {
+        "id": "linha-33",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Os plugues e conexões padrão industrial ou stacks estão com dispositivo de segurança contra desconexão acidental e tampa de proteção na tomada?",
+        "sourceNumber": "22",
+        "sourceRow": 33
+      },
+      {
+        "id": "linha-36",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "O porta-eletrodos está com capa de proteção adequada e conservada?",
+        "sourceNumber": "23",
+        "sourceRow": 36
+      },
+      {
+        "id": "linha-37",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Há um biombo de proteção com material incombustível?",
+        "sourceNumber": "24",
+        "sourceRow": 37
+      },
+      {
+        "id": "linha-38",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Há uma chave de parada de emergência?",
+        "sourceNumber": "25",
+        "sourceRow": 38
+      },
+      {
+        "id": "linha-39",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Há pontos de apoio (mínimo de três) e pneus em bom estado de uso?",
+        "sourceNumber": "26",
+        "sourceRow": 39
+      },
+      {
+        "id": "linha-40",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Há proteção contra intempéries e fitas refletivas em seus lados externos?",
+        "sourceNumber": "27",
+        "sourceRow": 40
+      },
+      {
+        "id": "linha-41",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Quando existentes, as emendas dos cabos e fios de energia estão sendo realizadas com fita de alta fusão sobreposta por fita isolante de forma que somente seja possível removê-las por destruição?",
+        "sourceNumber": "28",
+        "sourceRow": 41
+      },
+      {
+        "id": "linha-42",
+        "category": "Verificação do equipamento",
+        "target": "Máquina de solda",
+        "text": "Equipamento está com a identificação cor do TRIMESTRE?",
+        "sourceNumber": "29",
+        "sourceRow": 42
+      }
+    ]
+  },
+  {
+    "id": "ppl-pistola-de-pintura",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Pistola de pintura",
+    "title": "CHECKLIST DE SEGURANÇA · PISTOLA DE PINTURA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "PISTOLA DE PINTURA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "O anel de retenção da capa apresenta algum desgaste?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "O bico de fluido apresenta algum desgaste?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "O gatilho apresenta algum desgaste?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "A guarnição está em perfeito estado?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "O desviador está em perfeito estado?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "A gaxeta apresenta alguma alteração?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "Os parafusos apresentam alguma altaração?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "A valvula de ajuste do leque apresenta alguma alteração?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "A valvula de ajuste do fluido apresenta alguma alteração?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "As molas apresentam alguma alteração?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "As mangueiras apresentam algum tipo de desgaste?",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "As conexões da mangueiras apresentam alguma alteração?",
+        "sourceNumber": "12",
+        "sourceRow": 23
+      },
+      {
+        "id": "linha-24",
+        "category": "Verificação do equipamento",
+        "target": "Pistola de pintura",
+        "text": "Equipamento está com a identificação cor do TRIMESTRE?",
+        "sourceNumber": "13",
+        "sourceRow": 24
+      }
+    ]
+  },
+  {
+    "id": "ppl-policorte",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Policorte",
+    "title": "CHECKLIST DE SEGURANÇA · POLICORTE",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "POLICORTE",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Instalação em uma bancada",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Condições do disco de corte",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Coifa protetora",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Proteção das partes móveis",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Chave liga / desliga",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Localização do equipamento",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Funcionamento do motor ( ruído vibração)",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Uso de EPI's",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Placa indicativa uso de EPI's",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Piso resistente, nivelado e antiderrapante",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Cobertura do posto de trabalho",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Iluminação adequada",
+        "sourceNumber": "12",
+        "sourceRow": 23
+      },
+      {
+        "id": "linha-24",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Fiação elétrica em geral",
+        "sourceNumber": "13",
+        "sourceRow": 24
+      },
+      {
+        "id": "linha-25",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Impedimento circulação de pessoa próximo a serra circular",
+        "sourceNumber": "14",
+        "sourceRow": 25
+      },
+      {
+        "id": "linha-26",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Iluminação interna (trabalho noturno)",
+        "sourceNumber": "15",
+        "sourceRow": 26
+      },
+      {
+        "id": "linha-27",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Lâmpadas protegidas contra impactos de projeção de partículas",
+        "sourceNumber": "16",
+        "sourceRow": 27
+      },
+      {
+        "id": "linha-28",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Aterramento elétrico do motor",
+        "sourceNumber": "17",
+        "sourceRow": 28
+      },
+      {
+        "id": "linha-29",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Limpeza do local",
+        "sourceNumber": "18",
+        "sourceRow": 29
+      },
+      {
+        "id": "linha-30",
+        "category": "Verificação do equipamento",
+        "target": "Policorte",
+        "text": "Proteção contra Incêndio",
+        "sourceNumber": "19",
+        "sourceRow": 30
+      }
+    ]
+  },
+  {
+    "id": "ppl-pulmao-de-agua",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Pulmão de água",
+    "title": "CHECKLIST DE SEGURANÇA · PULMÃO DE ÁGUA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "PULMÃO DE Agua",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                           2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de água",
+        "text": "AS VÁLVULAS DO EQUIPAMENTO ESTÃO EM BOAS CONDIÇÕES?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de água",
+        "text": "OS DISPOSITIVOS DE SEGURANÇA(ABRAÇADERIAS E MANILHAS), ESTÃO FIXAS?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de água",
+        "text": "EXISTE VAZAMENTO NO SISTEMA (CORPO DO EQUIPAMENTO)?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de água",
+        "text": "OS ENGATES ESTÃO BONS E NÃO FALTA NENHUM ENGATE?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de água",
+        "text": "O MANÔMETRO ESTÁ EM BOAS CONDIÇÕES?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de água",
+        "text": "AS BORRACHAS DOS ENGATES, ESTÃO VEDANDO?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de água",
+        "text": "EXISTE OBSTRUÇÃO DE AR E/OU ÁGUA NAS MANGUEIRAS?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de água",
+        "text": "EXISTE VAZAMENTO ENTRE O PERCURSO DO PULMÃO ATÉ OS ACESSÓRIOS?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de água",
+        "text": "O MANOMETRO ESTÁ LEGÍVEL?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de água",
+        "text": "A CALIBRAÇÃO DO MANÔMETRO ESTÁ VALIDADA?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      }
+    ]
+  },
+  {
+    "id": "ppl-pulmao-de-ar",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Pulmão de ar",
+    "title": "CHECKLIST DE SEGURANÇA · PULMÃO DE AR",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "PULMÃO DE AR",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de ar",
+        "text": "AS VÁLVULAS DO EQUIPAMENTO ESTÃO EM BOAS CONDIÇÕES?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de ar",
+        "text": "OS DISPOSITIVOS DE SEGURANÇA(ABRAÇADERIAS E MANILHAS), ESTÃO FIXAS?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de ar",
+        "text": "EXISTE VAZAMENTO NO SISTEMA (CORPO DO EQUIPAMENTO)?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de ar",
+        "text": "OS ENGATES ESTÃO BONS E NÃO FALTA NENHUM ENGATE?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de ar",
+        "text": "O MANÔMETRO ESTÁ EM BOAS CONDIÇÕES?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de ar",
+        "text": "AS BORRACHAS DOS ENGATES, ESTÃO VEDANDO?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de ar",
+        "text": "EXISTE OBSTRUÇÃO DE AR E/OU ÁGUA NAS MANGUEIRAS?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de ar",
+        "text": "EXISTE VAZAMENTO ENTRE O PERCURSO DO PULMÃO ATÉ OS ACESSÓRIOS?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de ar",
+        "text": "O MANOMETRO ESTÁ LEGÍVEL?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Pulmão de ar",
+        "text": "A CALIBRAÇÃO DO MANÔMETRO ESTÁ VALIDADA?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      }
+    ]
+  },
+  {
+    "id": "ppl-retifica",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Retífica",
+    "title": "CHECKLIST DE SEGURANÇA · RETÍFICA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "RETIFICA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                            2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Retífica",
+        "text": "O sistema de funcionamento da máquina está em boas condições de uso?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Retífica",
+        "text": "O equipamento possui chave de liga/desliga em bom estado de conservação e funcionamento?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Retífica",
+        "text": "Os cabos encontra-se em bom estado de conservação?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Retífica",
+        "text": "O equipamento apresenta indicação de voltagem?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Retífica",
+        "text": "O equipamento possui chave mandril?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Retífica",
+        "text": "Existe dispositivo plug aprovado (STECK)para ser conectado a tomada?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Retífica",
+        "text": "No local todas as fontes inflamaveis foram afastadas ou protegidas?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Retífica",
+        "text": "A extensão e cabo eletrico encontra-se protegido de impactos e umidades?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Retífica",
+        "text": "Os epi´s estão em bom estado de conservação e são adequados para o uso?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Retífica",
+        "text": "A área será isolada e sinalizada?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      }
+    ]
+  },
+  {
+    "id": "ppl-oxicorte",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Conjunto oxicorte",
+    "title": "CHECKLIST DE SEGURANÇA · CONJUNTO OXICORTE",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "OXICORTE",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                              2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Mangueiras em boas condições de uso",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Conexões válvulas de retrocesso devidamente ajustadas",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Abraçadeiras em boas condições",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Contém Valvula corta - chama",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Contem Valvula anti-retrocesso",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Caneta em Boas condições",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Manômetro está funcionando",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Regulador de pressão",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Fixação das Garrafas  na gaiola",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Olhal para içamento",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Pneus balões e correntes para fixação estão em bom estado de uso",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Extintor de Incêndio",
+        "sourceNumber": "12",
+        "sourceRow": 23
+      },
+      {
+        "id": "linha-24",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Capacete de proteção",
+        "sourceNumber": "13",
+        "sourceRow": 24
+      },
+      {
+        "id": "linha-25",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "A Fispq do conjunto oxi-acetileno está disponivel",
+        "sourceNumber": "14",
+        "sourceRow": 25
+      },
+      {
+        "id": "linha-26",
+        "category": "Verificação do equipamento",
+        "target": "Conjunto oxicorte",
+        "text": "Equipamento está com a identificação cor do TRIMESTRE?",
+        "sourceNumber": "15",
+        "sourceRow": 26
+      }
+    ]
+  },
+  {
+    "id": "ppl-cintas-de-elevacao",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Cintas de elevação",
+    "title": "CHECKLIST DE SEGURANÇA · CINTAS DE ELEVAÇÃO",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "CINTAS DE ELEVAÇÃO",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                                2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Cintas de elevação",
+        "text": "A Cinta está identificada com a cor de inspeção do Mês?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Cintas de elevação",
+        "text": "A cinta apresenta a costura do centro aberta?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Cintas de elevação",
+        "text": "A cinta apresenta sinais de contaminação por contato com produto químico?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Cintas de elevação",
+        "text": "A cinta está com furos?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Cintas de elevação",
+        "text": "O olhal está deformado?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Cintas de elevação",
+        "text": "A cinta apresenta sinal de esmagamento?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Cintas de elevação",
+        "text": "Existe a indicação de capacidade de carga na cinta?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Cintas de elevação",
+        "text": "É adequada ao serviço?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Cintas de elevação",
+        "text": "Está em perfeitas condições de uso?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Cintas de elevação",
+        "text": "A cinta apresenta área afetada no sentido horizontal?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      }
+    ]
+  },
+  {
+    "id": "ppl-chave-catraca-andaime",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Chave catraca para andaime",
+    "title": "CHECKLIST DE SEGURANÇA · CHAVE CATRACA PARA ANDAIME",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "CHAVE CATRACA - ANDAIME",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "Obs: 1. Comunique à LIDERANÇA IMEDIATA, qualquer anormalidade para que seja efetuada a substituição.",
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                                2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Chave catraca para andaime",
+        "text": "O corpo está com avarias que comprometa o seu uso?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Chave catraca para andaime",
+        "text": "O catraca está lubrificada?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Chave catraca para andaime",
+        "text": "O sistema da catraca está funcionando?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Chave catraca para andaime",
+        "text": "O cabo está sem danos?:",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Chave catraca para andaime",
+        "text": "A cordoalha de fixação da chave está firme?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      }
+    ]
+  },
+  {
+    "id": "ppl-patesca",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Patesca",
+    "title": "CHECKLIST DE SEGURANÇA · PATESCA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "PATESCA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "Obs: 1. Comunique à LIDERANÇA IMEDIATA, qualquer anormalidade para que seja efetuada a substituição.",
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                                2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Patesca",
+        "text": "O sulco da roldana está ivre de desgastes excessivos?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Patesca",
+        "text": "A roldana está oscilando?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Patesca",
+        "text": "O eixo está bem fixado e em perfeito estado?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Patesca",
+        "text": "Livre de corrosão?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Patesca",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Patesca",
+        "text": "Livre de trincas?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Patesca",
+        "text": "O gancho/ manilha/ olhal estão livres de deformações?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      }
+    ]
+  },
+  {
+    "id": "ppl-patesca-e-corda",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Patesca e corda",
+    "title": "CHECKLIST DE SEGURANÇA · PATESCA E CORDA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "PATESCA / TAG",
+    "identifiers": [
+      {
+        "name": "componentTag1",
+        "label": "CORDA / TAG"
+      }
+    ],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "PATESCA E CORDA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "Obs: 1. Comunique à LIDERANÇA IMEDIATA, qualquer anormalidade para que seja efetuada a substituição.",
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                              2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-13",
+        "category": "PATESCA",
+        "target": "Patesca e corda",
+        "text": "O sulco da roldana está ivre de desgastes excessivos?",
+        "sourceNumber": "1.1",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "PATESCA",
+        "target": "Patesca e corda",
+        "text": "A roldana está oscilando?",
+        "sourceNumber": "1.2",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "PATESCA",
+        "target": "Patesca e corda",
+        "text": "O eixo está bem fixado e em perfeito estado?",
+        "sourceNumber": "1.3",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "PATESCA",
+        "target": "Patesca e corda",
+        "text": "Livre de corrosão?",
+        "sourceNumber": "1.4",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "PATESCA",
+        "target": "Patesca e corda",
+        "text": "Rebarbas ou amassados?",
+        "sourceNumber": "1.5",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "PATESCA",
+        "target": "Patesca e corda",
+        "text": "Livre de trincas?",
+        "sourceNumber": "1.6",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "PATESCA",
+        "target": "Patesca e corda",
+        "text": "O gancho/ manilha/ olhal estão livres de deformações?",
+        "sourceNumber": "1.7",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-21",
+        "category": "CORDA",
+        "target": "Patesca e corda",
+        "text": "Livre de desgaste de excessivo?",
+        "sourceNumber": "2.1",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "CORDA",
+        "target": "Patesca e corda",
+        "text": "Livre de cortes e puídos?",
+        "sourceNumber": "2.2",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "CORDA",
+        "target": "Patesca e corda",
+        "text": "Livre de Contaminação por produtos químicos?",
+        "sourceNumber": "2.3",
+        "sourceRow": 23
+      }
+    ]
+  },
+  {
+    "id": "ppl-rocadeira-a-gasolina",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Roçadeira a gasolina",
+    "title": "CHECKLIST DE SEGURANÇA · ROÇADEIRA A GASOLINA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "ROÇADEIRA A GASOLINA",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                                2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "Toda area foi verificada, considerando presença de  trilhos, pedras e materiais diversos, e não oferece riscos  aos executantes, pessoas, terceiros e ao patrimonio?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "A area está livre de buracos,valas, frestas, que possa ocasionar quede de pessoas e se caso houver o local foi isolado e todos sabem onde estão?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "Os riscos extremos foram avaliados, como queda  de arvores, incendio, vasamentos, e foram  neutralizados de forma a garatir a segurança dos colaboradores?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "A area está livre de colméias, focos de abelhas, \nmarimbondos e insetos do gênero?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "A area foi sinalizada e isolada?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "Foi adotada telas protetoras de projeções  proximo a area de transito de pessoas e perto  de patrimonios?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "A supervisão está ciente do trabalho e liberou?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "A estrutura geral foi observada e não oferece risco?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "Fram checados os itens orientados pelo fabricantes e estão em boas condições de  funcionamentos?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "Os discos estão em conformidade e não oference risco de quebra?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "A lamina de corte está em comformidades?",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "O fio de nylon está em conformidade e não oferece risco?",
+        "sourceNumber": "12",
+        "sourceRow": 23
+      },
+      {
+        "id": "linha-24",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "O motor está em conformidade?",
+        "sourceNumber": "13",
+        "sourceRow": 24
+      },
+      {
+        "id": "linha-25",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "O motor está em conformidade?",
+        "sourceNumber": "14",
+        "sourceRow": 25
+      },
+      {
+        "id": "linha-26",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "O motor está em conformidade?",
+        "sourceNumber": "15",
+        "sourceRow": 26
+      },
+      {
+        "id": "linha-27",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "O gatilho do acelerador está funcionando?",
+        "sourceNumber": "16",
+        "sourceRow": 27
+      },
+      {
+        "id": "linha-28",
+        "category": "Verificação do equipamento",
+        "target": "Roçadeira a gasolina",
+        "text": "A integridade da alça de direção está boa?",
+        "sourceNumber": "17",
+        "sourceRow": 28
+      }
+    ]
+  },
+  {
+    "id": "ppl-inspecao-de-area",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Inspeção de área",
+    "title": "CHECKLIST DE SEGURANÇA · INSPEÇÃO DE ÁREA",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação da área / frente de serviço",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "INSPEÇÃO DE ÁREA.",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                                2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Inspeção de área",
+        "text": "A frente de serviço está limpa e organizada (5S)?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Inspeção de área",
+        "text": "O local está isolado com barreiras duras/física?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Inspeção de área",
+        "text": "Foi realizada inspeção nos equipamentos/ferramentas e preenchido checklist?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Inspeção de área",
+        "text": "Os malões de equipamentos e ferramentas estão organizados?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Inspeção de área",
+        "text": "Existe coletores de coleta seletiva na frente de serviço. Os resíduos estão sendo segregados de forma adequada?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Inspeção de área",
+        "text": "O sanitário está limpo, higienizado e contém papel e sabão? O mesmo está situado em local seguro, de fácil acesso e com distanciamento inferior a 150m do posto de trabalho?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Inspeção de área",
+        "text": "O local está sinalizado com placas de rota de fuga?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Inspeção de área",
+        "text": "Os acessos as frentes de serviços foram identificadas?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Inspeção de área",
+        "text": "As mangueiras estão com seus dispositivos anti-chicoteamento conectados e em perfeitas condições de uso e distribuídas sem afetar os locais de acessos de pessoas?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Inspeção de área",
+        "text": "Os materiais estão em locais próprios e bem localizados facilitando seu acesso, fora de áreas alagadas ou proximidade de pilhas e/ou equipamentos?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      }
+    ]
+  },
+  {
+    "id": "ppl-anemometro",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Anemômetro",
+    "title": "CHECKLIST DE SEGURANÇA · ANEMÔMETRO",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "ANEMÔMETRO",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                                2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Anemômetro",
+        "text": "O anemômetro está limpo e livre de detritos?",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Anemômetro",
+        "text": "Os sensores de velocidade do vento estão funcionando corretamente?",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Anemômetro",
+        "text": "As hélices do anemômetro estão em boas condições e girando livremente?",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Anemômetro",
+        "text": "O anemômetro está devidamente calibrado?",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Anemômetro",
+        "text": "Os dados de velocidade do vento estão sendo registrados com precisão?",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Anemômetro",
+        "text": "O sistema de fixação do anemômetro está seguro e estável?",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Anemômetro",
+        "text": "As baterias (se aplicável) estão carregadas e funcionando corretamente?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Anemômetro",
+        "text": "O anemômetro está instalado em uma altura e localização adequadas para medição precisa do vento?",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      }
+    ]
+  },
+  {
+    "id": "ppl-esmeril",
+    "version": "1.0-anexo-2026-10-06",
+    "equipmentMode": "generic",
+    "equipmentName": "Esmeril",
+    "title": "CHECKLIST DE SEGURANÇA · ESMERIL",
+    "types": [
+      "Inspeção rotineira (pré-uso, conforme necessidade)"
+    ],
+    "requiresWorkerPhoto": true,
+    "identificationLabel": "Identificação do equipamento / TAG / placa",
+    "identifiers": [],
+    "source": {
+      "file": "REV. CHECK LIST DIÁRIO DE MÁQUINAS E EQUIPAMENTOS PPL - FMO-SMS-01-05R03 - DADOS",
+      "sheet": "ESMERIL ",
+      "form": "FMO-SSMA-01-05 Rev.05",
+      "guidance": [
+        "CÓD. de AÇÃO:    1. REGISTRAR NO VERSO SEMPRE QUE FOR IDENTIFICADO ALGUMA CONDIÇÃO ABAIXO DO PADRÃO, NÃO UTILIZAR EQUIPAMENTOS/ ACESSÓRIOS DANIFICADOS / FORA DO PADRÃO.\n                               2. RETIRAR O EQUIPAMENTO DE OPERAÇÃO SE O ITEM NÃO ESTIVER CONFORME"
+      ]
+    },
+    "items": [
+      {
+        "id": "linha-12",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "Com plugue e sem emendas",
+        "sourceNumber": "1",
+        "sourceRow": 12
+      },
+      {
+        "id": "linha-13",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "Sem trincas e partes quebradas",
+        "sourceNumber": "2",
+        "sourceRow": 13
+      },
+      {
+        "id": "linha-14",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "Proteção fixada corretamente",
+        "sourceNumber": "3",
+        "sourceRow": 14
+      },
+      {
+        "id": "linha-15",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "Fixado corretamente e em condições de uso",
+        "sourceNumber": "4",
+        "sourceRow": 15
+      },
+      {
+        "id": "linha-16",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "Intacto, ligando e desligando normalmente",
+        "sourceNumber": "5",
+        "sourceRow": 16
+      },
+      {
+        "id": "linha-17",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "Fixo e em bom estado de uso",
+        "sourceNumber": "6",
+        "sourceRow": 17
+      },
+      {
+        "id": "linha-18",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "Chave de liga/desliga está em boas condições?",
+        "sourceNumber": "7",
+        "sourceRow": 18
+      },
+      {
+        "id": "linha-19",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "Existe Identificação de voltagem no esmeril",
+        "sourceNumber": "8",
+        "sourceRow": 19
+      },
+      {
+        "id": "linha-20",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "A extenção está em boas condições e sem emendas?",
+        "sourceNumber": "9",
+        "sourceRow": 20
+      },
+      {
+        "id": "linha-21",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "Equipamento está com a identificação cor do TRIMESTRE?",
+        "sourceNumber": "10",
+        "sourceRow": 21
+      },
+      {
+        "id": "linha-22",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "O esmeril está devidamente parafusado na bancada ou pedestal?",
+        "sourceNumber": "11",
+        "sourceRow": 22
+      },
+      {
+        "id": "linha-23",
+        "category": "Verificação do equipamento",
+        "target": "Esmeril",
+        "text": "A fixação da capa de proteção do rebolo está isenta de trincas e desgastes?",
+        "sourceNumber": "12",
+        "sourceRow": 23
+      }
+    ]
+  }
+];
+const MODEL_REGISTRY=[MODEL,...ADDITIONAL_MODELS];
+function getModel(id){return MODEL_REGISTRY.find(m=>m.id===id);}
+function knownSnapshot(snapshot){if(snapshot?.id===MODEL.id&&MODEL_VERSIONS[snapshot.version])return {...MODEL,version:snapshot.version,types:MODEL_VERSIONS[snapshot.version]};return MODEL_REGISTRY.find(m=>m.id===snapshot?.id&&m.version===snapshot?.version);}
+function equipmentLabel(r){return r.equipmentType?.name||r.model.equipmentName||'Cinto de segurança tipo Y com talabarte';}
