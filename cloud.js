@@ -6,9 +6,10 @@
  let session=null,profile=null,cloudDB=null,sending=false,pdfURLs=[],epoch=0,refreshing=null,pendingLogin=false;
  async function timedFetch(url,options={},timeout=30000){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeout);try{return await fetch(url,{...options,signal:controller.signal});}finally{clearTimeout(timer);}}
  const endpoint=configured?config.url+'/functions/v1/'+(config.functionName||'ppl-api'):'';
- const cloudStore=()=>new Promise((resolve,reject)=>{if(cloudDB)return resolve(cloudDB);const req=indexedDB.open('ppl-cloud-queue',1);req.onupgradeneeded=()=>req.result.createObjectStore('receipts',{keyPath:'key'});req.onsuccess=()=>{cloudDB=req.result;resolve(cloudDB);};req.onerror=()=>reject(req.error);});
- async function receipt(op,value){const database=await cloudStore();return new Promise((resolve,reject)=>{const tx=database.transaction('receipts',op==='put'?'readwrite':'readonly'),store=tx.objectStore('receipts'),req=op==='put'?store.put(value):store.get(value);tx.oncomplete=()=>resolve(req.result);tx.onerror=()=>reject(tx.error);});}
- async function authRequest(path,body){const response=await timedFetch(config.url+'/auth/v1/'+path,{method:'POST',headers:{apikey:config.publicKey,'Content-Type':'application/json'},body:JSON.stringify(body)});const data=await response.json();if(!response.ok)throw Error('Login inválido ou serviço indisponível. Verifique e-mail e senha.');return data;}
+ let cloudOpening=null;
+ const cloudStore=()=>{if(cloudDB)return Promise.resolve(cloudDB);if(cloudOpening)return cloudOpening;cloudOpening=deadline(new Promise((resolve,reject)=>{const req=indexedDB.open('ppl-cloud-queue',1);req.onupgradeneeded=()=>req.result.createObjectStore('receipts',{keyPath:'key'});req.onsuccess=()=>{const connection=req.result;cloudDB=connection;connection.onclose=()=>{if(cloudDB===connection)cloudDB=null;};connection.onversionchange=()=>{connection.close();if(cloudDB===connection)cloudDB=null;};resolve(connection);};req.onerror=()=>reject(req.error);}),15000,'A fila de envio não respondeu. Tente novamente.').finally(()=>{cloudOpening=null;});return cloudOpening;};
+ async function receipt(op,value){for(let attempt=0;attempt<2;attempt++){const database=await cloudStore();try{return await deadline(new Promise((resolve,reject)=>{const tx=database.transaction('receipts',op==='put'?'readwrite':'readonly'),store=tx.objectStore('receipts'),req=op==='put'?store.put(value):store.get(value);tx.oncomplete=()=>resolve(req.result);tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||Error('Fila de envio interrompida.'));}),20000,'A fila de envio não respondeu. Tente novamente.');}catch(e){if(attempt===0&&['InvalidStateError','UnknownError'].includes(e?.name)){if(cloudDB===database)cloudDB=null;database.close();continue;}throw e;}}}
+ async function authRequest(path,body){const response=await timedFetch(config.url+'/auth/v1/'+path,{method:'POST',headers:{apikey:config.publicKey,'Content-Type':'application/json'},body:JSON.stringify(body)});const data=await deadline(response.json(),30000,'A resposta do serviço demorou. Tente novamente.');if(!response.ok)throw Error('Login inválido ou serviço indisponível. Verifique e-mail e senha.');return data;}
  async function token(){if(!session)throw Error('Faça login.');const expected=epoch;if(Date.now()>session.expiresAt-60000){if(!refreshing){refreshing=authRequest('token?grant_type=refresh_token',{refresh_token:session.refresh_token}).then(renewed=>{if(expected!==epoch||!session)throw Error('Sessão encerrada.');session={...renewed,expiresAt:Date.now()+renewed.expires_in*1000};}).finally(()=>{refreshing=null;});}await refreshing;}if(expected!==epoch||!session)throw Error('Sessão encerrada.');return session.access_token;}
  async function api(action,data={},privateCall=true,binary=false){
   if(!configured)throw Error('Integração ainda não configurada.');
@@ -17,14 +18,14 @@
   const response=await timedFetch(endpoint,{method:'POST',headers,body:JSON.stringify({action,...data}),cache:'no-store'},120000);
   if(privateCall&&(epoch!==expected||!session))throw Error('Sessão encerrada.');
   if(!response.ok){const error=await response.json().catch(()=>({}));if(privateCall&&[401,403].includes(response.status))logout();throw Error(error.error||'Falha de conexão. Tente novamente.');}
-  const result=binary?await response.blob():await response.json();
+  const result=await deadline(binary?response.blob():response.json(),60000,'O recebimento da resposta foi interrompido. Tente novamente.');
   if(privateCall&&(epoch!==expected||!session))throw Error('Sessão encerrada.');
   return result;
  }
  function status(text,error=false){const host=$('#cloud-status');if(host){host.textContent=text;host.classList.toggle('error',error);}}
  async function base64(blob){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(blob);});}
  async function sync(force=false){
-  if(!configured||sending||!db||!navigator.onLine)return;
+  if(!configured||sending||!navigator.onLine)return;
   sending=true;let count=0,failed=0,lastError='';
   try{const records=(await all()).filter(r=>r.status==='recorded');
    for(const r of records){
@@ -33,15 +34,15 @@
     try{
      let cached=await transaction('pdfs','readonly',s=>s.get(r.key));
      // Registros restaurados do backup também precisam da cópia PDF antes do envio.
-     if(!cached?.blob){if(busy){failed++;continue;}await generateAndStore(r);cached=await transaction('pdfs','readonly',s=>s.get(r.key));}
+     if(!cached?.blob){await generateAndStore(r);cached=await transaction('pdfs','readonly',s=>s.get(r.key));}
      const result=await api('submit',{record:r,pdf:await base64(cached.blob)},false);
      if(result.key!==r.key||!Number.isFinite(Date.parse(result.received_at)))throw Error('Confirmação de recebimento inválida.');
-     await receipt('put',{key:r.key,received_at:result.received_at});count++;
-    }catch(error){failed++;lastError=`${r.id.slice(0,8)} · r${r.revision}: ${error.message}`;await receipt('put',{key:r.key,error:error.message,retryAt:Date.now()+300000});}
+     await receipt('put',{key:r.key,received_at:result.received_at});count++;window.dispatchEvent(new Event('ppl-cloud-received'));
+    }catch(error){failed++;lastError=`${r.id.slice(0,8)} · r${r.revision}: ${error.message}`;try{await receipt('put',{key:r.key,error:error.message,retryAt:Date.now()+300000});}catch{};}
    }
    const received=(await Promise.all(records.map(r=>receipt('get',r.key)))).filter(r=>r?.received_at).length;
    status(`${received} de ${records.length} revisões deste aparelho recebidas pelo servidor.${received<records.length?' Há pendências; sua cópia local está preservada.':''}${lastError?' '+lastError:''}`,received<records.length);
-  }catch(error){status('Falha na sincronização. Registros locais preservados.',true);}finally{sending=false;}
+  }catch(error){status('Envio pendente: '+error.message+' Tente Enviar pendentes; não limpe os dados do navegador.',true);}finally{sending=false;}
  }
  function logout(){epoch++;pendingLogin=false;session=null;profile=null;for(const url of pdfURLs)URL.revokeObjectURL(url);pdfURLs=[];$('#management').innerHTML='';if(!$('#management').hidden)loginScreen();}
  function loginScreen(){
@@ -86,5 +87,6 @@
  window.addEventListener('offline',()=>{if(session)logout();status('Sem conexão. Inspeções preservadas; envio quando a conexão retornar.');});
  window.addEventListener('online',()=>sync(true));window.addEventListener('ppl-record-ready',()=>sync());setInterval(()=>sync(),90000);setTimeout(()=>sync(),2000);
  setInterval(()=>{if(session)api('session').catch(()=>logout());},60000);
+ addEventListener('pageshow',()=>sync());document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync();});
 })();
 
