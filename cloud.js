@@ -3,7 +3,7 @@
  const config=window.PPL_CLOUD_CONFIG||{};
  function publicKeyValid(key){if(/^sb_publishable_[A-Za-z0-9_-]+$/.test(key||''))return true;try{return JSON.parse(atob(key.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).role==='anon';}catch{return false;}}
  const configured=config.enabled===true&&/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(config.url||'')&&publicKeyValid(config.publicKey);
- let session=null,profile=null,cloudDB=null,sending=false,pdfURLs=[],epoch=0,refreshing=null;
+ let session=null,profile=null,cloudDB=null,sending=false,pdfURLs=[],epoch=0,refreshing=null,pendingLogin=false;
  async function timedFetch(url,options={},timeout=30000){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeout);try{return await fetch(url,{...options,signal:controller.signal});}finally{clearTimeout(timer);}}
  const endpoint=configured?config.url+'/functions/v1/'+(config.functionName||'ppl-api'):'';
  const cloudStore=()=>new Promise((resolve,reject)=>{if(cloudDB)return resolve(cloudDB);const req=indexedDB.open('ppl-cloud-queue',1);req.onupgradeneeded=()=>req.result.createObjectStore('receipts',{keyPath:'key'});req.onsuccess=()=>{cloudDB=req.result;resolve(cloudDB);};req.onerror=()=>reject(req.error);});
@@ -17,7 +17,9 @@
   const response=await timedFetch(endpoint,{method:'POST',headers,body:JSON.stringify({action,...data}),cache:'no-store'},120000);
   if(privateCall&&(epoch!==expected||!session))throw Error('Sessão encerrada.');
   if(!response.ok){const error=await response.json().catch(()=>({}));if(privateCall&&[401,403].includes(response.status))logout();throw Error(error.error||'Falha de conexão. Tente novamente.');}
-  return binary?response.blob():response.json();
+  const result=binary?await response.blob():await response.json();
+  if(privateCall&&(epoch!==expected||!session))throw Error('Sessão encerrada.');
+  return result;
  }
  function status(text,error=false){const host=$('#cloud-status');if(host){host.textContent=text;host.classList.toggle('error',error);}}
  async function base64(blob){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(blob);});}
@@ -41,10 +43,10 @@
    status(`${received} de ${records.length} revisões deste aparelho recebidas pelo servidor.${received<records.length?' Há pendências; sua cópia local está preservada.':''}${lastError?' '+lastError:''}`,received<records.length);
   }catch(error){status('Falha na sincronização. Registros locais preservados.',true);}finally{sending=false;}
  }
- function logout(){epoch++;session=null;profile=null;for(const url of pdfURLs)URL.revokeObjectURL(url);pdfURLs=[];$('#management').innerHTML='';if(!$('#management').hidden)loginScreen();}
+ function logout(){epoch++;pendingLogin=false;session=null;profile=null;for(const url of pdfURLs)URL.revokeObjectURL(url);pdfURLs=[];$('#management').innerHTML='';if(!$('#management').hidden)loginScreen();}
  function loginScreen(){
   managementMode(true);$('#management').innerHTML=`<div class="panel access-preview"><h2>Acesso de gestão</h2><p>Exclusivo para Paulo Ricardo Reis e gestores autorizados. O executante preenche pela tela inicial, sem conta.</p>${configured?'<form id="cloud-login"><label>E-mail<input name="email" type="email" autocomplete="username" required></label><label>Senha<input name="password" type="password" autocomplete="current-password" required></label><button class="primary">Entrar no painel</button><p id="cloud-login-message" role="status"></p></form>':'<div class="notice"><strong>Integração em preparação.</strong> O painel será liberado após configurar o projeto Supabase e testar os acessos. Os registros continuam preservados neste aparelho.</div>'}</div>`;
-  const form=$('#cloud-login');if(form)form.onsubmit=async e=>{e.preventDefault();const button=form.querySelector('button');button.disabled=true;try{const fields=new FormData(form),data=await authRequest('token?grant_type=password',{email:String(fields.get('email')).trim(),password:fields.get('password')});session={...data,expiresAt:Date.now()+data.expires_in*1000};const access=await api('session');profile=access.profile;form.reset();await dashboard();}catch(error){session=null;profile=null;const host=$('#cloud-login-message');if(host)host.textContent=error.message;}finally{button.disabled=false;}};
+  const form=$('#cloud-login');if(form)form.onsubmit=async e=>{e.preventDefault();const attempt=++epoch;pendingLogin=true;const button=form.querySelector('button');button.disabled=true;try{const fields=new FormData(form),data=await authRequest('token?grant_type=password',{email:String(fields.get('email')).trim(),password:fields.get('password')});if(attempt!==epoch)throw Error('Entrada cancelada.');session={...data,expiresAt:Date.now()+data.expires_in*1000};const access=await api('session');profile=access.profile;form.reset();await dashboard();}catch(error){if(attempt===epoch){session=null;profile=null;const host=$('#cloud-login-message');if(host)host.textContent=error.message;}}finally{if(attempt===epoch)pendingLogin=false;button.disabled=false;}};
  }
  async function dashboard(){
   managementMode(true);$('#management').innerHTML='<div class="panel"><p role="status">Consultando registros recebidos…</p><button id="cloud-cancel">Sair</button></div>';$('#cloud-cancel').onclick=logout;
@@ -80,8 +82,9 @@
  const banner=document.createElement('div');banner.className='offline-note';banner.innerHTML='<span id="cloud-status"></span> <button id="cloud-sync" type="button">Enviar pendentes</button>';
  $('#offline-ready').after(banner);$('#cloud-sync').disabled=!configured;$('#cloud-sync').onclick=()=>sync(true);
  status(configured?'Envio central disponível. Registros offline serão enviados quando houver conexão.':'Centralização em preparação. Registros e PDFs permanecem neste aparelho.');
- document.addEventListener('click',e=>{if(session&&e.target.closest('#checklist-nav,#choose-equipment,.brand'))logout();},true);
+ document.addEventListener('click',e=>{if((session||pendingLogin)&&e.target.closest('#checklist-nav,#choose-equipment,.brand'))logout();},true);
  window.addEventListener('offline',()=>{if(session)logout();status('Sem conexão. Inspeções preservadas; envio quando a conexão retornar.');});
  window.addEventListener('online',()=>sync(true));window.addEventListener('ppl-record-ready',()=>sync());setInterval(()=>sync(),90000);setTimeout(()=>sync(),2000);
  setInterval(()=>{if(session)api('session').catch(()=>logout());},60000);
 })();
+
