@@ -175,11 +175,6 @@ const EQUIPMENT_CATALOG=[
     "modelId": "ppl-pulmao-de-agua"
   },
   {
-    "id": "pulmao-de-ar",
-    "name": "Pulmão de ar",
-    "modelId": "ppl-pulmao-de-ar"
-  },
-  {
     "id": "retifica",
     "name": "Retífica",
     "modelId": "ppl-retifica"
@@ -239,7 +234,8 @@ const EQUIPMENT_CATALOG=[
   },
   {
     "id": "vasos-de-pressao",
-    "name": "Vasos de pressão"
+    "name": "Vaso de pressão (pulmão de ar)",
+    "modelId": "ppl-pulmao-de-ar"
   }
 ].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
 let selectedEquipment='';
