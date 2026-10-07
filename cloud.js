@@ -27,10 +27,11 @@
  function status(text,error=false){const host=$('#cloud-status');if(host){host.textContent=text;host.classList.toggle('error',error);}}
  async function base64(blob){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(blob);});}
  async function sync(force=false){
-  if(!configured||sending||!navigator.onLine)return;
+  if(!configured)return;if(sending){if(force)status('O envio já está em andamento. Aguarde a conclusão.');return;}if(!navigator.onLine){if(force)status('Sem conexão. Conecte-se à internet para verificar e enviar pendências.',true);return;}
   sending=true;let lastError='';
   try{const records=(await all()).filter(r=>r.status==='recorded');
-   if(!records.length){status('Nenhuma inspeção registrada foi encontrada neste navegador. Isso não confirma o recebimento de registros feitos em outra aba ou aparelho.');return;}
+   if(!records.length){status(force?'Não há pendências de envio neste aparelho. Nenhuma inspeção registrada foi encontrada neste navegador.':'Nenhuma inspeção registrada foi encontrada neste navegador. Isso não confirma o recebimento de registros feitos em outra aba ou aparelho.');return;}
+   if(force){const known=await Promise.all(records.map(r=>receipt('get',r.key)));if(known.every(r=>r?.received_at&&r.pdf_ready!==false)){status('Não há pendências de envio neste aparelho. Todas as inspeções e seus PDFs estão confirmados no servidor.');return;}}
    for(const r of records){let old=await receipt('get',r.key);if(old?.received_at&&old.pdf_ready!==false)continue;if(!force&&old?.retryAt>Date.now())continue;
     try{
      if(!old?.received_at){status('Enviando inspeção ao servidor…');const result=await api('submit',{record:r},false);if(result.key!==r.key||!Number.isFinite(Date.parse(result.received_at)))throw Error('Confirmação de recebimento inválida.');old={key:r.key,received_at:result.received_at,pdf_ready:result.pdf_ready};await receipt('put',old);window.dispatchEvent(new Event('ppl-cloud-received'));}
