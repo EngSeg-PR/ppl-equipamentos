@@ -1,0 +1,87 @@
+/* Coleta pública; sessão de gestão somente em memória. Sem SDK externo. */
+(()=>{
+ const config=window.PPL_CLOUD_CONFIG||{};
+ function publicKeyValid(key){if(/^sb_publishable_[A-Za-z0-9_-]+$/.test(key||''))return true;try{return JSON.parse(atob(key.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).role==='anon';}catch{return false;}}
+ const configured=config.enabled===true&&/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(config.url||'')&&publicKeyValid(config.publicKey);
+ let session=null,profile=null,cloudDB=null,sending=false,pdfURLs=[],epoch=0,refreshing=null;
+ async function timedFetch(url,options={},timeout=30000){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),timeout);try{return await fetch(url,{...options,signal:controller.signal});}finally{clearTimeout(timer);}}
+ const endpoint=configured?config.url+'/functions/v1/'+(config.functionName||'ppl-api'):'';
+ const cloudStore=()=>new Promise((resolve,reject)=>{if(cloudDB)return resolve(cloudDB);const req=indexedDB.open('ppl-cloud-queue',1);req.onupgradeneeded=()=>req.result.createObjectStore('receipts',{keyPath:'key'});req.onsuccess=()=>{cloudDB=req.result;resolve(cloudDB);};req.onerror=()=>reject(req.error);});
+ async function receipt(op,value){const database=await cloudStore();return new Promise((resolve,reject)=>{const tx=database.transaction('receipts',op==='put'?'readwrite':'readonly'),store=tx.objectStore('receipts'),req=op==='put'?store.put(value):store.get(value);tx.oncomplete=()=>resolve(req.result);tx.onerror=()=>reject(tx.error);});}
+ async function authRequest(path,body){const response=await timedFetch(config.url+'/auth/v1/'+path,{method:'POST',headers:{apikey:config.publicKey,'Content-Type':'application/json'},body:JSON.stringify(body)});const data=await response.json();if(!response.ok)throw Error('Login inválido ou serviço indisponível. Verifique e-mail e senha.');return data;}
+ async function token(){if(!session)throw Error('Faça login.');const expected=epoch;if(Date.now()>session.expiresAt-60000){if(!refreshing){refreshing=authRequest('token?grant_type=refresh_token',{refresh_token:session.refresh_token}).then(renewed=>{if(expected!==epoch||!session)throw Error('Sessão encerrada.');session={...renewed,expiresAt:Date.now()+renewed.expires_in*1000};}).finally(()=>{refreshing=null;});}await refreshing;}if(expected!==epoch||!session)throw Error('Sessão encerrada.');return session.access_token;}
+ async function api(action,data={},privateCall=true,binary=false){
+  if(!configured)throw Error('Integração ainda não configurada.');
+  const expected=epoch,headers={apikey:config.publicKey,'Content-Type':'application/json'};
+  if(privateCall)headers.Authorization='Bearer '+await token();
+  const response=await timedFetch(endpoint,{method:'POST',headers,body:JSON.stringify({action,...data}),cache:'no-store'},120000);
+  if(privateCall&&(epoch!==expected||!session))throw Error('Sessão encerrada.');
+  if(!response.ok){const error=await response.json().catch(()=>({}));if(privateCall&&[401,403].includes(response.status))logout();throw Error(error.error||'Falha de conexão. Tente novamente.');}
+  return binary?response.blob():response.json();
+ }
+ function status(text,error=false){const host=$('#cloud-status');if(host){host.textContent=text;host.classList.toggle('error',error);}}
+ async function base64(blob){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(blob);});}
+ async function sync(force=false){
+  if(!configured||sending||!db||!navigator.onLine)return;
+  sending=true;let count=0,failed=0,lastError='';
+  try{const records=(await all()).filter(r=>r.status==='recorded');
+   for(const r of records){
+    const old=await receipt('get',r.key);if(old?.received_at||(!force&&old?.retryAt>Date.now()))continue;
+    status('Enviando inspeções preservadas…');
+    try{
+     let cached=await transaction('pdfs','readonly',s=>s.get(r.key));
+     // Registros restaurados do backup também precisam da cópia PDF antes do envio.
+     if(!cached?.blob){if(busy){failed++;continue;}await generateAndStore(r);cached=await transaction('pdfs','readonly',s=>s.get(r.key));}
+     const result=await api('submit',{record:r,pdf:await base64(cached.blob)},false);
+     if(result.key!==r.key||!Number.isFinite(Date.parse(result.received_at)))throw Error('Confirmação de recebimento inválida.');
+     await receipt('put',{key:r.key,received_at:result.received_at});count++;
+    }catch(error){failed++;lastError=`${r.id.slice(0,8)} · r${r.revision}: ${error.message}`;await receipt('put',{key:r.key,error:error.message,retryAt:Date.now()+300000});}
+   }
+   const received=(await Promise.all(records.map(r=>receipt('get',r.key)))).filter(r=>r?.received_at).length;
+   status(`${received} de ${records.length} revisões deste aparelho recebidas pelo servidor.${received<records.length?' Há pendências; sua cópia local está preservada.':''}${lastError?' '+lastError:''}`,received<records.length);
+  }catch(error){status('Falha na sincronização. Registros locais preservados.',true);}finally{sending=false;}
+ }
+ function logout(){epoch++;session=null;profile=null;for(const url of pdfURLs)URL.revokeObjectURL(url);pdfURLs=[];$('#management').innerHTML='';if(!$('#management').hidden)loginScreen();}
+ function loginScreen(){
+  managementMode(true);$('#management').innerHTML=`<div class="panel access-preview"><h2>Acesso de gestão</h2><p>Exclusivo para Paulo Ricardo Reis e gestores autorizados. O executante preenche pela tela inicial, sem conta.</p>${configured?'<form id="cloud-login"><label>E-mail<input name="email" type="email" autocomplete="username" required></label><label>Senha<input name="password" type="password" autocomplete="current-password" required></label><button class="primary">Entrar no painel</button><p id="cloud-login-message" role="status"></p></form>':'<div class="notice"><strong>Integração em preparação.</strong> O painel será liberado após configurar o projeto Supabase e testar os acessos. Os registros continuam preservados neste aparelho.</div>'}</div>`;
+  const form=$('#cloud-login');if(form)form.onsubmit=async e=>{e.preventDefault();const button=form.querySelector('button');button.disabled=true;try{const fields=new FormData(form),data=await authRequest('token?grant_type=password',{email:String(fields.get('email')).trim(),password:fields.get('password')});session={...data,expiresAt:Date.now()+data.expires_in*1000};const access=await api('session');profile=access.profile;form.reset();await dashboard();}catch(error){session=null;profile=null;const host=$('#cloud-login-message');if(host)host.textContent=error.message;}finally{button.disabled=false;}};
+ }
+ async function dashboard(){
+  managementMode(true);$('#management').innerHTML='<div class="panel"><p role="status">Consultando registros recebidos…</p><button id="cloud-cancel">Sair</button></div>';$('#cloud-cancel').onclick=logout;
+  try{
+   const access=await api('session');profile=access.profile;
+   let rows=[];for(let offset=0;;offset+=50){if(!session)return;const page=await api('list',{offset});rows.push(...page.rows);if(page.rows.length<50)break;}
+   if(!session)return;
+   const records=rows.map(x=>({...x.payload,receivedAt:x.received_at}));
+   $('#management').innerHTML=`<div class="demo-strip"><strong>${esc(profile.name)} · ${profile.role==='owner'?'Proprietário':'Gestor autorizado'}</strong><span>Atualizado ${esc(localTime(stamp()))}</span></div><div class="panel"><div class="actions"><button id="cloud-refresh">Atualizar</button><button id="cloud-logout">Sair</button>${profile.role==='owner'?'<button id="cloud-managers">Autorizar gestores</button>':''}</div><p class="muted">Exibe inspeções recebidas pelo servidor dentro do seu acesso. Registros ainda offline em outros aparelhos só aparecerão após envio. Ausência de registro não indica falha.</p><label>Buscar<input id="cloud-search" type="search" placeholder="Nome, matrícula, equipamento, identificação ou código"></label><div class="management-filters"><label>Data inicial<input id="cloud-start" type="date"></label><label>Data final<input id="cloud-end" type="date"></label><label>Respostas<select id="cloud-result"><option value="all">Todas</option><option value="nc">Não Conforme</option><option value="c">Sem Não Conforme</option></select></label></div><div id="cloud-metrics" class="overview management-metrics"></div><div id="cloud-records"></div><div id="cloud-pdf" role="status"></div><div id="cloud-actions"></div></div>`;
+   $('#cloud-logout').onclick=logout;$('#cloud-refresh').onclick=dashboard;if($('#cloud-managers'))$('#cloud-managers').onclick=managers;
+   function show(){
+    const q=$('#cloud-search').value.trim().toLocaleLowerCase('pt-BR'),start=$('#cloud-start').value,end=$('#cloud-end').value,result=$('#cloud-result').value;
+    const matching=records.filter(r=>(!start||r.fields.date>=start)&&(!end||r.fields.date<=end)&&JSON.stringify([r.id,r.fields.inspector,r.fields.employee,r.fields.belt,equipmentLabel(r),r.fields.unit,r.fields.team]).toLocaleLowerCase('pt-BR').includes(q));
+    const latest=latestInspections(matching),visible=latest.filter(r=>result==='all'||(result==='nc')===(inspectionNC(r).length>0)),alerts=matching.filter(r=>inspectionNC(r).length);
+    $('#cloud-metrics').innerHTML=`<div class="metric"><b>${visible.length}</b><span>Inspeções</span></div><div class="metric"><b>${new Set(visible.map(personKey)).size}</b><span>Pessoas por matrícula declarada</span></div><div class="metric"><b>${alerts.length}</b><span>Revisões com Não Conforme</span></div>`;
+    const card=(r,alert=false)=>`<article class="alert-card"><strong>${esc(equipmentLabel(r))} · ${esc(r.fields.belt)}</strong><p>${esc(r.fields.inspector)} · matrícula ${esc(r.fields.employee)}<br>${esc(r.fields.date)} · ${esc(r.fields.unit||'Sem unidade')} / ${esc(r.fields.team||'Sem equipe')}</p><span class="result-tag ${inspectionNC(r).length?'nc':''}">${inspectionNC(r).length?'Não Conforme':'Sem Não Conforme'}</span><p><small>${esc(r.id)} · revisão ${r.revision}<br>Recebido ${esc(localTime(r.receivedAt))}</small></p>${alert?'<ul>'+inspectionNC(r).map(a=>`<li>${esc(r.model.items.find(i=>i.id===a.itemId)?.text)} — ${esc(a.notes)}</li>`).join('')+'</ul>':''}<div class="actions"><button data-cloud-pdf="${esc(r.key)}">Ver / baixar PDF</button>${alert?`<button data-cloud-event="${esc(r.key)}">Acompanhamento</button>`:''}</div></article>`;
+    $('#cloud-records').innerHTML='<h2>Inspeções recebidas</h2>'+ (visible.map(r=>card(r)).join('')||'<p>Nenhum registro encontrado.</p>')+'<h2>Alertas preservados por revisão</h2><p class="muted">Uma revisão conforme não apaga a ocorrência anterior nem libera o equipamento.</p>'+(alerts.map(r=>card(r,true)).join('')||'<p>Nenhuma Não Conforme no período.</p>');
+    $('#cloud-records').querySelectorAll('[data-cloud-pdf]').forEach(b=>b.onclick=()=>openPDF(b.dataset.cloudPdf));
+    $('#cloud-records').querySelectorAll('[data-cloud-event]').forEach(b=>b.onclick=()=>events(b.dataset.cloudEvent));
+   }
+   for(const id of ['cloud-search','cloud-start','cloud-end','cloud-result'])$('#'+id).oninput=show;show();
+  }catch(error){if(session)$('#management').innerHTML=`<div class="panel"><p role="alert">${esc(error.message)}</p><button id="cloud-logout">Sair</button></div>`;if($('#cloud-logout'))$('#cloud-logout').onclick=logout;}
+ }
+ async function openPDF(key){try{const blob=await api('pdf',{key},true,true);if(!session)return;const url=URL.createObjectURL(blob);pdfURLs.push(url);const [id,revision]=key.split(':');$('#cloud-pdf').innerHTML=`<div class="notice"><strong>PDF · ${esc(id)} · revisão ${esc(revision)}</strong><div class="actions"><a class="primary" href="${url}" download="PPL-${esc(id)}-r${esc(revision)}.pdf">Baixar arquivo PDF</a><a href="${url}" target="_blank" rel="noopener">Abrir PDF</a></div><p>A pasta de destino é escolhida pelo navegador. No iPhone, use Compartilhar → Salvar em Arquivos.</p></div>`;$('#cloud-pdf').scrollIntoView({behavior:'smooth'});}catch(error){message(error.message,true);}}
+ async function events(key){try{const data=await api('events',{key});if(!session)return;$('#cloud-actions').innerHTML=`<div class="panel"><h2>Acompanhamento · ${esc(key)}</h2>${data.rows.map(e=>`<p>${esc(localTime(e.created_at))} · ${esc(e.actor_name)}<br><strong>${esc(e.state)}</strong><br>${esc(e.note)}</p>`).join('')||'<p>Sem acompanhamento.</p>'}<form id="cloud-event-form"><label>Situação<select name="state"><option>Aberto</option><option>Em acompanhamento</option><option>Encaminhado para avaliação técnica</option></select></label><label>Observação<textarea name="note" required maxlength="10000"></textarea></label><button class="primary">Salvar acompanhamento</button><p class="muted">Não libera nem reativa equipamento.</p></form></div>`;$('#cloud-event-form').onsubmit=async e=>{e.preventDefault();const form=e.currentTarget,values=new FormData(form),button=form.querySelector('button');button.disabled=true;try{await api('event',{key,state:values.get('state'),note:values.get('note')});await events(key);}catch(error){message(error.message,true);}finally{button.disabled=false;}};$('#cloud-actions').scrollIntoView({behavior:'smooth'});}catch(error){message(error.message,true);}}
+ async function managers(){try{const data=await api('managers');if(!session||profile?.role!=='owner')return;$('#cloud-actions').innerHTML=`<div class="panel"><h2>Gestores autorizados</h2>${data.rows.map(u=>`<p><strong>${esc(u.name)}</strong> · ${u.active?'Ativo':'Suspenso'}<br>${data.scopes.filter(s=>s.user_id===u.user_id).map(s=>esc(s.unit)+' / '+esc(s.team)).join(', ')}<br><button data-access-user="${esc(u.user_id)}" data-active="${!u.active}">${u.active?'Suspender':'Reativar'} acesso</button></p>`).join('')||'<p>Nenhum gestor cadastrado.</p>'}<h3>Autorizar novo gestor</h3><form id="cloud-manager-form"><label>Nome<input name="name" required maxlength="150"></label><label>E-mail de acesso<input name="email" type="email" required autocomplete="off"></label><label>Senha inicial<input name="password" type="password" required minlength="12" maxlength="128" autocomplete="new-password"></label><label>Unidades / equipes autorizadas<textarea name="scopes" required placeholder="Uma por linha: Unidade | Equipe"></textarea></label><p class="muted">A senha não será enviada por e-mail pelo aplicativo. Entregue as credenciais ao gestor por seu canal escolhido.</p><button class="primary">Criar e liberar gestor</button><p id="cloud-manager-message" role="status"></p></form></div>`;
+ $('#cloud-actions').querySelectorAll('[data-access-user]').forEach(b=>b.onclick=async()=>{b.disabled=true;try{await api('set-manager-active',{user_id:b.dataset.accessUser,active:b.dataset.active==='true'});await managers();}catch(error){message(error.message,true);b.disabled=false;}});
+ $('#cloud-manager-form').onsubmit=async e=>{e.preventDefault();const form=e.currentTarget,values=new FormData(form),button=form.querySelector('button');button.disabled=true;try{const scopes=String(values.get('scopes')).trim().split(/\r?\n/).map(line=>{const pair=line.split('|');if(pair.length!==2)throw Error('Use Unidade | Equipe, uma autorização por linha.');return {unit:pair[0].trim(),team:pair[1].trim()};});await api('create-manager',{name:values.get('name'),email:values.get('email'),password:values.get('password'),scopes});form.reset();await managers();}catch(error){const host=$('#cloud-manager-message');if(host)host.textContent=error.message;}finally{button.disabled=false;}};$('#cloud-actions').scrollIntoView({behavior:'smooth'});
+ }catch(error){message(error.message,true);}}
+ // Retira o caminho de demonstração local; nenhuma senha ou privilégio fica no HTML.
+ $('#management-nav').onclick=()=>{if(busy)return;if(!configured||!session)loginScreen();else dashboard();};
+ const note=$('#management-nav .nav-note');if(note)note.textContent='Acesso autorizado';
+ const banner=document.createElement('div');banner.className='offline-note';banner.innerHTML='<span id="cloud-status"></span> <button id="cloud-sync" type="button">Enviar pendentes</button>';
+ $('#offline-ready').after(banner);$('#cloud-sync').disabled=!configured;$('#cloud-sync').onclick=()=>sync(true);
+ status(configured?'Envio central disponível. Registros offline serão enviados quando houver conexão.':'Centralização em preparação. Registros e PDFs permanecem neste aparelho.');
+ document.addEventListener('click',e=>{if(session&&e.target.closest('#checklist-nav,#choose-equipment,.brand'))logout();},true);
+ window.addEventListener('offline',()=>{if(session)logout();status('Sem conexão. Inspeções preservadas; envio quando a conexão retornar.');});
+ window.addEventListener('online',()=>sync(true));window.addEventListener('ppl-record-ready',()=>sync());setInterval(()=>sync(),90000);setTimeout(()=>sync(),2000);
+ setInterval(()=>{if(session)api('session').catch(()=>logout());},60000);
+})();
