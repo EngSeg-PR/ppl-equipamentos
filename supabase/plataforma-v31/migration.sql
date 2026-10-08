@@ -46,14 +46,15 @@ REVOKE ALL ON public.ppl_companies,public.ppl_brand_versions,public.ppl_company_
 GRANT ALL ON public.ppl_companies,public.ppl_brand_versions,public.ppl_company_access,public.ppl_employees,public.ppl_company_models,public.ppl_requests TO service_role;
 CREATE INDEX IF NOT EXISTS ppl_company_received ON public.ppl_inspections(company_id,received_at);
 CREATE INDEX IF NOT EXISTS ppl_company_requests ON public.ppl_requests(company_id,created_at);
-CREATE OR REPLACE FUNCTION public.ppl_register_company(p_name text,p_slug text,p_logo text) RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $
+CREATE OR REPLACE FUNCTION public.ppl_register_company(p_name text,p_slug text,p_logo text) RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path='' AS $register_company$
 DECLARE c public.ppl_companies; b jsonb;
 BEGIN
 INSERT INTO public.ppl_companies(name,slug,logo_data,status) VALUES(p_name,p_slug,p_logo,'pending') RETURNING * INTO c;
 b=jsonb_build_object('id',c.id,'slug',c.slug,'name',c.name,'version',c.brand_version,'logoData',c.logo_data);
 INSERT INTO public.ppl_brand_versions(company_id,version,snapshot) VALUES(c.id,c.brand_version,b);
 RETURN to_jsonb(c);
-END $;
+END;
+$register_company$;
 REVOKE ALL ON FUNCTION public.ppl_register_company(text,text,text) FROM public,anon,authenticated;
 GRANT EXECUTE ON FUNCTION public.ppl_register_company(text,text,text) TO service_role;
 DROP POLICY IF EXISTS events_scope ON public.ppl_events;
