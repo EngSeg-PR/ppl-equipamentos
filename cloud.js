@@ -80,8 +80,8 @@
  // Retira o caminho de demonstração local; nenhuma senha ou privilégio fica no HTML.
  $('#management-nav').onclick=()=>{if(busy)return;if(!configured||!session)loginScreen();else dashboard();};
  const note=$('#management-nav .nav-note');if(note)note.textContent='Acesso autorizado';
- const banner=document.createElement('div');banner.className='offline-note';banner.innerHTML='<span id="cloud-status"></span> <button id="cloud-sync" type="button">Enviar pendentes</button>';
- $('#offline-ready').after(banner);$('#cloud-sync').disabled=!configured;$('#cloud-sync').onclick=()=>sync(true);
+ const banner=document.createElement('div');banner.className='offline-note';banner.innerHTML='<span id="cloud-status"></span>';
+ $('#offline-ready').after(banner);window.PPL_SEND_PENDING=()=>sync(true);window.PPL_PENDING_ENABLED=configured;
  status(configured?(navigator.onLine?'Envio central disponível. Registros offline serão enviados quando houver conexão.':'Pendente de sincronização: sem internet. O PDF está disponível para geração local; envio automático quando a conexão retornar.'):'Centralização em preparação. Registros e PDFs permanecem neste aparelho.');
  document.addEventListener('click',e=>{if((session||pendingLogin)&&e.target.closest('#checklist-nav,#pending-nav,#choose-equipment,.brand'))logout();},true);
  window.addEventListener('offline',()=>{if(session)logout();status('Pendente de sincronização: sem internet. Gere e salve seu PDF neste aparelho. O envio será retomado automaticamente quando houver conexão.');});
