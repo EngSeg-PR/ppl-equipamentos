@@ -30,7 +30,7 @@
  async function sync(force=false){
   if(!configured)return;if(sending){if(force)status('O envio já está em andamento. Aguarde a conclusão.');return;}if(!navigator.onLine){if(force)status('Pendente de sincronização: sem internet. O PDF pode ser gerado e salvo neste aparelho; o envio será retomado automaticamente quando houver conexão.',true);return;}
   sending=true;let lastError='';
-  try{const records=(await all()).filter(r=>r.status==='recorded');
+  try{const records=(await (window.PRContext?allRecords():all())).filter(r=>r.status==='recorded');
    if(!records.length){status(force?'Não há pendências de envio neste aparelho. Nenhuma inspeção registrada foi encontrada neste navegador.':'Nenhuma inspeção registrada foi encontrada neste navegador. Isso não confirma o recebimento de registros feitos em outra aba ou aparelho.');return;}
    if(force){const known=await Promise.all(records.map(r=>receipt('get',r.key)));if(known.every(r=>r?.received_at&&r.pdf_ready!==false)){status('Não há pendências de envio neste aparelho. Todas as inspeções e seus PDFs estão confirmados no servidor.');return;}}
    for(const r of records){let old=await receipt('get',r.key);if(old?.received_at&&old.pdf_ready!==false)continue;if(!force&&old?.retryAt>Date.now())continue;
