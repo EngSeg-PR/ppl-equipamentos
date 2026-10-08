@@ -27,7 +27,7 @@
  function status(text,error=false){const host=$('#cloud-status');if(host){host.textContent=text;host.classList.toggle('error',error);}}
  async function base64(blob){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result).split(',')[1]);reader.onerror=()=>reject(reader.error);reader.readAsDataURL(blob);});}
  async function sync(force=false){
-  if(!configured)return;if(sending){if(force)status('O envio já está em andamento. Aguarde a conclusão.');return;}if(!navigator.onLine){if(force)status('Sem conexão. Conecte-se à internet para verificar e enviar pendências.',true);return;}
+  if(!configured)return;if(sending){if(force)status('O envio já está em andamento. Aguarde a conclusão.');return;}if(!navigator.onLine){if(force)status('Pendente de sincronização: sem internet. O PDF pode ser gerado e salvo neste aparelho; o envio será retomado automaticamente quando houver conexão.',true);return;}
   sending=true;let lastError='';
   try{const records=(await all()).filter(r=>r.status==='recorded');
    if(!records.length){status(force?'Não há pendências de envio neste aparelho. Nenhuma inspeção registrada foi encontrada neste navegador.':'Nenhuma inspeção registrada foi encontrada neste navegador. Isso não confirma o recebimento de registros feitos em outra aba ou aparelho.');return;}
@@ -81,9 +81,9 @@
  const note=$('#management-nav .nav-note');if(note)note.textContent='Acesso autorizado';
  const banner=document.createElement('div');banner.className='offline-note';banner.innerHTML='<span id="cloud-status"></span> <button id="cloud-sync" type="button">Enviar pendentes</button>';
  $('#offline-ready').after(banner);$('#cloud-sync').disabled=!configured;$('#cloud-sync').onclick=()=>sync(true);
- status(configured?'Envio central disponível. Registros offline serão enviados quando houver conexão.':'Centralização em preparação. Registros e PDFs permanecem neste aparelho.');
+ status(configured?(navigator.onLine?'Envio central disponível. Registros offline serão enviados quando houver conexão.':'Pendente de sincronização: sem internet. O PDF está disponível para geração local; envio automático quando a conexão retornar.'):'Centralização em preparação. Registros e PDFs permanecem neste aparelho.');
  document.addEventListener('click',e=>{if((session||pendingLogin)&&e.target.closest('#checklist-nav,#choose-equipment,.brand'))logout();},true);
- window.addEventListener('offline',()=>{if(session)logout();status('Sem conexão. Inspeções preservadas; envio quando a conexão retornar.');});
+ window.addEventListener('offline',()=>{if(session)logout();status('Pendente de sincronização: sem internet. Gere e salve seu PDF neste aparelho. O envio será retomado automaticamente quando houver conexão.');});
  window.addEventListener('online',()=>sync(true));window.addEventListener('ppl-record-ready',()=>sync());setInterval(()=>sync(),90000);setTimeout(()=>sync(),2000);
  setInterval(()=>{if(session)api('session').catch(()=>logout());},60000);
  addEventListener('pageshow',()=>sync());document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync();});
