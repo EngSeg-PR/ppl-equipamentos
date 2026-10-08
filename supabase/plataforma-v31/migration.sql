@@ -1,3 +1,5 @@
+-- Encerra uma tentativa anterior interrompida, antes da nova transação.
+ROLLBACK;
 BEGIN;
 CREATE TABLE IF NOT EXISTS public.ppl_companies(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),slug text NOT NULL UNIQUE CHECK(slug ~ '^[a-z0-9-]{1,80}$'),name text NOT NULL CHECK(length(name) BETWEEN 1 AND 160),logo_url text,status text NOT NULL DEFAULT 'pending' CHECK(status IN ('ready','pending')),created_at timestamptz NOT NULL DEFAULT now());
 INSERT INTO public.ppl_companies(slug,name,logo_url,status) VALUES('ppl','PPL Manutenção','assets/ppl-logo-oficial.png','ready') ON CONFLICT(slug) DO NOTHING;
@@ -28,9 +30,36 @@ INSERT INTO public.ppl_company_access(user_id,company_id,scope_mode) SELECT user
 CREATE TABLE IF NOT EXISTS public.ppl_employees(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),company_id uuid NOT NULL REFERENCES public.ppl_companies(id),name text NOT NULL CHECK(length(name) BETWEEN 1 AND 160),employee_number text NOT NULL CHECK(length(employee_number) BETWEEN 1 AND 80),job_title text NOT NULL CHECK(length(job_title) BETWEEN 1 AND 160),active boolean NOT NULL DEFAULT true,created_at timestamptz NOT NULL DEFAULT now(),UNIQUE(company_id,employee_number));
 CREATE TABLE IF NOT EXISTS public.ppl_company_models(company_id uuid REFERENCES public.ppl_companies(id),model_id text NOT NULL,version text NOT NULL,kind text NOT NULL CHECK(kind IN ('checklist','inspection')),snapshot jsonb NOT NULL,active boolean NOT NULL DEFAULT true,created_at timestamptz NOT NULL DEFAULT now(),PRIMARY KEY(company_id,model_id,version));
 CREATE TABLE IF NOT EXISTS public.ppl_requests(id uuid PRIMARY KEY DEFAULT gen_random_uuid(),company_id uuid NOT NULL REFERENCES public.ppl_companies(id),category text NOT NULL CHECK(category IN ('Mensagem','Solicitação','Reclamação','Ajuste')),sender text NOT NULL CHECK(length(sender) BETWEEN 1 AND 160),message text NOT NULL CHECK(length(message) BETWEEN 1 AND 10000),state text NOT NULL DEFAULT 'Aberta' CHECK(state IN ('Aberta','Em atendimento','Concluída')),seen boolean NOT NULL DEFAULT false,created_at timestamptz NOT NULL DEFAULT now());
-CREATE OR REPLACE FUNCTION public.ppl_can_read_company(c uuid,u text,t text) RETURNS boolean LANGUAGE sql STABLE SECURITY DEFINER SET search_path='' AS $$
-SELECT EXISTS(SELECT 1 FROM public.ppl_access a WHERE a.user_id=auth.uid() AND a.active AND (a.role='owner' OR (a.role='manager' AND EXISTS(SELECT 1 FROM public.ppl_company_access ca WHERE ca.user_id=a.user_id AND ca.company_id=c AND ca.active AND ((ca.scope_mode='company') OR EXISTS(SELECT 1 FROM public.ppl_scopes s WHERE s.user_id=a.user_id AND s.company_id=c AND s.unit=u AND s.team=t)))))))
-$$;
+CREATE OR REPLACE FUNCTION public.ppl_can_read_company(c uuid,u text,t text) RETURNS boolean
+LANGUAGE sql STABLE SECURITY DEFINER SET search_path='' AS $company_access$
+SELECT EXISTS (
+  SELECT 1 FROM public.ppl_access a
+  WHERE a.user_id=auth.uid()
+    AND a.active
+    AND (
+      a.role='owner'
+      OR (
+        a.role='manager'
+        AND EXISTS (
+          SELECT 1 FROM public.ppl_company_access ca
+          WHERE ca.user_id=a.user_id
+            AND ca.company_id=c
+            AND ca.active
+            AND (
+              ca.scope_mode='company'
+              OR EXISTS (
+                SELECT 1 FROM public.ppl_scopes s
+                WHERE s.user_id=a.user_id
+                  AND s.company_id=c
+                  AND s.unit=u
+                  AND s.team=t
+              )
+            )
+        )
+      )
+    )
+);
+$company_access$;
 REVOKE ALL ON FUNCTION public.ppl_can_read_company(uuid,text,text) FROM public,anon;
 GRANT EXECUTE ON FUNCTION public.ppl_can_read_company(uuid,text,text) TO authenticated;
 DROP POLICY IF EXISTS inspections_scope ON public.ppl_inspections;
