@@ -1,0 +1,4 @@
+SheetJS CE 0.20.3 - https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js
+Mammoth 1.12.0 - https://registry.npmjs.org/mammoth/-/mammoth-1.12.0.tgz
+PDF.js 5.6.205 - bundled runtime distribution; Mozilla pdfjs-dist
+All parsers run locally; no document content is sent to third-party services.
