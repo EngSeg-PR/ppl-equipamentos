@@ -3,3 +3,6 @@
 #gm-filters>button{margin-right:8px;margin-top:10px}.gm-calendar button:focus-visible,.gm-files button:focus-visible{outline:3px solid #1b8fc7;outline-offset:2px}
 
 .gm-audit{max-height:320px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f8fa;padding:12px;font-size:12px}.gm-files>[data-history-output]{flex-basis:100%;min-width:0}
+
+.ppl-wide{grid-column:1 / -1}.ppl-doc-choice{display:flex!important;align-items:center;gap:10px}.ppl-doc-choice input{width:auto!important}.ppl-doc-sign{grid-column:1 / -1}
+.ppl-doc-section{grid-column:1 / -1;border-bottom:1px solid #aac2cd;padding-bottom:8px}

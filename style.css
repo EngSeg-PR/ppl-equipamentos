@@ -5,3 +5,5 @@
 .offline-note{background:#dff0eb;border:1px solid #a2c8bc;color:#20564a;padding:13px;border-radius:8px;margin-bottom:16px;font-size:13px;line-height:1.5}
 
 .app-credit{text-align:center;color:#527381;border-top:1px solid #c6d9e0;padding:20px;font-size:13px}
+
+.ppl-wide{grid-column:1 / -1}
