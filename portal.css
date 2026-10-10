@@ -6,3 +6,6 @@
 
 /* Display the supplied horizontal logo without changing its source image. */
 .consultancy-brand{display:block;min-width:0;flex-shrink:1}.consultancy-brand .brand-symbol{width:clamp(220px,36vw,420px);max-width:100%;height:auto;aspect-ratio:1160/370}.consultancy-brand .brand-symbol img{position:absolute!important;width:176.551724%!important;height:auto!important;max-height:none!important;left:-63.793103%!important;top:-48.648649%!important}.portal-header{gap:24px}.portal-header>a:last-child{flex-shrink:0}@media(max-width:620px){.portal-header{align-items:center;gap:12px;padding:16px}.consultancy-brand .brand-symbol{width:clamp(185px,55vw,280px)}.portal-header>a:last-child{font-size:12px;max-width:100px}.owner-access{padding:9px}}@media(max-width:350px){.portal-header{flex-wrap:wrap}.consultancy-brand .brand-symbol{width:230px}}
+
+/* Hide the decorative coordinate marks above REIS in the header frame. */
+.consultancy-brand .brand-symbol::after{content:"";position:absolute;z-index:1;right:0;top:0;width:27%;height:25%;background:#fff;pointer-events:none}
