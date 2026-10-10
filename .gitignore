@@ -1,0 +1,8 @@
+.env
+.env.*
+!.env.example
+supabase/.temp/
+__pycache__/
+*.pyc
+*.bundle
+backups/
