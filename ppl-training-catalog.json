@@ -1,0 +1,313 @@
+[
+  {
+    "id": "ppl-course-1c1019564e",
+    "title": "TREINAMENTO NO PLANO DE TRÂNSITO - PRO 039864",
+    "syllabus": "Requisitos para vias operacionais e regras de circulação; Regras gerais para vias; Regras gerais para pessoas; Regras gerais para procedimentos; Regras gerais para veículos leves; Critério para uso de reboque (carretinha); Acesso de caminhões / cargas, uso de escolta / batedores; Transporte terrestre de granéis sólidos em vias públicas; Trânsito de cargas especiais (produtos químicos, explosivos, metais líquidos);Regras de estacionamento; Sistema de telemetria e sistema de detecção de sonolência; Bloqueio de via; Passagem de nível; Caminhos e/ou rotas em casos de emergência e plano de trânsito.",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "PLANO DE TRANSITO",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-2518fe40cb",
+    "title": "NR 18- CONDIÇÕES E MEIO AMBIENTE DE TRABALHO NA INDUSTRIA DA CONSTRUÇÃO",
+    "syllabus": "Teoria:  Informação sobre as condições e meio ambiente de trabalho; 2 – Riscos inerentes a função; 3- Uso adequado dos equipamentos de proteção individual (epi); 4-Informações sobre os equipamentos de proteção coletiva-epc existentes no canteiro de obra.",
+    "hours": 8,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "NR 18 (9)",
+      "hoursCertificate": "CERTIFICADO NR 18",
+      "syllabusCertificate": "CERTIFICADO NR 18"
+    }
+  },
+  {
+    "id": "ppl-course-d5f8671c17",
+    "title": "USO CORRETO DE UTILIZAÇÃO DE VASOS, VALVULAS, CABO ANTI CHICOTEAMENTO E MOLA",
+    "syllabus": "",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "NR 18 (4)",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-51f38a64eb",
+    "title": "TBSSMA",
+    "syllabus": "",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "TBSSMA",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-83b69092d5",
+    "title": "PNR-000068 -  Rev.11: 02/10/2024 - Diretrizes para ART/ PRO",
+    "syllabus": "1.Objetivo; 2.Aplicabilidade; 3. Referências; 4. Notas sobre a revisão e prazo para implementação do documento; 5-Sistema oficial de registro de ARTs e templates para elaboração de ARTs; 6-  Definições importantes; 7-  Descrição do método; 8-  Capacitação; 9- Papéis e responsabilidades;",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "ART",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-670eecda06",
+    "title": "PNR 000031 - Executantes Credenciados - Módulo I da PTS.",
+    "syllabus": "Introdução ; Aplicação; Objetivo;  Definições; Critério de aplicação da PTS; Requisitos de aplicação da PTS; Papéis e responsabilidades; . Requisitos para designação de emitentes, executantes credenciados e executante; Conhecimento dos riscos da área/processo onde será designado como emitente; Capacitação nos treinamentos globais dos RAC aplicáveis; Capacitação nos treinamentos definidos pela legislação local, quando",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "PTS",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-4d749e2bab",
+    "title": "TRABALHO EM ALTURA – RAC 01",
+    "syllabus": "1- Contexto e aplicabilidade do RAC 01; 2- Requisitos para queda de pessoas; 3- Requisitos para andaimes; 4- Requisitos para escadas; 5- Requisitos para equipamentos de elevação de pessoas; 6- Requisitos contra queda.",
+    "hours": 1,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "RAC-01",
+      "hoursCertificate": "CERTIFICADO RAC 1"
+    }
+  },
+  {
+    "id": "ppl-course-6c5bd4955b",
+    "title": "PRO-040866, Rev. 04: 10/12/2025       - Procedimento Unificado Vale Brasil para Trabalho em Altura",
+    "syllabus": "OBJETIVO; 2. CAMPO DE APLICAÇÃO;4. DEFINIÇÕES E CONCEITOS;5. RESPONSABILIDADES;6. REQUISITOS PARA INSTALAÇÃO E EQUIPAMENTOS;7. REQUISITOS PARA PROCEDIMENTOS;8.  PRINCÍPIOS DA REDUÇÃO DO IMPACTO E DOS FATORES DE QUEDA;9. SEGURANÇA NA UTILIZAÇÃO DE ESCADAS PORTÁTEIS;10.  REQUISITOS PARA PESSOAS;11 EMERGÊNCIA E SALVAMENTO SUSPENSÃO INERTE;12. ANEXOS",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "PRO RAC01 - GALPÃO (2)",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-c0ff402cd5",
+    "title": "RAC 2- VEICULOS AUTOMOTORES LEVES",
+    "syllabus": "Contextualização; Referencias; Definições; Requisitos de vias operacionais e regras de circulação; Regras gerais para vias; Regras gerais para pessoas; Regras gerais para procedimentos; Regras gerais para veiculos leves; Critério para uso de reboque carretinha;",
+    "hours": 1,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "RAC- 02",
+      "hoursCertificate": "CERTIFICADO RAC 2"
+    }
+  },
+  {
+    "id": "ppl-course-a29bc9acdb",
+    "title": "PRO 039864- Rev.: 04 - 19/12/2025- VEÍCULOS AUTOMOTORES LEVES",
+    "syllabus": "Contextualização; Referencias; Definições; Requisitos de vias operacionais e regras de circulação; Regras gerais para vias; Regras gerais para pessoas; Regras gerais para procedimentos; Regras gerais para veiculos leves; Critério para uso de reboque carretinha;",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "PRO RAC 02",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-88851fed4e",
+    "title": "RAC 3- Equipamentos Móveis",
+    "syllabus": "Contexto e aplicabilidade do RAC 03. Requisitos para instalações e equipamentos. Requisitos gerais e específicos para equipamentos móveis. Requisitos específicos para equipamentos de mina subterrânea. Requisitos específicos para detecção, mitigação e prevenção de incêndios em equipamentos móveis. Requisitos para procedimentos Requisitos para capacitação.",
+    "hours": 1,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "RAC-03",
+      "hoursCertificate": "CERTIFICADO RAC 3"
+    }
+  },
+  {
+    "id": "ppl-course-221c7bbbc4",
+    "title": "BLOQUEIO E ETIQUETAGEM – RAC 04",
+    "syllabus": "1- Contexto e aplicabilidade do RAC 04; 2- Passos específicos para bloqueio, identificação e zero energia; 3- Etapas para mudança temporária no estado de energia zero; 4- Processo de desbloqueio; 5- Requisitos contra",
+    "hours": 1,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "RAC 04",
+      "hoursCertificate": "CERTIFICADO RAC 4"
+    }
+  },
+  {
+    "id": "ppl-course-7a70810a4e",
+    "title": "PRO-040948, Rev. 06: 18/11/2025     - Procedimento Unificado para Bloqueio, Identificação, Etiquetagem e Zero Energia",
+    "syllabus": "Pré-requisitos mínimos: Contextualização;Referências;Aplicação:Definições e recomendações:Orientações gerais:;Responsabilidades;Treinamentos;Controle de Registros, anexos.",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "PRO RAC- 04",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-b240ffc514",
+    "title": "IÇAMENTO DE CARGA – RAC 05",
+    "syllabus": "1- Contexto e aplicabilidade do RAC 05; 2- Planejamento de atividade; requisitos para isolamento de área; 3- Requisitos gerais para a execução da atividade de içamento; 4- Requisitos que variam conforme o tipo de equipamento; 5- Requisitos para capacitação",
+    "hours": 1,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "RAC- 05",
+      "hoursCertificate": "CERTIFICADO RAC 5"
+    }
+  },
+  {
+    "id": "ppl-course-b21b7463f4",
+    "title": "PRO-039979 -  IÇAMENTO DE CARGA",
+    "syllabus": "1. CONTEXTUALIZAÇÃO E PRAZO PARA IMPLEMENTAÇÃO; 3. DEFINIÇÕES; 4. REQUISITOS PARA EQUIPAMENTOS E ACESSÓRIOS DE IÇAMENTO DE CARGAS; 5. REQUISITOS PARA PROCEDIMENTOS; 6. INSPEÇÕES DE EQUIPAMENTOS, ACESSÓRIOS E IMPLEMENTOS DE IÇAMENTO; 7. PLANO DE IÇAMENTO DE CARGAS; 8. IÇAMENTO DE CARGA; 9. CONSIDERAÇÕES GERAIS",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "PRO RAC- 05",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-629fbe372b",
+    "title": "RAC 7- PROTEÇÃO DE MÁQUINAS",
+    "syllabus": "Boas-Vindas: Contexto; Proteção de Máquinas; Responsabilidades; Na prática; Casos de acidentes e Lições aprendidas; Conclusão.",
+    "hours": 1,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "RAC 07",
+      "hoursCertificate": "CERTIFICADO RAC 7"
+    }
+  },
+  {
+    "id": "ppl-course-2c0d8aaee3",
+    "title": "Procedimento Unificado para Proteção de Máquinas- PRO-041860, Rev. 05: 27/12/2024",
+    "syllabus": "1.CONTEXTUALIZAÇÃO E PRAZOS PARA IMPLEMENTAÇÃO; 2.OBJETIVO; 3.CAMPO DE APLICAÇÃO; 4.EXCEÇÕES:; 5.REFERÊNCIAS; 6.DEFINIÇÕES E CONCEITOS; 7.REQUISITOS MÍNIMOS PARA REALIZAR A ATIVIDADE; 8.RESPONSABILIDADES; 9.REQUISITOS PARA AS PESSOAS; 10.REQUISITOS PARA INSTALAÇÕES E EQUIPAMENTOS.; 11.REQUISITOS PARA OS PROCEDIMENTOS; 12.OPERAÇÃO:; 13.INSPEÇÃO / MANUTENÇÃO / LIMPEZA / AJUSTE; 14.PARADAS DE EMERGÊNCIAS.; 15.REQUISITOS PARA ELABORAÇÃO E RECEBIMENTO DE NOVOS PROJETOS/ADEQUAÇÃO DE PROJETOS EXISTENTES; 16.TREINAMENTO",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "PRO RAC- 07",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-0d1e6c7edd",
+    "title": "RAC 8- ATIVIDADE EM TERRENO",
+    "syllabus": "Boa Vindas: Contexto; Atividade em Terreno; Responsabilidades; Na prática; Conclusão.",
+    "hours": 1,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "RAC-08",
+      "hoursCertificate": "CERTIFICADO RAC 8"
+    }
+  },
+  {
+    "id": "ppl-course-cfd2dd1614",
+    "title": "PRO-039656-  ATIVIDADE NO TERRENO",
+    "syllabus": "1. Conceitos e Definições; 2. Responsabilidades; 3. Requisitos mínimos para execução de atividade; 4. Áreas superficiais e aberturas subterrâneas; 5. Inspeção, manutenção e recuperação de taludes de cortes; 6. Taludes de aterros, pilhas, escavações; 7. Contenção em desníveis; 8. Práticas Seguras; 9. Prevenção e Capacitação; 10. Requisitos gerais.",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "PRO RAC-08",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-d186757869",
+    "title": "RAC 10- SEGURANÇA EM INSTALAÇÕES E SERVIÇOS EM ELETRICIDADE",
+    "syllabus": "1.INTRODUÇÃO À SEGURANÇA COM ELETRICIDADE.;2. RISCOS EM INSTALAÇÕES E SERVIÇOS COM ELETRICIDADE: a) O choque elétrico, mecanismos e efeitos; b) Arcos elétricos; queimaduras e quedas;c) Campos eletromagnéticos; 3. TÉCNICAS DE ANÁLISE DE RISCO.4. MEDIDAS DE CONTROLE DO RISCO ELÉTRICO: a) Desenergizarão. b) Aterramento funcional (TN / TT / IT); de proteção; temporário; c) Equipotencialização; d) Seccionamento automático da alimentação;e) Dispositivos a corrente de fuga;e) Extra baixa tensão; g) Barreiras e invólucros;h) Bloqueios e impedimentos;i) Obstáculos e anteparos; j) Isolamento das partes vivas; k) Isolação dupla ou reforçada; 5. NORMAS TÉCNICAS BRASILEIRAS – NBR DA ABNT: NBR-5410, NBR 14039 E OUTRAS;6. REGULAMENTAÇÕES DO MTE: a)NRs; b) NR-10 (Segurança em Instalações e Serviços com Eletricidade); c) qualificação; habilitação; capacitação e autorização.",
+    "hours": 1,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "RAC 10",
+      "hoursCertificate": "CERTIFICADO RAC 10"
+    }
+  },
+  {
+    "id": "ppl-course-6932251b49",
+    "title": "Procedimento Integrado para Trabalhos em Eletricidade - RAC 10- PRO-041951 Rev.: 03- 26/12/2025",
+    "syllabus": "1. CONTEXTUALIZAÇÃO ; 2. OBJETIVO ; 3. APLICAÇÃO; 4. REFERÊNCIAS ; 5. CAPACITAÇÃO E TREINAMENTO; 6 DEFINIÇÕES E CONCEITOS; 8.\t CREDENCIAMENTO DE TERCEIROS PARA ACESSO E ATIVIDADES EM INSTALAÇÕES ELÉTRICAS E EM SUAS PROXIMIDADES; 9. TRABALHOS EM ELETRICIDADE; 10. SEGURANÇA EM SISTEMAS ELÉTRICOS DESENERGIZADOS; 11. SEGURANÇA EM SISTEMAS ELÉTRICOS ENERGIZADOS; 12. GESTÃO DO PROCESSO DE ENERGIA INCIDENTE.",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "PRO RAC 10",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-e6fdde8fd4",
+    "title": "NR 35- TRABALHO EM ALTURA",
+    "syllabus": "TEÓRICO: 1) Normas e regulamentos aplicáveis ao trabalho em altura;  2) Análise de risco e condições impeditivas; 3) Riscos potenciais inerentes ao trabalho em altura e medidas de prevenção e controle; 4) Sistemas, equipamentos e procedimentos de proteção coletiva; 5) Equipamentos de proteção individual para trabalho em altura: seleção, inspeção, conservação e limitação de uso;  6) Acidentes típicos em trabalhos em altura; PRÁTICO: 7) Condutas em situações de emergência, incluindo noções de técnicas de resgate e de primeiros socorros; 8) Equipamentos de proteção individual para trabalho em altura: seleção, inspeção, conservação e limitação de uso.",
+    "hours": 8,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "NR- 35",
+      "hoursCertificate": "CERTIFICADO - NR 35",
+      "syllabusCertificate": "CERTIFICADO - NR 35"
+    }
+  },
+  {
+    "id": "ppl-course-96142ef17d",
+    "title": "NR 06- EQUIPAMENTO DE PROTEÇÃO INDIVIDUAL ( EPI)",
+    "syllabus": "1- Introdução; 2- Legislação; 3- O que é Equipamento de Proteção Individual; 4- Finalidade do EPI; 5- Utilidade; 6- Prioridade de troca, conservação e higienização;  7- Responsabilidade do trabalhador; 8- Responsabilidade do empregador; 9- EPI- uso por membro, proteção de olhos e face, proteção auditiva e respiratória, proteção de troncos e membros superiores e inferiores, proteção de corpo inteiro e proteção contra queda de nível diferente; 10- Ficha de EPI; 11- Guarda e Conservação; 12- Certificado de Aprovação- CA; 13- Responsabilidade do fabricante",
+    "hours": 4,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "NR 06",
+      "hoursCertificate": "CERTIFICADO NR 6",
+      "syllabusCertificate": "CERTIFICADO NR 6"
+    }
+  },
+  {
+    "id": "ppl-course-249fa2ef85",
+    "title": "NR -12- SEGURANÇA NO TRABALHO COM MÁQUINAS EQUIPAMENTOS",
+    "syllabus": "Legislação de Segurança e Saúde no Trabalho; Histórico da Regulamentação e Requisitos da NR-12; Descrição e Funcionamento da Máquina Injetora; Identificação de Perigos e Análise de Riscos; Principais Áreas de Perigo; Medidas de Proteção Coletiva e Individual; Dispositivos e Sistemas de Segurança; Proteções, Portas e Distâncias de Segurança; Medidas de Controle de Riscos; Procedimentos e Métodos de Trabalho Seguro; Permissão de Trabalho (PT); Manutenção, Inspeção, Ajuste e Preparação da Máquina; Sinalização de Segurança; Aspectos Ergonômicos Aplicados à Operação; Dispositivos de Parada de Emergência; Componentes Hidráulicos e Pressurizados; Requisitos da NR-10 para Segurança em Eletricidade; Medidas de Segurança para Injetoras Elétricas e Hidráulicas de Comando Manual; Acidentes e Doenças Relacionados aos Riscos da Operação; Demonstração Prática dos Perigos, Proteções e Dispositivos de Segurança.",
+    "hours": 8,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "NR 12",
+      "hoursCertificate": "CERTIFICADO NR 12"
+    }
+  },
+  {
+    "id": "ppl-course-5d22c817d1",
+    "title": "NR 20-SEGURANÇA E SAÚDE NO TRABALHO COM INFLAMÁVEIS E COMBUSTIVEIS",
+    "syllabus": "Teórico: Inflamáveis: características, propriedades, perigos e riscos; Controles coletivo e individual para trabalhos com inflamáveis;Fontes de ignição e seu controle;Proteção contra incêndio com inflamáveis; Procedimentos em situações de emergência com inflamáveis;Estudo da Norma Regulamentadora n.º 20;Metodologias de Análise de Riscos: conceitos Acidentes com inflamáveis: análise de causas e medidas preventivas;Planejamento de Resposta a emergências com Inflamáveis;Noções básicas de segurança de processo da instalação; Prático: 1- Conhecimentos e utilização dos sistemas de segurança contra incêndio com inflamáveis\n.",
+    "hours": 4,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "NR 20",
+      "hoursCertificate": "CERTIFICADO - NR 20"
+    }
+  },
+  {
+    "id": "ppl-course-894f3c7c42",
+    "title": "CAMPANHA DE CONSCIENTIZAÇÃO- MAIO LARANJA",
+    "syllabus": "1. Introdução ao Maio Laranja; 2.18 de Maio: Dia Nacional de Combate ao Abuso e à Exploração Sexual de Crianças e Adolescentes; 3. Conceito de abuso sexual infantil; 4. Conceito de exploração sexual infantil; 5. Diferença entre abuso e exploração sexual; 6. Direitos da criança e do adolescente;  7. Impactos físicos, psicológicos e sociais da violência;  8. Procedimentos diante de suspeitas ou denúncias; 9. Canais oficiais de denúncia; 10. Importância da denúncia e do combate à violência; 11. Conscientização e cultura de proteção; 12. Ações preventivas. PO - OPE - 02R08 Rev.08 Data: 12/03/2026",
+    "hours": null,
+    "source": {
+      "workbook": "FMG-GP-01-05R12 LISTA DE PRESENÇA.xls",
+      "sheet": "PROCEDIMENTO DE ANDAIME",
+      "hoursCertificate": null
+    }
+  },
+  {
+    "id": "ppl-course-certificates-14",
+    "title": "NR 10- SEGURANÇA EM INSTALAÇÕES E SERVIÇOS EM ELETRICIDADE",
+    "syllabus": "1.INTRODUÇÃO À SEGURANÇA COM ELETRICIDADE.;2. RISCOS EM INSTALAÇÕES E SERVIÇOS COM ELETRICIDADE: a) O choque elétrico, mecanismos e efeitos; b) Arcos elétricos; queimaduras e quedas;c) Campos eletromagnéticos; 3. TÉCNICAS DE ANÁLISE DE RISCO.4. MEDIDAS DE CONTROLE DO RISCO ELÉTRICO: a) Desenergizarão. b) Aterramento funcional (TN / TT / IT); de proteção; temporário; c) Equipotencialização; d) Seccionamento automático da alimentação;e) Dispositivos a corrente de fuga;e) Extra baixa tensão; g) Barreiras e invólucros;h) Bloqueios e impedimentos;i) Obstáculos e anteparos; j) Isolamento das partes vivas; k) Isolação dupla ou reforçada; 5. NORMAS TÉCNICAS BRASILEIRAS – NBR DA ABNT: NBR-5410, NBR 14039 E OUTRAS;6. REGULAMENTAÇÕES DO MTE: a)NRs; b) NR-10 (Segurança em Instalações e Serviços com Eletricidade); c) qualificação; habilitação; capacitação e autorização .",
+    "hours": 20,
+    "source": {
+      "workbook": "CERTIFICADO - MODELO.xlsm",
+      "sheet": "CERTIFICADO - NR 10",
+      "hoursCertificate": "CERTIFICADO - NR 10"
+    }
+  },
+  {
+    "id": "ppl-course-certificates-17",
+    "title": "MONTADOR DE ANDAIME",
+    "syllabus": "Teoria: Definições de Andaimes; Material Utilizado na Montagem;Tipos de andaime; Normas Aplicáveis ao Andaime; Procedimentos de Montagem; Segurança na Montagem; EPI’s Utilizados na Montagem; Cuidados na Montagem; Fase da Atividade x Risco x Medidas de controle; NR-18 iten18. 15; Segurança em Trabalho em Altura NR-35;NLegislação; Maiores Risco; Prevenção de Acidentes; EPI’s e Ferramentas; Armazenamento de equipamentos; Regras para usuários de andaimes; Check-list; PTA- Permissão para Trabalho em altura; Capacitação de peso calculo de materiais; Qualidade, Produtiva e normativa; Tipos, classificação, utilização e recomendação de uso. Prático: Montagem e desmontagem de andaimes, Verificação do solo e avaliação do local, Prumo, alinhamento e nivelamento, Fixação de elementos estruturais como diagonais, longitudinais e travessas, Instalação de passarelas, rodapés e guardas-corpos\nProcedimentos de segurança em altura",
+    "hours": 20,
+    "source": {
+      "workbook": "CERTIFICADO - MODELO.xlsm",
+      "sheet": "CERTIFICADO MONTADOR DE ANDAIME",
+      "hoursCertificate": "CERTIFICADO MONTADOR DE ANDAIME"
+    }
+  }
+]

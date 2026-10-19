@@ -1,12 +1,14 @@
 (()=>{
- let context,logged=false,tab='records',modules=null,view=0,owner=false;
+ let context,logged=false,tab='records',modules=null,view=0,owner=false,dossierEmployee='';
  const status=document.querySelector('#status'),workspace=document.querySelector('#management-workspace'),content=document.querySelector('#management-content');
  async function dashboard(){if(!logged)return;const expected=++view;modules?.destroy();modules=null;content.replaceChildren();status.textContent='Carregando registros…';document.querySelectorAll('[data-module]').forEach(b=>b.classList.toggle('selected',b.dataset.module===tab));try{
   if(tab==='records'){await PRRecords('#management-content',{companyId:context.company.id});}
+  else if(tab==='dossier'){modules=PRStaffDossier.create({host:content,company:context.company,employees:context.employees});await modules.open(dossierEmployee);}
   else if(['permit','certificate','service-order'].includes(tab)){modules=PRPPLDocuments.create({host:content,company:context.company,employees:context.employees,owner});await modules.open(tab);}
   else{modules=PRManagementModules.create({host:content,company:context.company,employees:context.employees,owner});await modules.open(tab);}
   if(logged&&expected===view)status.textContent='';
  }catch(e){if(logged&&expected===view)status.textContent=e.message;}}
+ window.addEventListener('prs-open-dossier',event=>{if(!logged)return;dossierEmployee=event.detail?.employeeId||'';tab='dossier';dashboard();});
  document.querySelectorAll('[data-module]').forEach(b=>b.onclick=()=>{tab=b.dataset.module;dashboard();});
  document.querySelector('#refresh').onclick=dashboard;
  document.querySelector('#logout').onclick=()=>{logged=false;++view;modules?.destroy();modules=null;PR.logout();workspace.hidden=true;content.replaceChildren();document.querySelector('#login-box').hidden=false;status.textContent='Sessão encerrada.';};
