@@ -5030,6 +5030,6 @@ const ADDITIONAL_MODELS=[
   }
 ];
 const MODEL_REGISTRY=[MODEL,...ADDITIONAL_MODELS];
-function getModel(id){return MODEL_REGISTRY.find(m=>m.id===id);}
+function getModel(id){const available=window.PRContext?.models?.find(m=>m.active&&m.snapshot.id===id&&m.kind===window.PRContext.kind);return available?.snapshot||MODEL_REGISTRY.find(m=>m.id===id);}
 function knownSnapshot(snapshot){if(snapshot?.id===MODEL.id&&MODEL_VERSIONS[snapshot.version])return {...MODEL,version:snapshot.version,types:MODEL_VERSIONS[snapshot.version]};return MODEL_REGISTRY.find(m=>m.id===snapshot?.id&&m.version===snapshot?.version);}
 function equipmentLabel(r){return r.equipmentType?.name||r.model.equipmentName||'Cinto de segurança tipo Y com talabarte';}
