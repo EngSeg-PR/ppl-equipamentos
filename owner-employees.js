@@ -52,6 +52,8 @@ window.PREmployees=(()=>{
   }
   function edit(person){
    if(!current())return;
+   if(dirty&&!confirm('Há um novo cadastro não salvo. Deseja descartá-lo para editar este funcionário?'))return;
+   dirty=false;
    dialog=document.createElement('dialog');dialog.className='platform-box owner-dialog employee-dialog';dialog.innerHTML=`<h2>Editar funcionário</h2><p>Altere os dados necessários. O vínculo com os documentos já emitidos será mantido.</p><form><fieldset>${controls(person,'employee-edit')}</fieldset><p role="status" data-form-status></p><div class="owner-actions"><button type="submit">Salvar alterações</button><button type="button" data-cancel>Cancelar</button></div></form>`;
    document.body.append(dialog);const f=dialog.querySelector('form');wire(f,person);dialog.querySelector('[data-cancel]').onclick=()=>dialog.close();dialog.addEventListener('cancel',event=>{if(f.dataset.saving==='true')event.preventDefault();});dialog.addEventListener('close',()=>{dialog.remove();dialog=null;});dialog.showModal();
   }

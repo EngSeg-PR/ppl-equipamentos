@@ -86,9 +86,9 @@ BEGIN
  PERFORM set_config('prs.employee_actor',p_actor::text,true);
  IF p_employee_id IS NULL THEN
   INSERT INTO public.ppl_employees(company_id,name,employee_number,job_title,job_description,cpf,job_id)
-   VALUES(p_company_id,btrim(p_name),btrim(p_employee_number),job.title,btrim(coalesce(p_job_description,'')),coalesce(p_cpf,''),job.id) RETURNING * INTO person;
+   VALUES(p_company_id,btrim(p_name),btrim(p_employee_number),normalized_title,btrim(coalesce(p_job_description,'')),coalesce(p_cpf,''),job.id) RETURNING * INTO person;
  ELSE
-  UPDATE public.ppl_employees SET name=btrim(p_name),employee_number=btrim(p_employee_number),job_title=job.title,
+  UPDATE public.ppl_employees SET name=btrim(p_name),employee_number=btrim(p_employee_number),job_title=normalized_title,
    job_description=btrim(coalesce(p_job_description,'')),cpf=coalesce(p_cpf,''),job_id=job.id
    WHERE id=p_employee_id AND company_id=p_company_id RETURNING * INTO person;
  END IF;
