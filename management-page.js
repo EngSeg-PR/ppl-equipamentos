@@ -2,7 +2,7 @@
  let context,logged=false,tab='records',modules=null,view=0,owner=false,dossierEmployee='';
  const status=document.querySelector('#status'),workspace=document.querySelector('#management-workspace'),content=document.querySelector('#management-content');
  async function dashboard(){if(!logged)return;const expected=++view;modules?.destroy();modules=null;content.replaceChildren();status.textContent='Carregando registros…';document.querySelectorAll('[data-module]').forEach(b=>b.classList.toggle('selected',b.dataset.module===tab));try{
-  if(tab==='records'){await PRRecords('#management-content',{companyId:context.company.id});}
+  if(tab==='records'){const panel=await PRRecords('#management-content',{companyId:context.company.id,employees:context.employees,isCurrent:()=>logged&&expected===view});if(!logged||expected!==view){panel?.destroy();return;}modules=panel;}
   else if(tab==='dossier'){modules=PRStaffDossier.create({host:content,company:context.company,employees:context.employees});await modules.open(dossierEmployee);}
   else if(['permit','certificate','service-order'].includes(tab)){modules=PRPPLDocuments.create({host:content,company:context.company,employees:context.employees,owner});await modules.open(tab);}
   else{modules=PRManagementModules.create({host:content,company:context.company,employees:context.employees,owner});await modules.open(tab);}
