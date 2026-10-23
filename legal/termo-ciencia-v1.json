@@ -1,0 +1,26 @@
+{
+  "title": "Termo de ciência sobre dados pessoais",
+  "version": "1.0",
+  "date": "22/10/2026",
+  "contact": "prs.reis098@gmail.com",
+  "intro": "Referente à plataforma PRS. REIS e à Política de Privacidade versão 1.0, de 22/10/2026. Este modelo permite documentar o recebimento de informações; não é uma autorização genérica de uso de dados nem renúncia a direitos.",
+  "items": [
+    "Recebi ou tive acesso à política e fui informado de que meus dados profissionais e os registros que realizo podem compor documentos, evidências e indicadores de SSMA da empresa relacionada.",
+    "Estou ciente de que o fluxo atual pode registrar minha foto ao vivo e assinatura desenhada. Não há reconhecimento facial automático, e a necessidade dessa coleta deve ser avaliada pela empresa responsável. Posso solicitar esclarecimentos sobre a finalidade e alternativas cabíveis.",
+    "Sei que o preenchimento não exige conta e que a seleção atual de colaboradores disponibiliza, sem login no contexto da empresa, nome, matrícula, função e descrição do cargo. O CPF não integra essa consulta pública. Os PDFs centrais de gestão exigem acesso autorizado.",
+    "Fui informado de que gestores autorizados e a administração técnica podem acessar os registros conforme suas atribuições. Cópias exportadas ou compartilhadas exigem proteção por quem as guarda.",
+    "Compreendo que registros offline podem permanecer neste aparelho até o envio. Antes de limpar o navegador, trocar de endereço ou descartar o aparelho, devo sincronizar ou exportar as pendências e conferir a cópia central.",
+    "Posso solicitar informação, acesso e correção, além das demais providências legalmente cabíveis, pelo canal prs.reis098@gmail.com ou junto à empresa controladora. A retenção de documentos poderá observar obrigações específicas, mediante justificativa.",
+    "Esta ciência não substitui consentimento específico quando ele for necessário. Não autoriza publicidade, comercialização de meus dados ou acesso indiscriminado a informações de saúde. Não limita o exercício dos meus direitos."
+  ],
+  "notice": "Modelo para leitura e eventual assinatura física ou coleta em processo próprio. A simples visita a esta página não registra ciência no servidor. A confirmação digital versionada e vinculada ao usuário/registro ainda precisa ser implementada; não há assinatura certificada neste modelo.",
+  "fields": [
+    "Empresa",
+    "Nome do titular",
+    "Matrícula ou identificação profissional",
+    "Local e data",
+    "Assinatura do titular"
+  ],
+  "responsible": "Paulo Ricardo Santos Reis",
+  "address": "Rua das Patativas, nº 23, Monte Castelo, São Luís/MA, CEP 65031-790"
+}
