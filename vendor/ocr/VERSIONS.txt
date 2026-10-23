@@ -1,0 +1,7 @@
+Tesseract.js 7.0.0
+Official package: https://registry.npmjs.org/tesseract.js/-/tesseract.js-7.0.0.tgz
+Package integrity: sha512-exPBkd+z+wM1BuMkx/Bjv43OeLBxhL5kKWsz/9JY+DXcXdiBjiAch0V49QR3oAJqCaL5qURE0vx9Eo+G5YE7mA==
+The distributed tesseract.min.js and worker.min.js match this package byte for byte.
+Their corresponding .LICENSE.txt notices were restored from that same package.
+The existing core, WASM and trained language assets were not replaced.
+Verified: 2026-10-23
