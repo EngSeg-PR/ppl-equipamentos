@@ -279,7 +279,7 @@ void main() {
     addTearDown(c.dispose);
     await tester.pumpWidget(TriagemApp(inicio: InicioHistorico(controller: c)));
     await tester.pumpAndSettle();
-    expect(find.text('Avaliações com histórico'), findsOneWidget);
+    expect(find.text('Acesse sua conta'), findsOneWidget);
     await tester.enterText(
         find.byKey(const Key('login-email')), 'operador@teste.invalid');
     await tester.enterText(find.byKey(const Key('login-senha')), 'teste');

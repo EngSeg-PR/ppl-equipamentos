@@ -4,7 +4,7 @@
   const note = document.createElement('div');
   note.setAttribute('role', 'status');
   note.textContent = 'Preparando os recursos para uso sem conexão…';
-  Object.assign(note.style, {position:'fixed',left:'12px',right:'12px',bottom:'10px',zIndex:'9999',padding:'10px 14px',borderRadius:'10px',background:'#142d45',color:'#fff',font:'13px system-ui,sans-serif',pointerEvents:'none'});
+  Object.assign(note.style, {position:'fixed',left:'12px',right:'12px',bottom:'max(10px, env(safe-area-inset-bottom))',maxWidth:'520px',margin:'0 auto',zIndex:'9999',padding:'10px 14px',borderRadius:'10px',background:'#10376d',color:'#fff',font:'13px system-ui,sans-serif',pointerEvents:'none'});
   document.body.append(note);
   navigator.serviceWorker.register('../sw.js').then(registration => {
     const pending = registration.installing || registration.waiting;

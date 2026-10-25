@@ -1,13 +1,20 @@
 {
-    "name": "Triagem de atenção · Ensaio interno",
-    "short_name": "Triagem · Ensaio",
-    "lang": "pt-BR",
-    "start_url": ".",
-    "display": "standalone",
-    "background_color": "#F2F5F8",
-    "theme_color": "#142D45",
-    "description": "Demonstração interna PRS. REIS. Dados temporários nesta execução.",
-    "orientation": "any",
-    "prefer_related_applications": false,
-    "icons": []
+  "name": "Avaliações de atenção · PRS. REIS",
+  "short_name": "PRS. REIS",
+  "lang": "pt-BR",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#F3F6FA",
+  "theme_color": "#10376D",
+  "description": "Avaliações de atenção com histórico no aparelho e envio à plataforma PRS. REIS.",
+  "orientation": "any",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "prs-reis.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
 }

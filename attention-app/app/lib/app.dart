@@ -4,10 +4,11 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:triagem_core/triagem_core.dart';
 
 import 'features/ensaio/ensaio_controller.dart';
+import 'brand.dart';
 
-const _azul = Color(0xFF142D45);
-const _turquesa = Color(0xFF087E83);
-const _fundo = Color(0xFFF2F5F8);
+const _azul = azulMarca;
+const _turquesa = azulMarca;
+const _fundo = fundoMarca;
 
 class TriagemApp extends StatelessWidget {
   const TriagemApp({super.key, this.controller, this.inicio});
@@ -17,7 +18,7 @@ class TriagemApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'Triagem de atenção · Ensaio interno',
+        title: 'Avaliações de atenção · PRS. REIS',
         debugShowCheckedModeBanner: false,
         locale: const Locale('pt', 'BR'),
         supportedLocales: const [Locale('pt', 'BR')],

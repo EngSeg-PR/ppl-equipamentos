@@ -1,0 +1,4 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+  <item><shape><solid android:color="#FFFFFF" /></shape></item>
+  <item android:width="45dp" android:height="60dp" android:gravity="center" android:drawable="@drawable/prs_reis" />
+</layer-list>

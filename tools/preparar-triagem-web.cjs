@@ -5,7 +5,7 @@ if(!fs.existsSync(path.join(source,'main.dart.js')))throw Error('Compile o app F
 fs.cpSync(source,target,{recursive:true});
 const indexFile=path.join(target,'index.html');let html=fs.readFileSync(indexFile,'utf8');
 if(!html.includes('<base href="/">'))throw Error('Base do build inesperada; confira a configuração de hospedagem.');
-html=html.replace('<base href="/">','<base href="/ppl-equipamentos/triagem/">').replace('</body>','<script src="../attention-offline.js?v=51" defer></script></body>');fs.writeFileSync(indexFile,html);
+html=html.replace('<base href="/">','<base href="/ppl-equipamentos/triagem/">').replace('</body>','<script src="../attention-offline.js?v=52" defer></script></body>');fs.writeFileSync(indexFile,html);
 const walk=folder=>fs.readdirSync(folder,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?walk(path.join(folder,entry.name)):[path.join(folder,entry.name)]);
 const files=walk(target).map(file=>path.relative(root,file).replaceAll(path.sep,'/')).filter(file=>!file.includes('skwasm')&&!file.endsWith('.symbols')&&!file.endsWith('.map')&&!path.basename(file).startsWith('.'));
 files.push('attention-offline.js');
