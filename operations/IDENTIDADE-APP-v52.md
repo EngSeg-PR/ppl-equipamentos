@@ -9,7 +9,7 @@ A interface de avaliações de atenção usa as duas artes PRS. REIS fornecidas 
 - Nome e descrição do app corrigidos: removidas referências antigas a demonstração e dados temporários.
 - Contexto da empresa acomoda nomes longos com rolagem limitada; histórico usa cartões de altura variável, datas brasileiras e detalhes com fechamento acessível.
 - Grade conserva sequência, toques e tempo; cabeçalho flexível, números ampliáveis e indicação de foco no teclado.
-- Cache estático atualizado para52, API e protocolo permanecem51/sequencia-v1. Nenhuma migração ou alteração de dados do servidor.
+- Cache estático atualizado para53, API e protocolo permanecem51/sequencia-v1. Nenhuma migração ou alteração de dados do servidor.
 
 ## Verificação
 
@@ -19,4 +19,9 @@ Navegador: capturas conferidas nas cinco dimensões após carregar as imagens. T
 
 Empacotamento: `node tools/preparar-triagem-web.cjs`. Cache: `node tests/attention51-cache.cjs` (198 recursos existentes e sem duplicação, abertura offline na rota correta e POSTs fora do cache). Regressão visual: `tests/brand52-ui.cjs`; fluxo completo: `tests/attention51-e2e.cjs`.
 
-Publicação na rota existente: https://engseg-pr.github.io/ppl-equipamentos/triagem/. Conferir HTTPS, hash do JavaScript e tela real depois de enviar. Cache52 não altera as filas e o repositório protegido de avaliações. Homologação de APK, Safari e aparelhos reais continua pendente.
+Publicação na rota existente: https://engseg-pr.github.io/ppl-equipamentos/triagem/. Conferir HTTPS, hash do JavaScript e tela real depois de enviar. Cache53 não altera as filas e o repositório protegido de avaliações. Homologação de APK, Safari e aparelhos reais continua pendente.
+
+## Correção de inicialização
+
+A conferência com cache existente revelou que o bootstrap padrão do Flutter tentava registrar um segundo service worker obsoleto, cujo encerramento recarregava a página. O bootstrap explícito usa somente o service worker da plataforma. O cache53 distribui esta correção e preserva as avaliações, as sessões e os PDFs locais.
+`tests/brand53-offline.cjs` passou com service worker real: atualização52→53, apenas um worker da plataforma, sem recarregamento repetido, abertura offline e armazenamento local de teste preservado.
