@@ -8,7 +8,7 @@ Novo app Flutter0.2.0 com preparação pelo supervisor, seleção do colaborador
 
 API completa baseada na48, com ações autenticadas e migração incremental em `supabase/triagem-v51`. O servidor revalida os eventos, calcula métricas, verifica empresa/escopo e preserva snapshots e resultados imutáveis. Gestão e proprietário têm consulta com filtros e detalhes; o dossiê oferece atalho.
 
-O app web é gerado a partir da pasta vizinha `triagem-atencao/app` e empacotado por `tools/preparar-triagem-web.cjs`. A rota pública é `triagem/`. O cache51 prepara os recursos estáticos do app e preserva o armazenamento de inspeções e avaliações. POSTs e dados privados não entram no cache estático.
+As fontes canônicas estão em `attention-app/app` e `attention-app/packages/core`, versionadas junto da plataforma. O app web é empacotado por `tools/preparar-triagem-web.cjs`. A rota pública é `triagem/`. O cache51 prepara os recursos estáticos do app e preserva o armazenamento de inspeções e avaliações. POSTs e dados privados não entram no cache estático.
 
 ## Verificações
 
@@ -24,7 +24,7 @@ Todos os dados sintéticos ficaram em testes locais. Nada foi inserido como aval
 
 Migração confirmada no SQL Editor do projeto existente. Leitura de produção:0 avaliações, RLStrue e função pronta. Fonte remota anterior da função conferida contra a base48 antes da substituição; cópia privada preservada em `work/`. A nova função respondeu HTTP401 sem login com cabeçalho de versão51.
 
-A publicação da interface e a verificação HTTPS são registradas no estado desta conversa. Esta entrega preserva código e não constitui novo backup completo de banco/Auth/Storage.
+A interface foi publicada e conferida por HTTPS: app, scripts, cache51 e menus retornaram200, e o SHA256 de `triagem/main.dart.js` coincidiu com o build verificado. A tela de entrada real foi aberta sem inserir dados. O primeiro acesso com cache50 exigiu recarregar uma vez para assumir a nova rota. Esta entrega preserva código e não constitui novo backup completo de banco/Auth/Storage.
 
 ## Limites
 

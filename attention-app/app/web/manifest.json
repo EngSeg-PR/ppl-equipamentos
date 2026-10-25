@@ -1,0 +1,13 @@
+{
+    "name": "Triagem de atenção · Ensaio interno",
+    "short_name": "Triagem · Ensaio",
+    "lang": "pt-BR",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#F2F5F8",
+    "theme_color": "#142D45",
+    "description": "Demonstração interna PRS. REIS. Dados temporários nesta execução.",
+    "orientation": "any",
+    "prefer_related_applications": false,
+    "icons": []
+}

@@ -3,7 +3,7 @@
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const {chromium}=require(process.env.PRS_PLAYWRIGHT_MODULE||'playwright');
 const {createHarness,ids}=require('./attention51-server.cjs');
-const root=path.resolve(__dirname,'..'),web=path.resolve(root,'../triagem-atencao/app/build/web'),out=path.resolve(root,'../../work/qa-attention51-e2e');
+const root=path.resolve(__dirname,'..'),web=path.resolve(root,'attention-app/app/build/web'),out=path.resolve(root,'../../work/qa-attention51-e2e');
 const endpoint=fs.readFileSync(path.join(root,'cloud-config.js'),'utf8').match(/url:'([^']+)'/)[1];
 const types={'.html':'text/html;charset=utf-8','.js':'text/javascript','.json':'application/json','.wasm':'application/wasm','.png':'image/png','.css':'text/css','.ttf':'font/ttf','.otf':'font/otf'};
 async function main(){

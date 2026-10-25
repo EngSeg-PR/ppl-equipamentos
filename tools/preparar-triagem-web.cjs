@@ -1,6 +1,6 @@
 /* Reproducible packaging of the canonical Flutter build into the existing site. */
 const fs=require('node:fs'),path=require('node:path');
-const root=path.resolve(__dirname,'..'),source=path.resolve(root,'../triagem-atencao/app/build/web'),target=path.join(root,'triagem');
+const root=path.resolve(__dirname,'..'),source=path.resolve(root,'attention-app/app/build/web'),target=path.join(root,'triagem');
 if(!fs.existsSync(path.join(source,'main.dart.js')))throw Error('Compile o app Flutter para web antes de preparar a publicação.');
 fs.cpSync(source,target,{recursive:true});
 const indexFile=path.join(target,'index.html');let html=fs.readFileSync(indexFile,'utf8');
@@ -11,7 +11,7 @@ const files=walk(target).map(file=>path.relative(root,file).replaceAll(path.sep,
 files.push('attention-offline.js');
 let sw=fs.readFileSync(path.join(root,'sw.js'),'utf8');
 const declaration='const ATTENTION_STATIC='+JSON.stringify(files)+';';
-if(sw.includes('const ATTENTION_STATIC='))sw=sw.replace(/^const ATTENTION_STATIC=.*;$/m,declaration);
+if(sw.includes('const ATTENTION_STATIC='))sw=sw.replace(/^const ATTENTION_STATIC=.*;\r?$/m,declaration);
 else sw=declaration+'\n'+sw;
 if(!sw.includes('addAll([...ATTENTION_STATIC,'))sw=sw.replace('addAll([','addAll([...ATTENTION_STATIC,');
 const hook="const base=new URL(self.registration.scope);if(url.pathname.startsWith(base.pathname+'_pdf/')";
