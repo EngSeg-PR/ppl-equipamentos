@@ -14,7 +14,15 @@ window.PRAttentionHistory = (() => {
   const state = value => value === 'completa' ? 'Completa' : 'Incompleta';
   const followupState = value => ({sem_acompanhamento:'Sem acompanhamento',aberta:'Aberto',em_andamento:'Em andamento',concluida:'Concluído'}[value] || 'Sem acompanhamento');
 
-  function create({ host, company, companies = [company], employees = [], isCurrent = () => true }) {
+  const classification = metrics => {
+    const c=metrics?.classification;
+    if(!c)return '<p class="platform-note">Classificação indisponível para este protocolo.</p>';
+    const label=c.level || (c.state==='base_em_formacao'?'Base em formação':c.state==='qualidade_insuficiente'?'Qualidade técnica insuficiente':'Referência insuficiente');
+    const fields={mediana_reacao_ms:'Reação mediana',lentos10_media_ms:'Média dos 10% mais lentos',dp_reacao_ms:'Desvio dos tempos',lapsos:'Lapsos',omissoes:'Omissões',antecipacoes:'Antecipações',comissoes:'Comissões',declinio_ms:'Declínio entre quartos'};
+    return `<section class="attention-classification"><h3>Classificação experimental: ${E(label)}</h3>${c.state==='nao_interpretavel'?'<p>Avaliação não interpretável. O rótulo refere-se à aplicação do teste e não presume intenção ou culpa.</p>':''}<p>${E(c.guidance)}</p><ul>${(c.reasons||[]).map(r=>`<li>${E(r)}</li>`).join('')}</ul><p class="platform-note">Pontos de corte sujeitos à validação pela equipe de saúde/estatística. Não é diagnóstico, liberação para trabalho ou probabilidade de acidente.</p><details><summary>Como foi calculado</summary><p>Regra ${E(c.ruleVersion)} · ${E(c.formulaVersion)}. z = (valor atual − média de referência) / desvio-padrão populacional da referência. Piora positiva; maior z entre parâmetros e referências.</p><p>Normal: z ≤ ${E(c.config?.z1)}; Limítrofe: até ${E(c.config?.z2)}; Alterado: até ${E(c.config?.z3)}; Significativamente Alterado: acima de ${E(c.config?.z3)}. Os percentuais de Gauss não são quotas.</p>${c.individualCount!==undefined?`<p>Base individual ${E(c.individualCount)} / ${E(c.config?.individualMinimum)}; populacional ${E(c.populationCount)} / ${E(c.config?.populationMinimum)}, ${E(c.populationPeople)} pessoas. Habituação: ${E(c.habituation)} testes elegíveis. O teste atual e a sequência numérica não entram nas referências.</p>`:''}<ul>${(c.scores||[]).map(s=>`<li>${E(s.reference)} · ${E(fields[s.parameter]||s.parameter)}: valor ${E(number(s.value))}, média ${E(number(s.mean))}, DP ${E(number(s.sd))}, z ${E(s.z===null?'não comparável':number(s.z))}.</li>`).join('')}</ul></details></section>`;
+  };
+
+  function create({ host, company, companies = [company], employees = [], canConfigure = false, isCurrent = () => true }) {
     if (!host || !company?.id) throw Error('Empresa ou área de consulta indisponível.');
     let alive = true, listToken = 0, detailToken = 0, rows = [], nextOffset = null, dialog = null, summary = null;
     const current = () => alive && isCurrent();
@@ -108,14 +116,16 @@ window.PRAttentionHistory = (() => {
       query('[data-attention-count]').textContent = rows.length + ' de ' + (summary ? number(summary.total) : '—') + ' avaliação(ões) carregada(s).';
       query('[data-attention-results]').innerHTML = rows.map((row, index) => {
         const metrics = row.metrics;
-        const targets = numeric(metrics.acertos) && numeric(metrics.total_alvos)
+        const visual = row.protocol_version === 'visual-v1';
+        const targets = visual ? number(metrics.encerrados) + ' / ' + number(metrics.previstos) : numeric(metrics.acertos) && numeric(metrics.total_alvos)
           ? number(metrics.acertos) + ' / ' + number(metrics.total_alvos) : '—';
         return `<article class="platform-card attention-card" data-attention-id="${E(row.id)}">
           <div class="attention-card-heading"><h3>${E(row.employee_name || 'Colaborador')}</h3><span class="attention-state ${row.status === 'incompleta' ? 'partial' : ''}">${state(row.status)}</span></div>
           <p>Matrícula ${E(text(row.employee_number))} · ${E(companyMap.get(row.company_id)?.name || 'Empresa deste acesso')}<br>${E(timestamp(row.started_at))} · ${E(moment(row.moment))}</p>
-          <dl class="attention-measurements compact"><div><dt>Duração</dt><dd>${E(time(row.duration_ms))}</dd></div><div><dt>Alvos concluídos</dt><dd>${E(targets)}</dd></div><div><dt>Erros de sequência</dt><dd>${E(number(metrics.erros))}</dd></div></dl>
+          <dl class="attention-measurements compact"><div><dt>Duração</dt><dd>${E(time(row.duration_ms))}</dd></div><div><dt>${visual ? 'Apresentações encerradas' : 'Alvos concluídos'}</dt><dd>${E(targets)}</dd></div><div><dt>${visual ? 'Reação mediana' : 'Erros de sequência'}</dt><dd>${E(visual ? time(metrics.mediana_reacao_ms) : number(metrics.erros))}</dd></div></dl>
           ${row.status === 'incompleta' ? '<p class="attention-partial">Avaliação encerrada antes da conclusão. As métricas são parciais.</p>' : ''}
           <p class="platform-note">Aplicativo ${E(text(row.app_version))} · protocolo ${E(text(row.protocol_version))}</p>
+          ${visual ? `<p>Classificação experimental: <strong>${E(metrics.classification?.level || (metrics.classification?.state==='base_em_formacao'?'Base em formação':metrics.classification?.state==='qualidade_insuficiente'?'Qualidade técnica insuficiente':'Referência insuficiente'))}</strong></p>` : ''}
           <p class="attention-followup-label">Acompanhamento: <strong>${E(followupState(row.followup_status))}</strong></p>
           <button type="button" data-attention-detail="${index}">Consultar avaliação</button>
         </article>`;
@@ -205,16 +215,37 @@ window.PRAttentionHistory = (() => {
         if (!active()) return;
         body.innerHTML = '<p role="status">Carregando avaliação…</p>';
         try {
-          const data = await PR.call('attention-history-detail', { companyId: row.company_id, id: row.id }, true);
+          const data = await PR.call('attention-history-detail', { companyId: row.company_id, id: row.id, visualVersion: 1 }, true);
           if (!active()) return;
           const assessment = data?.assessment;
           if (!Number.isInteger(data.moduleVersion) || data.moduleVersion < 51 ||
               !validAssessment(assessment, row.company_id) || assessment.id !== row.id ||
-              !Array.isArray(assessment.touches) || !Array.isArray(assessment.grid)) {
+              (assessment.protocol_version === 'visual-v1'
+                ? !Array.isArray(assessment.trials) || !Array.isArray(assessment.responses) || !Array.isArray(assessment.schedule)
+                : !Array.isArray(assessment.touches) || !Array.isArray(assessment.grid))) {
             throw Error('Não foi possível conferir os dados desta avaliação. Tente novamente.');
           }
           const metrics = assessment.metrics;
-          const fields = [
+          const visual = assessment.protocol_version === 'visual-v1';
+          const fields = visual ? [
+            ['Duração registrada', time(assessment.duration_ms)],
+            ['Apresentações encerradas', number(metrics.encerrados) + ' / ' + number(metrics.previstos)],
+            ['Respostas ao círculo parado', number(metrics.respostas_validas)],
+            ['Sem resposta ao círculo parado', number(metrics.omissoes)],
+            ['Toques no círculo em movimento', number(metrics.comissoes)],
+            ['Toques fora da apresentação', number(metrics.fora_estimulo)],
+            ['Toques adicionais na mesma apresentação', number(metrics.toques_extras)],
+            ['Reação mediana', time(metrics.mediana_reacao_ms)],
+            ['Média dos 10% mais rápidos', time(metrics.rapidos10_media_ms)],
+            ['Média dos 10% mais lentos', time(metrics.lentos10_media_ms)],
+            ['Lapsos (reação acima de 500 ms)',number(metrics.lapsos)],
+            ['Antecipações (fora do estímulo ou abaixo de 100 ms)',number(metrics.antecipacoes)],
+            ['Declínio: último menos primeiro quarto',number(metrics.declinio_ms)+' ms'],
+            ['Reação média', time(metrics.media_reacao_ms)],
+            ['Desvio dos tempos de reação', time(metrics.dp_reacao_ms)],
+            ['Percentil 10', time(metrics.p10_reacao_ms)], ['Percentil 90', time(metrics.p90_reacao_ms)],
+            ['Maior atraso de apresentação/fechamento observado', time(metrics.maior_atraso_ms)],
+          ] : [
             ['Duração registrada', time(assessment.duration_ms)],
             ['Tempo até o primeiro toque', time(metrics.tempo_primeiro_toque_ms)],
             ['Alvos concluídos', number(metrics.acertos)], ['Total de alvos', number(metrics.total_alvos)],
@@ -228,9 +259,9 @@ window.PRAttentionHistory = (() => {
             <p>Matrícula ${E(text(assessment.employee_number))} · ${E(text(assessment.job_title))}<br>${E(companyMap.get(assessment.company_id)?.name || 'Empresa deste acesso')} · ${E(text(assessment.unit))} / ${E(text(assessment.team))}</p>
             ${assessment.status === 'incompleta' ? '<p class="attention-partial">Avaliação incompleta. Os valores abaixo representam somente o trecho registrado.</p>' : ''}
             <dl class="attention-metadata"><div><dt>Iniciada em</dt><dd>${E(timestamp(assessment.started_at))}</dd></div><div><dt>Encerrada em</dt><dd>${E(timestamp(assessment.finished_at))}</dd></div><div><dt>Momento</dt><dd>${E(moment(assessment.moment))}</dd></div><div><dt>Recebida na plataforma</dt><dd>${E(timestamp(assessment.received_at))}</dd></div><div><dt>Versão do aplicativo</dt><dd>${E(text(assessment.app_version))}</dd></div><div><dt>Versão do protocolo</dt><dd>${E(text(assessment.protocol_version))}</dd></div></dl>
-            <h3>Métricas registradas</h3><dl class="attention-measurements">${fields.map(([label, result]) => `<div><dt>${E(label)}</dt><dd>${E(result)}</dd></div>`).join('')}</dl>
-            <h3>Tempo por bloco da sequência</h3><dl class="attention-measurements quartiles">${[0, 1, 2, 3].map(index => `<div><dt>Bloco ${index + 1}</dt><dd>${E(time(quartiles[index]))}</dd></div>`).join('')}</dl><p class="platform-note">Um bloco não concluído aparece como —. Estes registros não representam liberação para condução.</p>
-            <details class="attention-touches"><summary>Consultar toques registrados (${touches.length})</summary><div class="table-scroll"><table class="platform-table"><thead><tr><th>Ordem</th><th>Instante</th><th>Número tocado</th><th>Esperado</th><th>Registro</th></tr></thead><tbody>${touches.map(touch => `<tr><td>${E(number(touch.seq))}</td><td>${E(time(touch.tMs))}</td><td>${E(number(touch.touched))}</td><td>${E(number(touch.expected))}</td><td>${touch.correct === true ? 'Acerto' : touch.correct === false ? 'Erro' : '—'}</td></tr>`).join('')}</tbody></table></div>${touches.length ? '' : '<p>Nenhum toque informado nesta avaliação.</p>'}</details>
+            ${visual ? classification(metrics) : ''}<h3>Métricas registradas</h3><dl class="attention-measurements">${fields.map(([label, result]) => `<div><dt>${E(label)}</dt><dd>${E(result)}</dd></div>`).join('')}</dl>
+            ${visual ? `<h3>Reação média por quarto da avaliação</h3><dl class="attention-measurements quartiles">${[0,1,2,3].map(i=>`<div><dt>Bloco ${i+1}</dt><dd>${E(time(metrics.quartos_media_ms?.[i]))}</dd></div>`).join('')}</dl><p class="platform-note">Protocolo visual em validação. Valores observados, sem diagnóstico ou liberação para condução. Não há compensação da latência física da tela ou do toque.</p><p>${E(assessment.interruption || '')}</p><details class="attention-touches"><summary>Apresentações registradas (${assessment.trials.length})</summary><div class="table-scroll"><table class="platform-table"><thead><tr><th>Ordem</th><th>Estímulo</th><th>Exibido</th><th>Encerrado</th></tr></thead><tbody>${assessment.trials.map(t=>`<tr><td>${E(t.seq)}</td><td>${assessment.schedule[t.seq-1]?.kind==='go'?'Parado':'Em movimento'}</td><td>${E(time(t.shownMs))}</td><td>${E(time(t.closedMs))}</td></tr>`).join('')}</tbody></table></div></details><details class="attention-touches"><summary>Respostas registradas (${assessment.responses.length})</summary><div class="table-scroll"><table class="platform-table"><thead><tr><th>Ordem</th><th>Instante</th><th>Entrada</th></tr></thead><tbody>${assessment.responses.map(r=>`<tr><td>${E(r.seq)}</td><td>${E(time(r.tMs))}</td><td>${r.source==='keyboard'?'Teclado':'Toque/clique'}</td></tr>`).join('')}</tbody></table></div></details>` : `<h3>Tempo por bloco da sequência</h3><dl class="attention-measurements quartiles">${[0, 1, 2, 3].map(index => `<div><dt>Bloco ${index + 1}</dt><dd>${E(time(quartiles[index]))}</dd></div>`).join('')}</dl><p class="platform-note">Um bloco não concluído aparece como —. Estes registros não representam liberação para condução.</p>
+            <details class="attention-touches"><summary>Consultar toques registrados (${touches.length})</summary><div class="table-scroll"><table class="platform-table"><thead><tr><th>Ordem</th><th>Instante</th><th>Número tocado</th><th>Esperado</th><th>Registro</th></tr></thead><tbody>${touches.map(touch => `<tr><td>${E(number(touch.seq))}</td><td>${E(time(touch.tMs))}</td><td>${E(number(touch.touched))}</td><td>${E(number(touch.expected))}</td><td>${touch.correct === true ? 'Acerto' : touch.correct === false ? 'Erro' : '—'}</td></tr>`).join('')}</tbody></table></div>${touches.length ? '' : '<p>Nenhum toque informado nesta avaliação.</p>'}</details>`}
             <p class="platform-note attention-record-id">ID da avaliação: ${E(assessment.id)}</p><section class="attention-followup" data-attention-followup><h3>Acompanhamento pela gestão</h3><p role="status">Carregando acompanhamento…</p></section>`;
           await loadFollowup();
         } catch (error) {
@@ -293,6 +324,38 @@ window.PRAttentionHistory = (() => {
       await fetchDetail();
     }
 
+    async function configurationPanel() {
+      if(!canConfigure || !current())return;
+      let panel=query('[data-rules]');
+      if(!panel){panel=document.createElement('details');panel.dataset.rules='';panel.className='platform-box';panel.innerHTML='<summary>Configuração da classificação experimental</summary><div data-rules-body></div>';container.prepend(panel);}
+      let loaded=false;
+      panel.ontoggle=async()=>{
+        if(!panel.open){loaded=false;return;}
+        if(loaded || !current())return;
+        const area=panel.querySelector('[data-rules-body]'),cid=value('[name=companyId]');loaded=true;
+        area.innerHTML='<p role="status">Consultando configuração…</p>';
+        try{
+          const data=await PR.call('attention-rules-get',{companyId:cid},true);
+          if(!current() || cid!==value('[name=companyId]')){loaded=false;return;}
+          const cfg=data.config;
+          const fields=[['z1','Limite z para Normal',.1,10,.1],['z2','Limite z para Limítrofe',.1,10,.1],['z3','Limite z para Alterado',.1,10,.1],['habituation','Testes de habituação excluídos',0,100,1],['individualMinimum','Mínimo de testes individuais',2,100,1],['individualWindow','Janela móvel individual',2,100,1],['populationMinimum','Mínimo de testes populacionais',2,5000,1],['populationPeople','Mínimo de outras pessoas na base',2,100,1],['maxExtraResponses','Máximo de entradas fora da regra',0,500,1],['maxTimingDelayMs','Maior atraso técnico aceitável (ms)',10,1000,1],['recurrenceWindow','Janela de recorrência (testes)',2,30,1],['recurrenceMinimum','Resultados fora de Normal para recorrência',2,30,1]];
+          area.innerHTML=`<p>Revisão ${E(data.revision)}. Ajustes valem somente para novas avaliações. Os parâmetros precisam de validação pela equipe responsável; permanecem identificados como experimentais.</p><p>O nível final considera o maior z de piora entre os parâmetros e as duas bases. Referências sem amostra ou sem dispersão suficiente não recebem Normal por padrão.</p><form class="attention-filters">${fields.map(([key,label,min,max,step])=>`<label>${E(label)}<input type="number" name="${key}" min="${min}" max="${max}" step="${step}" value="${E(cfg[key])}" required></label>`).join('')}<label>Base populacional<select name="segment"><option value="job_title">Mesma função/cargo na empresa</option><option value="company">Toda a empresa</option></select></label><button type="submit">Salvar parâmetros</button><p data-rules-message role="status"></p></form><p class="platform-note">Sem mistura de empresas ou protocolos. Limiares de coleta deste protocolo: antecipação abaixo de 100 ms, lapso acima de 500 ms. Sensores e questionários de saúde permanecem desativados. Não há liberação ou bloqueio automático.</p>`;
+          const form=area.querySelector('form');form.elements.segment.value=cfg.segment;
+          form.onsubmit=async event=>{
+            event.preventDefault();const button=form.querySelector('button'),message=form.querySelector('[data-rules-message]');
+            if(button.disabled)return;
+            const config={...cfg,segment:form.elements.segment.value};for(const [key]of fields)config[key]=Number(form.elements[key].value);
+            button.disabled=true;message.textContent='Salvando configuração…';
+            try{const result=await PR.call('attention-rules-save',{companyId:cid,config,expectedRevision:data.revision},true);
+              if(!current() || cid!==value('[name=companyId]'))return;
+              data.revision=result.revision;Object.assign(cfg,result.config);message.textContent='Parâmetros salvos na revisão '+result.revision+'. Avaliações anteriores mantêm sua classificação original.';
+            }catch(error){if(current())message.textContent=error.message||'Não foi possível salvar. Reabra esta área para consultar a versão atual.';}
+            finally{if(current()&&form.isConnected)button.disabled=false;}
+          };
+        }catch(error){if(current())area.textContent=error.message||'Configuração indisponível.';loaded=false;}
+      };
+    }
+
     return {
       async open(employeeId = '') {
         if (!current()) return;
@@ -300,10 +363,11 @@ window.PRAttentionHistory = (() => {
           <form class="attention-filters"><label>Empresa<select name="companyId">${[...companyMap.values()].map(item => `<option value="${E(item.id)}" ${item.id === company.id ? 'selected' : ''}>${E(item.name)}</option>`).join('')}</select></label><label>Colaborador<select name="employeeId"></select></label><label>Matrícula exata<input name="employeeNumber" type="text" maxlength="160" placeholder="Todas as matrículas"></label><label>Data inicial<input name="dateFrom" type="date"></label><label>Data final<input name="dateTo" type="date"></label><label>Situação da avaliação<select name="status"><option value="">Todas</option><option value="completa">Completa</option><option value="incompleta">Incompleta</option></select></label><label>Acompanhamento<select name="followupStatus"><option value="">Todos</option><option value="sem_acompanhamento">Sem acompanhamento</option><option value="aberta">Aberto</option><option value="em_andamento">Em andamento</option><option value="concluida">Concluído</option></select></label><div class="attention-filter-actions"><button type="submit" data-attention-apply>Aplicar filtros</button><button type="button" class="secondary" data-attention-clear>Limpar filtros</button></div></form>
           <p data-attention-status role="status" aria-live="polite"></p><div data-attention-dashboard aria-label="Indicadores do Sistema Apto"></div><h3 class="attention-results-title">Avaliações recebidas</h3><p data-attention-count class="platform-note"></p><div data-attention-results></div><button type="button" data-attention-more hidden>Carregar mais avaliações</button></section>`;
         host.replaceChildren(container);
+        configurationPanel();
         personOptions(employeeId);
         query('form').onsubmit = event => { event.preventDefault(); load(); };
         container.querySelectorAll('.attention-filters input,.attention-filters select').forEach(input => {
-          input.oninput = () => invalidateFilters(input.name === 'companyId');
+          input.oninput = () => { invalidateFilters(input.name === 'companyId'); if(input.name==='companyId'){query('[data-rules]')?.remove();configurationPanel();} };
         });
         query('[data-attention-clear]').onclick = () => {
           query('[name=companyId]').value = company.id;

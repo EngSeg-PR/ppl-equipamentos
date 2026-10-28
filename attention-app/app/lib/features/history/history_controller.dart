@@ -8,10 +8,12 @@ import '../../data/local_store.dart';
 import '../../data/models.dart';
 import '../../data/portal_api.dart';
 import '../../data/employee_access.dart';
-import '../ensaio/ensaio_controller.dart' show RelogioEnsaio, RelogioStopwatch;
+import '../ensaio/ensaio_controller.dart'
+    show RelogioEnsaio, RelogioStopwatch, RelogioPreciso;
 
 enum TelaHistorico {
   inicio,
+  demonstracao,
   treino,
   pronto,
   preparando,
@@ -28,6 +30,7 @@ class HistoricoController extends ChangeNotifier {
     RelogioEnsaio? relogio,
     List<int> Function(int)? criarGrade,
     this.sincronizacaoAutomatica = true,
+    this.usarVisual = true,
   }) : relogio = relogio ?? RelogioStopwatch(),
        criarGrade = criarGrade ?? ((n) => gerarGrade(n: n));
   final RepositorioHistorico repositorio;
@@ -35,6 +38,10 @@ class HistoricoController extends ChangeNotifier {
   final RelogioEnsaio relogio;
   final List<int> Function(int) criarGrade;
   final bool sincronizacaoAutomatica;
+  final bool usarVisual;
+  VisualEngine? visual;
+  String? feedbackTreino;
+  bool _interrompidoAoPreparar = false;
   ContextoAtencao? contexto;
   List<AvaliacaoLocal> registros = [];
   bool carregandoHistorico = false;
@@ -52,7 +59,7 @@ class HistoricoController extends ChangeNotifier {
       cronometroIniciado = false,
       salvo = false;
   SequenciaEngine? _engine;
-  Timer? _timer, _retry;
+  Timer? _timer, _retry, _limiteAplicacao;
   Future<void> _escritas = Future.value();
   bool _vivo = true;
   int _epoch = 0;
@@ -249,6 +256,8 @@ class HistoricoController extends ChangeNotifier {
 
   Future<void> sair() async {
     if (emAvaliacao || ocupado || sincronizando) return;
+    _timer?.cancel();
+    _limiteAplicacao?.cancel();
     ++_epoch;
     contexto = null;
     proximoOffsetHistorico = null;
@@ -282,6 +291,36 @@ class HistoricoController extends ChangeNotifier {
     unidade = unit.trim();
     equipe = team.trim();
     momento = jornada;
+    if (usarVisual) {
+      visual = VisualEngine(planoVisual(treino: true));
+      feedbackTreino = null;
+      relogio.iniciar();
+      atual = null;
+      salvo = false;
+      erro = null;
+      tela = TelaHistorico.demonstracao;
+      _limiteAplicacao?.cancel();
+      _limiteAplicacao = Timer(const Duration(seconds: 114), () {
+        if (tela == TelaHistorico.teste) {
+          unawaited(concluir('Tempo total da aplicação atingido'));
+        } else if (tela == TelaHistorico.preparando) {
+          _interrompidoAoPreparar = true;
+        } else if ([
+          TelaHistorico.demonstracao,
+          TelaHistorico.treino,
+          TelaHistorico.pronto,
+        ].contains(tela)) {
+          _timer?.cancel();
+          relogio.parar();
+          tela = TelaHistorico.inicio;
+          aviso = 'Tempo de preparação esgotado. Reveja as instruções e recomece quando estiver pronto.';
+          _avisar();
+        }
+      });
+      _iniciarVisual();
+      _avisar();
+      return true;
+    }
     _engine = SequenciaEngine(grade: criarGrade(9), tempoMaximoMs: 3600000);
     relogio.iniciar();
     atual = null;
@@ -305,9 +344,52 @@ class HistoricoController extends ChangeNotifier {
       return;
     }
     tela = TelaHistorico.preparando;
+    _interrompidoAoPreparar = false;
     erro = null;
     _avisar();
     final now = DateTime.now().toUtc();
+    if (usarVisual) {
+      visual = VisualEngine(planoVisual());
+      cronometroIniciado = false;
+      atual = AvaliacaoLocal({
+        'id': novoId(),
+        'userId': contexto!.usuarioId,
+        'companyId': contexto!.empresaId,
+        'companyName': contexto!.nomeEmpresa,
+        'employeeId': colaborador!['id'],
+        'employeeSnapshot': {...colaborador!},
+        'unit': unidade,
+        'team': equipe,
+        'moment': momento.name,
+        'startedAt': now.toIso8601String(),
+        'checkpointAt': now.toIso8601String(),
+        'finishedAt': null,
+        'status': 'em_andamento',
+        'durationMs': 0,
+        'schedule': visual!.plano,
+        'trials': [],
+        'responses': [],
+        'technical': <String, dynamic>{},
+        'interruption': null,
+        'metrics': metricasVisuais(visual!.plano, [], [], 0),
+        'protocolVersion': protocoloVisual,
+        'appVersion': '0.3.0',
+        'syncState': SituacaoEnvio.pendente.name,
+      });
+      try {
+        await _gravar(atual!);
+        tela = TelaHistorico.teste;
+        if (_interrompidoAoPreparar) {
+          await concluir('Aplicativo saiu de foco durante a preparação');
+        }
+      } catch (e) {
+        erro = 'Não foi possível iniciar com gravação segura: $e';
+        tela = TelaHistorico.pronto;
+        atual = null;
+      }
+      _avisar();
+      return;
+    }
     _engine = SequenciaEngine(grade: criarGrade(36));
     cronometroIniciado = false;
     atual = AvaliacaoLocal({
@@ -343,10 +425,21 @@ class HistoricoController extends ChangeNotifier {
     _avisar();
   }
 
-  void iniciarCronometro() {
+  void iniciarCronometro([Map<String, dynamic>? ambiente]) {
     if (tela != TelaHistorico.teste || cronometroIniciado) return;
     relogio.iniciar();
     cronometroIniciado = true;
+    if (usarVisual) {
+      final now = DateTime.now().toUtc().toIso8601String();
+      atual = atual!.alterar({
+        'startedAt': now,
+        'checkpointAt': now,
+        'technical': ambiente ?? <String, dynamic>{},
+      });
+      _preservarVisual();
+      _iniciarVisual();
+      return;
+    }
     _timer = Timer.periodic(const Duration(milliseconds: 100), (_) {
       if (relogio.milissegundos >= 180000) {
         unawaited(concluir('Tempo máximo atingido'));
@@ -419,7 +512,19 @@ class HistoricoController extends ChangeNotifier {
   Future<void> concluir([String? motivo]) async {
     if (tela != TelaHistorico.teste) return;
     _timer?.cancel();
+    _limiteAplicacao?.cancel();
     relogio.parar();
+    if (usarVisual) {
+      atual = _checkpointVisual().alterar({
+        'status': visual!.completa ? 'completa' : 'incompleta',
+        'interruption': motivo,
+      });
+      atual = atual!.alterar({'finishedAt': atual!.json['checkpointAt']});
+      tela = TelaHistorico.salvando;
+      _avisar();
+      await tentarSalvar();
+      return;
+    }
     final result = _engine!.fechar(
       cronometroIniciado ? relogio.milissegundos : 0,
     );
@@ -455,9 +560,18 @@ class HistoricoController extends ChangeNotifier {
   }
 
   void interromper() {
+    if (tela == TelaHistorico.preparando) {
+      _interrompidoAoPreparar = true;
+      return;
+    }
     if (tela == TelaHistorico.teste) {
       unawaited(concluir('Avaliação interrompida'));
-    } else if (tela == TelaHistorico.treino) {
+    } else if ([
+      TelaHistorico.demonstracao,
+      TelaHistorico.treino,
+    ].contains(tela)) {
+      _timer?.cancel();
+      _limiteAplicacao?.cancel();
       relogio.parar();
       _engine = null;
       tela = TelaHistorico.inicio;
@@ -476,9 +590,154 @@ class HistoricoController extends ChangeNotifier {
     if (emAvaliacao || (atual != null && !salvo)) return;
     atual = null;
     _engine = null;
+    visual = null;
+    _timer?.cancel();
+    _limiteAplicacao?.cancel();
+    relogio.parar();
     tela = TelaHistorico.inicio;
     erro = null;
     _avisar();
+  }
+
+  void _iniciarVisual() {
+    _timer?.cancel();
+    _timer = Timer.periodic(
+      const Duration(milliseconds: 16),
+      (_) => atualizarVisual(),
+    );
+  }
+
+  // O relógio não depende do número de callbacks do navegador.
+  void atualizarVisual() {
+    if (usarVisual && tela == TelaHistorico.demonstracao) {
+      if (relogio.milissegundos >= 6000) {
+        tela = TelaHistorico.treino;
+        relogio.iniciar();
+        _avisar();
+      }
+      return;
+    }
+    if (!usarVisual ||
+        visual == null ||
+        ![TelaHistorico.treino, TelaHistorico.teste].contains(tela)) {
+      return;
+    }
+    final ms = relogio.milissegundos;
+    if (ms >= limiteVisualMs) {
+      if (tela == TelaHistorico.teste) {
+        unawaited(concluir('Limite de duração atingido'));
+      } else {
+        interromper();
+      }
+      return;
+    }
+    final antes = visual!.fase;
+    visual!.avancar(ms);
+    if (antes != visual!.fase && visual!.ensaios.isNotEmpty) {
+      if (tela == TelaHistorico.teste) {
+        _preservarVisual();
+      } else if (antes == FaseVisual.sinal) {
+        final m = metricasVisuais(
+          visual!.plano,
+          visual!.ensaios,
+          visual!.respostas,
+          ms,
+        );
+        feedbackTreino =
+            'Treino: ${m['respostas_validas']} respostas ao círculo parado; ${m['omissoes']} sem resposta; ${m['comissoes']} toques no círculo em movimento.';
+      }
+    }
+    if (visual!.completa) {
+      _timer?.cancel();
+      if (tela == TelaHistorico.teste) {
+        unawaited(concluir());
+      } else {
+        relogio.parar();
+        tela = TelaHistorico.pronto;
+      }
+    }
+    if (antes != visual!.fase) _avisar();
+  }
+
+  void apresentarVisual() {
+    if (visual?.fase != FaseVisual.apresentar ||
+        ![TelaHistorico.treino, TelaHistorico.teste].contains(tela)) {
+      return;
+    }
+    final us = relogio is RelogioPreciso
+        ? (relogio as RelogioPreciso).microssegundos
+        : relogio.milissegundos * 1000;
+    visual!.apresentado(us ~/ 1000, us);
+    if (tela == TelaHistorico.teste) _preservarVisual();
+    _avisar();
+  }
+
+  void responderVisual(String origem) {
+    if (!usarVisual ||
+        visual == null ||
+        ![TelaHistorico.treino, TelaHistorico.teste].contains(tela) ||
+        (tela == TelaHistorico.teste && !cronometroIniciado)) {
+      return;
+    }
+    if (relogio.milissegundos >= limiteVisualMs) {
+      atualizarVisual();
+      return;
+    }
+    final us = relogio is RelogioPreciso
+        ? (relogio as RelogioPreciso).microssegundos
+        : relogio.milissegundos * 1000;
+    visual!.responder(us ~/ 1000, origem, us);
+    if (tela == TelaHistorico.teste) _preservarVisual();
+    if (visual!.respostas.length >= 500 && tela == TelaHistorico.teste) {
+      unawaited(concluir('Limite de entradas atingido'));
+    }
+  }
+
+  void anotarMultitoque() {
+    if (atual == null || tela != TelaHistorico.teste) return;
+    atual = atual!.alterar({
+      'technical': {...objeto(atual!.json['technical']), 'multitouch': true},
+    });
+    _preservarVisual();
+  }
+
+  AvaliacaoLocal _checkpointVisual() {
+    final ms = !cronometroIniciado
+        ? 0
+        : visual!.completa
+        ? visual!.ensaios.last['closedMs'] as int
+        : relogio.milissegundos.clamp(0, limiteVisualMs).toInt();
+    return atual!.alterar({
+      'durationMs': ms,
+      'checkpointAt': atual!.inicio
+          .add(Duration(milliseconds: ms))
+          .toIso8601String(),
+      'trials': [
+        for (final e in visual!.ensaios) {...e},
+      ],
+      'responses': [
+        for (final e in visual!.respostas) {...e},
+      ],
+      'metrics': metricasVisuais(
+        visual!.plano,
+        visual!.ensaios,
+        visual!.respostas,
+        ms,
+      ),
+    });
+  }
+
+  void _preservarVisual() {
+    atual = _checkpointVisual();
+    unawaited(
+      _gravar(atual!).catchError((Object e) {
+        erro = 'Falha de gravação; mantenha esta tela aberta. $e';
+        if (tela == TelaHistorico.teste) {
+          unawaited(concluir('Interrupção por falha de armazenamento'));
+        }
+        _avisar();
+      }),
+    );
   }
 
   Future<void> sincronizar({bool manual = false}) async {
@@ -503,7 +762,8 @@ class HistoricoController extends ChangeNotifier {
           if (epoch != _epoch) break;
           if (!['ok', 'duplicada'].contains(response['status']) ||
               response['id'] != original.id ||
-              (response['moduleVersion'] as num? ?? 0) < 51) {
+              (response['moduleVersion'] as num? ?? 0) <
+                  (original.visual ? 57 : 51)) {
             throw const ErroPortal(
               'O servidor não confirmou a avaliação correta.',
               503,
@@ -513,6 +773,13 @@ class HistoricoController extends ChangeNotifier {
             'syncState': SituacaoEnvio.sincronizado.name,
             'syncError': null,
             'receivedAt': response['received_at'],
+            if (original.visual &&
+                response['assessment'] is Map &&
+                response['assessment']['id'] == original.id &&
+                response['assessment']['company_id'] == original.empresaId &&
+                response['assessment']['employee_id'] ==
+                    original.json['employeeId'])
+              'metrics': response['assessment']['metrics'],
           });
           _tentativas.remove(original.id);
           _retentarEm.remove(original.id);
@@ -553,6 +820,7 @@ class HistoricoController extends ChangeNotifier {
     _vivo = false;
     _timer?.cancel();
     _retry?.cancel();
+    _limiteAplicacao?.cancel();
     relogio.parar();
     super.dispose();
   }

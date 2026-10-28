@@ -111,7 +111,7 @@ class PortalTeste implements ServicoPortal {
     return {
       'status': old == null ? 'ok' : 'duplicada',
       'id': a.id,
-      'moduleVersion': 51,
+      'moduleVersion': a.visual ? 57 : 51,
       'received_at': '2026-10-25T12:00:00Z'
     };
   }
@@ -124,6 +124,7 @@ class Fixture {
       clock = Clock();
   late final repo = RepositorioHistorico(cofre: cofre, dados: dados);
   HistoricoController controller() => HistoricoController(
+      usarVisual: false,
       repositorio: repo,
       portal: portal,
       relogio: clock,

@@ -312,6 +312,7 @@ class ApiPortal implements ServicoPortal, AcessoColaborador {
     }
     final data = await chamar('attention-employee-history', {
       'companyId': contexto.empresaId,
+      'includeVisual': true,
       'offset': offset,
     });
     final registros = <AvaliacaoLocal>[];
@@ -339,6 +340,14 @@ class ApiPortal implements ServicoPortal, AcessoColaborador {
           'metrics': row['metrics'],
           'grid': payload['grid'],
           'touches': payload['touches'],
+          for (final key in [
+            'schedule',
+            'trials',
+            'responses',
+            'interruption',
+            'technical',
+          ])
+            key: payload[key],
           'protocolVersion': row['protocol_version'],
           'appVersion': row['app_version'],
           'syncState': SituacaoEnvio.sincronizado.name,

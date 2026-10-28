@@ -48,6 +48,7 @@ void main() {
           addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
           final f = fixture.Fixture(), portal = PortalLongo();
           final c = HistoricoController(
+            usarVisual: false,
             repositorio: f.repo,
             portal: portal,
             relogio: f.clock,

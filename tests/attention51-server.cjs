@@ -13,7 +13,8 @@ function execute(file, args) {
   if (result.error || result.status !== 0) throw Error(path.basename(file) + ': ' + (result.error || result.status));
 }
 async function createHarness(options=process.env.PRS_ACCESS55?{sourceFile:'supabase/acesso-v55/ppl-api-dashboard.ts',migrations:['supabase/executantes-v54/ATIVAR-v54.sql','supabase/acesso-v55/ATIVAR-v55.sql']}:{}) {
-  const out = path.join(workspace, 'work', 'attention51-' + Date.now()); fs.mkdirSync(out, {recursive:true});
+  if(process.env.PRS_VISUAL57)options=require('./visual57-server.cjs').harnessOptions;
+  const out = path.join(process.env.PRS_PG_WORK_ROOT || path.join(workspace, 'work'), 'attention51-' + Date.now()); fs.mkdirSync(out, {recursive:true});
   const data = path.join(out, 'data'), ctl = path.join(pgRoot, 'bin/pg_ctl.exe'), port = Number(process.env.PRS_PG_PORT || 55473);
   execute(path.join(pgRoot, 'bin/initdb.exe'), ['-D',data,'-U','postgres','-A','trust','--encoding=UTF8','--no-locale','--no-sync']);
   execute(ctl, ['-D',data,'-l',path.join(out,'server.log'),'-o',`-p ${port} -c listen_addresses=127.0.0.1`,'-w','start']);

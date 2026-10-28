@@ -82,6 +82,7 @@ class PortalPessoalTeste extends f.PortalTeste implements AcessoColaborador {
 
 HistoricoController pessoal(f.Fixture fixture, PortalPessoalTeste portal) =>
     HistoricoController(
+      usarVisual: false,
       repositorio: fixture.repo,
       portal: portal,
       relogio: fixture.clock,

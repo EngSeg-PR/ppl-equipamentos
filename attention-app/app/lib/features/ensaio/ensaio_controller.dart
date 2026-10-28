@@ -12,11 +12,17 @@ abstract interface class RelogioEnsaio {
   void parar();
 }
 
-class RelogioStopwatch implements RelogioEnsaio {
+abstract interface class RelogioPreciso {
+  int get microssegundos;
+}
+
+class RelogioStopwatch implements RelogioEnsaio, RelogioPreciso {
   final Stopwatch _relogio = Stopwatch();
 
   @override
   int get milissegundos => _relogio.elapsedMilliseconds;
+  @override
+  int get microssegundos => _relogio.elapsedMicroseconds;
 
   @override
   void iniciar() => _relogio
@@ -32,8 +38,8 @@ class EnsaioController extends ChangeNotifier {
   EnsaioController({
     RelogioEnsaio? relogio,
     List<int> Function(int)? criarGrade,
-  })  : _relogio = relogio ?? RelogioStopwatch(),
-        _criarGrade = criarGrade ?? ((n) => gerarGrade(n: n));
+  }) : _relogio = relogio ?? RelogioStopwatch(),
+       _criarGrade = criarGrade ?? ((n) => gerarGrade(n: n));
 
   static const tempoMaximoMs = 180000;
   final RelogioEnsaio _relogio;

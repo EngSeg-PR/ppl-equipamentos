@@ -67,6 +67,10 @@ class _EntradaColaboradorState extends State<EntradaColaborador> {
           const Text(
             'Selecione sua empresa e seu nome. Use sua matrícula como senha.',
           ),
+          const SizedBox(height: 8),
+          const Text(
+            'Realize sua avaliação visual de atenção e consulte seu histórico pessoal.',
+          ),
           const SizedBox(height: 24),
           FutureBuilder<List<Map<String, dynamic>>>(
             future: _empresas,

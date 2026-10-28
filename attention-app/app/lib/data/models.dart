@@ -54,15 +54,19 @@ class AvaliacaoLocal {
       objeto(json['employeeSnapshot'])['employee_number'] as String? ?? '';
   DateTime get inicio => DateTime.parse(json['startedAt'] as String);
   int get duracaoMs => json['durationMs'] as int;
-  List<int> get grade => (json['grid'] as List).cast<int>();
-  List<ToqueEvento> get toques => (json['touches'] as List).map((e) {
-        final t = objeto(e);
-        return ToqueEvento(
-            seq: t['seq'] as int,
-            tMs: t['tMs'] as int,
-            tocado: t['touched'] as int,
-            esperado: t['expected'] as int);
-      }).toList();
+  bool get visual => json['protocolVersion'] == protocoloVisual;
+  List<Map<String, dynamic>> listaVisual(String chave) =>
+      (json[chave] as List? ?? []).map(objeto).toList();
+  List<int> get grade => (json['grid'] as List? ?? []).cast<int>();
+  List<ToqueEvento> get toques => (json['touches'] as List? ?? []).map((e) {
+    final t = objeto(e);
+    return ToqueEvento(
+      seq: t['seq'] as int,
+      tMs: t['tMs'] as int,
+      tocado: t['touched'] as int,
+      esperado: t['expected'] as int,
+    );
+  }).toList();
   SituacaoEnvio get envio =>
       SituacaoEnvio.values.byName(json['syncState'] as String? ?? 'pendente');
   String? get erro => json['syncError'] as String?;
@@ -85,35 +89,60 @@ class AvaliacaoLocal {
         'finishedAt',
         'status',
         'durationMs',
-        'grid',
-        'touches',
+        if (visual) ...[
+          'schedule',
+          'trials',
+          'responses',
+          'interruption',
+          'technical',
+        ] else ...[
+          'grid',
+          'touches',
+        ],
         'protocolVersion',
-        'appVersion'
+        'appVersion',
       ])
-        key: json[key]
+        key: json[key],
     };
   }
 
   static Map<String, dynamic> metricasDe(
-          List<ToqueEvento> toques, List<int> grade, int duracaoMs) =>
-      SessaoTeste.metricasDe(
-              toques: toques, n: grade.length, duracaoMs: duracaoMs)
-          .toJson();
+    List<ToqueEvento> toques,
+    List<int> grade,
+    int duracaoMs,
+  ) => SessaoTeste.metricasDe(
+    toques: toques,
+    n: grade.length,
+    duracaoMs: duracaoMs,
+  ).toJson();
 
   AvaliacaoLocal recuperarInterrompida() => alterar({
-        'status': toques.where((t) => t.acerto).length == grade.length
-            ? 'completa'
-            : 'incompleta',
-        'finishedAt': json['checkpointAt'],
-        'interruption':
-            'Aplicativo encerrado durante a avaliação; recuperada do último salvamento.',
-        'metrics': metricasDe(toques, grade, duracaoMs),
-        'syncState': SituacaoEnvio.pendente.name,
-      });
+    if (visual) ...{
+      'status':
+          listaVisual('trials').length == totalVisual &&
+              listaVisual('trials').last['closedMs'] != null
+          ? 'completa'
+          : 'incompleta',
+      'metrics': metricasVisuais(
+        listaVisual('schedule'),
+        listaVisual('trials'),
+        listaVisual('responses'),
+        duracaoMs,
+      ),
+    } else ...{
+      'status': toques.where((t) => t.acerto).length == grade.length
+          ? 'completa'
+          : 'incompleta',
+      'metrics': metricasDe(toques, grade, duracaoMs),
+    },
+    'finishedAt': json['checkpointAt'],
+    'interruption': 'Aplicativo encerrado durante a avaliação; recuperada do último salvamento.',
+    'syncState': SituacaoEnvio.pendente.name,
+  });
 }
 
 String rotuloEnvio(SituacaoEnvio envio) => switch (envio) {
-      SituacaoEnvio.pendente => 'Salvo no aparelho · envio pendente',
-      SituacaoEnvio.sincronizado => 'Sincronizado com PRS. REIS',
-      SituacaoEnvio.falhaPermanente => 'Falha permanente · requer revisão',
-    };
+  SituacaoEnvio.pendente => 'Salvo no aparelho · envio pendente',
+  SituacaoEnvio.sincronizado => 'Sincronizado com PRS. REIS',
+  SituacaoEnvio.falhaPermanente => 'Falha permanente · requer revisão',
+};

@@ -9,3 +9,4 @@ export 'src/modelos.dart';
 export 'src/reacao.dart';
 export 'src/sequencia.dart';
 export 'src/sessao.dart';
+export 'src/visual.dart';

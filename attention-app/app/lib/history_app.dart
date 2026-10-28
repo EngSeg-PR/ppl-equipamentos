@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'brand.dart';
 import 'employee_entry.dart';
+import 'visual_test.dart';
+import 'classification_view.dart';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -138,10 +140,51 @@ class _InicioHistoricoState extends State<InicioHistorico>
                               ),
                               Expanded(
                                 child: switch (c.tela) {
+                                  TelaHistorico.demonstracao => _Pagina(
+                                    children: [
+                                      Text(
+                                        'Veja como fazer',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium,
+                                      ),
+                                      const Text(
+                                        'Parado: toque. Em movimento: aguarde. O treino começa em alguns segundos.',
+                                      ),
+                                      const Wrap(
+                                        spacing: 16,
+                                        runSpacing: 16,
+                                        children: [
+                                          Column(
+                                            children: [
+                                              CirculoVisual(mover: false),
+                                              Icon(Icons.touch_app_outlined),
+                                              Text('Toque'),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              CirculoVisual(mover: true),
+                                              Icon(Icons.pan_tool_outlined),
+                                              Text('Aguarde'),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      TextButton(
+                                        onPressed: c.interromper,
+                                        child: const Text(
+                                          'Voltar às instruções',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                   TelaHistorico.inicio => _Cadastro(
                                     key: ValueKey(c.contexto!.escopo),
                                     c: c,
                                   ),
+                                  TelaHistorico.treino when c.usarVisual =>
+                                    TesteVisual(c: c, treino: true),
                                   TelaHistorico.treino => _Sequencia(
                                     key: const ValueKey('treino'),
                                     c: c,
@@ -155,9 +198,24 @@ class _InicioHistoricoState extends State<InicioHistorico>
                                             .textTheme
                                             .headlineMedium,
                                       ),
-                                      const Text(
-                                        'Toque de 1 a 36, em ordem crescente, em até três minutos. A avaliação será registrada no histórico. Um toque fora de ordem conta como erro e a sequência não avança.',
+                                      Text(
+                                        c.usarVisual
+                                            ? 'Agora faça a avaliação: toque quando o círculo estiver parado e aguarde quando ele estiver em movimento. São 30 apresentações. O treino não entra nas métricas.'
+                                            : 'Toque de 1 a 36, em ordem crescente, em até três minutos. A avaliação será registrada no histórico. Um toque fora de ordem conta como erro e a sequência não avança.',
                                       ),
+                                      if (c.usarVisual &&
+                                          c.feedbackTreino != null)
+                                        Text(c.feedbackTreino!),
+                                      if (c.usarVisual)
+                                        OutlinedButton(
+                                          onPressed: () => c.praticar(
+                                            c.colaborador!['id'] as String,
+                                            c.unidade,
+                                            c.equipe,
+                                            c.momento,
+                                          ),
+                                          child: const Text('Repetir treino'),
+                                        ),
                                       const Text(
                                         'Se o aplicativo sair de foco, a avaliação será encerrada como incompleta. O trecho salvo poderá ser recuperado.',
                                       ),
@@ -187,6 +245,12 @@ class _InicioHistoricoState extends State<InicioHistorico>
                                       ],
                                     ),
                                   ),
+                                  TelaHistorico.teste when c.usarVisual =>
+                                    TesteVisual(
+                                      key: const ValueKey('visual-real'),
+                                      c: c,
+                                      treino: false,
+                                    ),
                                   TelaHistorico.teste => _Sequencia(
                                     key: const ValueKey('teste'),
                                     c: c,
@@ -613,6 +677,32 @@ class _CadastroState extends State<_Cadastro> {
             ),
           ],
         ),
+        if (c.usarVisual) ...[
+          Text('Como funciona', style: Theme.of(context).textTheme.titleLarge),
+          const Text(
+            'Toque na área de resposta somente quando o círculo estiver parado. Se ele estiver se movendo, aguarde. Veja os exemplos e depois pratique. No computador, você também pode usar a barra de espaço.',
+          ),
+          const Wrap(
+            spacing: 16,
+            runSpacing: 12,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.touch_app_outlined, size: 48),
+                  Text('Parado: toque'),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.pan_tool_outlined, size: 48),
+                  Text('Em movimento: aguarde'),
+                ],
+              ),
+            ],
+          ),
+        ],
         FilledButton.icon(
           key: const Key('praticar'),
           onPressed: c.ocupado || employee == null
@@ -641,8 +731,10 @@ class _CadastroState extends State<_Cadastro> {
                 : 'Histórico neste aparelho (${c.registros.length})',
           ),
         ),
-        const _Mensagem(
-          'Ambiente de teste interno. Os resultados registram tempo e sequência de toques, sem diagnóstico ou liberação para condução.',
+        _Mensagem(
+          c.usarVisual
+              ? 'Protocolo visual em validação. Registra respostas e tempos observados, sem diagnóstico, punição ou liberação para condução. Se não compreender a regra ou tiver dificuldade com o movimento, peça orientação antes de começar.'
+              : 'Ambiente de teste interno. Os resultados registram tempo e sequência de toques, sem diagnóstico ou liberação para condução.',
         ),
       ],
     );
@@ -904,6 +996,10 @@ class _Historico extends StatelessWidget {
                   const SizedBox(height: 6),
                   Text('Matrícula: ${item.matricula}'),
                   Text(dataHoraLocal(item.inicio)),
+                  if (item.visual)
+                    Text(
+                      'Classificação experimental: ${rotuloClassificacao(item.metricas['classification'])}',
+                    ),
                   const SizedBox(height: 12),
                   Text(
                     '${item.status == 'completa' ? 'Completa' : 'Incompleta'} · ${rotuloEnvio(item.envio)}',
@@ -968,6 +1064,7 @@ class DetalheLocal extends StatelessWidget {
         Text('Início: ${dataHoraLocal(item.inicio)} (horário do aparelho)'),
         const SizedBox(height: 16),
         _Mensagem(rotuloEnvio(item.envio)),
+        if (item.visual) ResultadoClassificado(metricas: m),
         if (item.erro != null)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -982,11 +1079,38 @@ class DetalheLocal extends StatelessWidget {
             runSpacing: 20,
             children: [
               for (final entry in <String, String>{
-                'Tempo total': _tempo(m['tempo_total_ms']),
-                'Primeiro toque': _tempo(m['tempo_primeiro_toque_ms']),
-                'Erros de sequência': '${m['erros']}',
-                'Intervalo médio': _tempo(m['media_intervalo_ms']),
-                'Desvio dos intervalos': _tempo(m['dp_intervalo_ms']),
+                if (item.visual) ...{
+                  'Tempo total': _tempo(m['tempo_total_ms']),
+                  'Apresentações encerradas':
+                      '${m['encerrados']} / ${m['previstos']}',
+                  'Respostas ao círculo parado': '${m['respostas_validas']}',
+                  'Sem resposta ao círculo parado': '${m['omissoes']}',
+                  'Toques no círculo em movimento': '${m['comissoes']}',
+                  'Toques fora da apresentação': '${m['fora_estimulo']}',
+                  'Toques adicionais na mesma apresentação':
+                      '${m['toques_extras']}',
+                  'Reação mediana': _tempo(m['mediana_reacao_ms']),
+                  'Reação média': _tempo(m['media_reacao_ms']),
+                  'Média dos 10% mais rápidos': _tempo(m['rapidos10_media_ms']),
+                  'Média dos 10% mais lentos': _tempo(m['lentos10_media_ms']),
+                  'Lapsos (reação acima de 500 ms)': '${m['lapsos']}',
+                  'Antecipações (fora do estímulo ou abaixo de 100 ms)':
+                      '${m['antecipacoes']}',
+                  'Declínio (último menos primeiro quarto)':
+                      m['declinio_ms'] is num ? '${m['declinio_ms']} ms' : '—',
+                  'Desvio dos tempos de reação': _tempo(m['dp_reacao_ms']),
+                  'Percentil 10 / 90':
+                      '${_tempo(m['p10_reacao_ms'])} / ${_tempo(m['p90_reacao_ms'])}',
+                  'Maior atraso observado de apresentação/fechamento': _tempo(
+                    m['maior_atraso_ms'],
+                  ),
+                } else ...{
+                  'Tempo total': _tempo(m['tempo_total_ms']),
+                  'Primeiro toque': _tempo(m['tempo_primeiro_toque_ms']),
+                  'Erros de sequência': '${m['erros']}',
+                  'Intervalo médio': _tempo(m['media_intervalo_ms']),
+                  'Desvio dos intervalos': _tempo(m['dp_intervalo_ms']),
+                },
               }.entries)
                 SizedBox(
                   width: box.maxWidth < 404
@@ -1007,21 +1131,33 @@ class DetalheLocal extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        const Text('Tempo por bloco de nove números'),
+        Text(
+          item.visual
+              ? 'Reação média por quarto da avaliação'
+              : 'Tempo por bloco de nove números',
+        ),
         Wrap(
           spacing: 20,
           children: [
             for (var i = 0; i < 4; i++)
               Text(
-                '${i * 9 + 1}–${(i + 1) * 9}: ${_tempo((m['quartis_ms'] as List)[i])}',
+                item.visual
+                    ? 'Bloco ${i + 1}: ${_tempo((m['quartos_media_ms'] as List)[i])}'
+                    : '${i * 9 + 1}–${(i + 1) * 9}: ${_tempo((m['quartis_ms'] as List)[i])}',
               ),
           ],
         ),
         const SizedBox(height: 20),
         SelectableText('ID: ${item.id}', style: const TextStyle(fontSize: 12)),
-        const Text(
-          'Valores observados, sem classificação de aptidão. Protocolo sequencia-v1.',
-        ),
+        Text('Valores observados. Protocolo ${item.json['protocolVersion']}.'),
+        if (item.visual)
+          const Text(
+            'Atrasos são observações do aplicativo, sem compensação da latência física da tela ou do toque. Avaliação incompleta apresenta apenas o trecho preservado. O protocolo visual está em validação e não é comparado automaticamente à sequência numérica.',
+          ),
+        if (item.visual && item.json['technical'] is Map)
+          Text(
+            'Ambiente: ${item.json['technical']['runtime'] ?? 'não informado'}; modelo: ${item.json['technical']['deviceModel'] ?? 'não informado'}. Quadros observados: ${item.json['technical']['refreshRateHz'] ?? 'não disponível'} Hz (estimativa, não certificação da taxa física da tela).',
+          ),
       ],
     );
   }

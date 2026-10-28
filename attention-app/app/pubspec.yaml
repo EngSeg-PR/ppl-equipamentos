@@ -1,7 +1,7 @@
 name: triagem_atencao_app
 description: Avaliações de atenção com histórico local protegido e sincronização PRS. REIS.
 publish_to: none
-version: 0.2.0+2
+version: 0.3.0+3
 
 environment:
   sdk: ">=3.13.0 <4.0.0"
