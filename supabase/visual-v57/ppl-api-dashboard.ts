@@ -464,4 +464,3 @@ Deno.serve(async req=>{
   throw new RequestError('Operação desconhecida.');
  }catch(error){return respond({error:error instanceof RequestError?error.message:'Serviço indisponível. Registros locais preservados.'},error instanceof RequestError?error.status:503);}
 });
-
