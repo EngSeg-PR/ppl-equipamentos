@@ -51,3 +51,7 @@ Matrícula é um controle básico, não autenticação forte ou prova de identid
 ## Atualização do navegador — cache56
 
 A verificação no navegador com cache antigo motivou revalidação explícita do service worker com updateViaCache:none e registration.update(). O aviso aguarda a ativação; não força recarregamento durante avaliações. Testes attention-update56.cjs e worker real54→56 passaram, com armazenamento preservado. O aplicativo e a API permanecem na entrega55; o cache estático é56.
+
+## Conferência final em produção — 28/10/2026
+
+Entrada real aberta e conferida no endereço existente: identidade PRS. REIS, seleção de empresa e lista de colaborador apareceram corretamente. A empresa PPL Manutenção foi usada apenas para conferir o carregamento do diretório; nenhum colaborador foi autenticado e nenhuma avaliação foi criada em produção. App deixado aberto no navegador integrado. Captura: outputs/verificacao/app-acesso-pessoal-publicado-v55.png. API55, cache56 e hash do aplicativo conferidos por HTTPS; a política e o termo54, os cadastros e a gestão permaneceram preservados.
