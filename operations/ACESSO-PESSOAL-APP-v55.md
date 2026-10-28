@@ -31,7 +31,7 @@ A gestão continua usando seus endpoints e autenticação Supabase anteriores. A
 - `tests/access55-server.cjs`:47 verificações em PostgreSQL descartável e handler completo, duas empresas, credenciais, acesso pessoal, revogação/expiração, limitação, gestor e acompanhamento preservados. Migrações repetidas.
 - `PRS_ACCESS55=1 node tests/attention51-server.cjs`:42 verificações de regressão do histórico/gestão, RLS, métricas e idempotência contra o servidor55.
 - `tests/access55-e2e.cjs`: app compilado, login pessoal, histórico anterior criado pela gestão, teste36, perda simulada do recibo, reenvio sem duplicação, consulta em outro aparelho, troca de empresa/pessoa e histórico da gestão preservado. Nenhuma chamada real a produção; chamadas ao endereço configurado são interceptadas antes da rede.
-- `tests/release55-offline.cjs`: cache54→55 real, um worker, sem recarga repetida, abertura offline e armazenamento local de teste preservado.
+- `tests/release55-offline.cjs`: cache54→56 real, um worker, sem recarga repetida, abertura offline e armazenamento local de teste preservado.
 - `tests/attention51-cache.cjs`:200 recursos existentes, sem duplicação, rota offline correta e POSTs fora do cache.
 - Layout novo testado em320/390/1440, incluindo fonte ampliada; demais layouts de histórico e detalhes mantêm os testes anteriores. Capturas de entrada conferidas em1440/390.
 
@@ -41,8 +41,13 @@ Dados fictícios somente em testes locais. Não foram criados colaboradores ou a
 
 Ativação confirmada pelo proprietário em28/10/2026. Função privada aplicada e verificada: serviço pode executar; anon/authenticated não podem. A função existente ppl-api- foi atualizada com a fonte completa55, conferida contra a base54 remota antes da substituição. A API respondeu55; diretório retorna somente id/name e consultas de contexto/histórico sem sessão foram recusadas com401. Nenhuma avaliação de produção foi criada.
 
-O frontend/cache55 acompanha esta entrega. A conferência final exige comparar o JavaScript publicado por HTTPS com o build e abrir a entrada real. Não usar matrícula de outro colaborador para gerar testes em produção e não limpar dados do navegador.
+Frontend/cache56 publicado na rota existente e conferido por HTTPS: bootstrap, manifesto, cache, menus e painel de gestão preservados retornaram200. SHA256 do main.dart.js coincide com o build: e8f41413afdbd286172729fae263d9be1ce12670a0c718374d289cbda670d093. A conferência visual da entrada real completa a entrega, sem gerar avaliações ou limpar o armazenamento.
 
 ## Limitações preservadas
 
 Matrícula é um controle básico, não autenticação forte ou prova de identidade. Sessões e cotas são as já existentes54 (12h;8 tentativas por empregado e120 por empresa em15min). Primeiro login exige conexão; acesso já preparado depende de sessão válida. Revogação remota só é conhecida quando conectado; a cópia local mantém as limitações de proteção do navegador já documentadas. APK, Safari e dois aparelhos reais continuam sujeitos a homologação.
+
+
+## Atualização do navegador — cache56
+
+A verificação no navegador com cache antigo motivou revalidação explícita do service worker com updateViaCache:none e registration.update(). O aviso aguarda a ativação; não força recarregamento durante avaliações. Testes attention-update56.cjs e worker real54→56 passaram, com armazenamento preservado. O aplicativo e a API permanecem na entrega55; o cache estático é56.

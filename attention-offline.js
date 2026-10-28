@@ -6,7 +6,13 @@
   note.textContent = 'Preparando os recursos para uso sem conexão…';
   Object.assign(note.style, {position:'fixed',left:'12px',right:'12px',bottom:'max(10px, env(safe-area-inset-bottom))',maxWidth:'520px',margin:'0 auto',zIndex:'9999',padding:'10px 14px',borderRadius:'10px',background:'#10376d',color:'#fff',font:'13px system-ui,sans-serif',pointerEvents:'none'});
   document.body.append(note);
-  navigator.serviceWorker.register('../sw.js').then(registration => {
+  navigator.serviceWorker.register('../sw.js', {updateViaCache:'none'}).then(async registration => {
+    // Revalidate the worker even when the browser already has a registration.
+    // Never reload the page here: an assessment may be in progress.
+    if (!registration.installing && !registration.waiting) {
+      try { await registration.update(); }
+      catch (error) { if (!registration.active) throw error; }
+    }
     const pending = registration.installing || registration.waiting;
     if (!pending) return navigator.serviceWorker.ready;
     return new Promise((resolve, reject) => {
