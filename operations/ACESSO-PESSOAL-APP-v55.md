@@ -39,9 +39,9 @@ Dados fictícios somente em testes locais. Não foram criados colaboradores ou a
 
 ## Estado e ativação
 
-Código e compilação em preparação. Não considerar esta documentação prova de ativação. A liberação de consulta pessoal constitui ampliação de acesso a históricos reais e aguarda a confirmação final de ativação.
+Ativação confirmada pelo proprietário em28/10/2026. Função privada aplicada e verificada: serviço pode executar; anon/authenticated não podem. A função existente ppl-api- foi atualizada com a fonte completa55, conferida contra a base54 remota antes da substituição. A API respondeu55; diretório retorna somente id/name e consultas de contexto/histórico sem sessão foram recusadas com401. Nenhuma avaliação de produção foi criada.
 
-Após a confirmação: aplicar a função privada SQL, atualizar a função existente `ppl-api-` no mesmo projeto e publicar o frontend/cache55. Conferir a versão do endpoint, integridade do JavaScript por HTTPS e a entrada real, sem usar matrícula de outro colaborador para gerar testes em produção. Não limpar dados do navegador.
+O frontend/cache55 acompanha esta entrega. A conferência final exige comparar o JavaScript publicado por HTTPS com o build e abrir a entrada real. Não usar matrícula de outro colaborador para gerar testes em produção e não limpar dados do navegador.
 
 ## Limitações preservadas
 

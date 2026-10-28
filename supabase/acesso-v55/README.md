@@ -9,4 +9,4 @@ Base integral: servidor54 já existente. Atualização incremental, sem novos ca
 
 O app reutiliza a sessão de executante54. Seu token vai em `X-PPL-Executor`; nenhuma credencial integra o conteúdo da avaliação. A matrícula é um segredo fraco/conhecido e continua com essa limitação.
 
-Presença de fontes ou testes aprovados não significa implantação. A confirmação final de ativação ainda é necessária.
+Ativação autorizada pelo proprietário em28/10/2026. SQL aplicado e API55 confirmada por HTTPS, com consultas sem sessão recusadas. Estado final da publicação: operations/ACESSO-PESSOAL-APP-v55.md e provas locais em outputs/verificacao/.
