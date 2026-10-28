@@ -1,0 +1,32 @@
+/* Isolated browser client contract; no network or real credentials. */
+const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
+const cache=new Map(),requests=[];
+let handle=()=>new Response('{}');
+const context={window:{PPL_CLOUD_CONFIG:{url:'https://test.invalid',publicKey:'PUBLIC-QA',functionName:'test'}},navigator:{onLine:true},localStorage:{getItem:k=>cache.get(k)||null,setItem:(k,v)=>cache.set(k,v)},fetch:async(url,options)=>{requests.push({url,...options,body:JSON.parse(options.body)});return handle(url,options);},AbortController,setTimeout,clearTimeout,Response,Date,Error};
+vm.createContext(context);vm.runInContext(fs.readFileSync(path.resolve(__dirname,'../platform-client.js'),'utf8'),context);
+const PR=context.window.PR,company={id:'COMPANY-QA',slug:'ppl',name:'Empresa de teste'},employee={id:'EMPLOYEE-QA',name:'Pessoa de teste',employee_number:'QA-123',job_title:'Condutor'};
+const json=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json'}});
+(async()=>{
+ handle=()=>json({ok:true});
+ await PR.call('submit',{record:{id:'QA'}},false,false,{executorToken:'OPAQUE-QA'});
+ assert.equal(requests.at(-1).headers['X-PPL-Executor'],'OPAQUE-QA');
+ assert(!JSON.stringify(requests.at(-1).body).includes('OPAQUE-QA'));
+ handle=()=>json({company,employees:[employee],moduleVersion:54,executorAccessRequired:true,models:[]});
+ const own=await PR.context('ppl',{executorToken:'OPAQUE-QA'});
+ assert.equal(own.employees.length,1);assert.equal(JSON.parse(cache.get('pr-context:ppl')).employees.length,0,'Own profile is not an anonymous cache');
+ handle=()=>json({error:'Não autorizado.'},403);
+ await assert.rejects(()=>PR.context('ppl'),e=>e.status===403,'403 must not become an offline authorization');
+ context.navigator.onLine=false;
+ cache.set('pr-context:ppl',JSON.stringify({company,employees:[employee],models:[],moduleVersion:54}));
+ const offline=await PR.context('ppl');assert.equal(offline.employees.length,0);assert.equal(offline.offlineCache,true);
+ context.navigator.onLine=true;
+ handle=(url)=>url.includes('/auth/')?json({access_token:'MANAGER-QA',refresh_token:'REFRESH-QA',expires_in:3600}):json({profile:{role:'manager'}});
+ await PR.login('gestor@teste.invalid','SENHA-FICTICIA',company.id);
+ const before=cache.get('pr-context:ppl');
+ handle=()=>json({company,employees:[employee],moduleVersion:54});
+ const authorized=await PR.context('ppl',{private:true});
+ assert.equal(authorized.employees.length,1);assert.equal(requests.at(-1).headers.Authorization,'Bearer MANAGER-QA');
+ assert.equal(cache.get('pr-context:ppl'),before,'Manager directory must never be written to anonymous cache');
+ PR.logout();await assert.rejects(()=>PR.context('ppl',{private:true}),/Faça login/);
+ console.log('PASS client54: header-only token, 403 denied without cache fallback, anonymous cache minimized, manager data memory-only and logout enforced.');
+})().catch(e=>{console.error(e);process.exitCode=1;});

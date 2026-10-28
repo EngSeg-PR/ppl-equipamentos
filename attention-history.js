@@ -12,10 +12,11 @@ window.PRAttentionHistory = (() => {
   };
   const moment = value => ({ inicio: 'Início da jornada', durante: 'Durante a jornada' }[value] || 'Não informado');
   const state = value => value === 'completa' ? 'Completa' : 'Incompleta';
+  const followupState = value => ({sem_acompanhamento:'Sem acompanhamento',aberta:'Aberto',em_andamento:'Em andamento',concluida:'Concluído'}[value] || 'Sem acompanhamento');
 
   function create({ host, company, companies = [company], employees = [], isCurrent = () => true }) {
     if (!host || !company?.id) throw Error('Empresa ou área de consulta indisponível.');
-    let alive = true, listToken = 0, detailToken = 0, rows = [], nextOffset = null, dialog = null;
+    let alive = true, listToken = 0, detailToken = 0, rows = [], nextOffset = null, dialog = null, summary = null;
     const current = () => alive && isCurrent();
     const companyMap = new Map(companies.filter(item => item?.id).map(item => [item.id, item]));
     if (!companyMap.has(company.id)) companyMap.set(company.id, company);
@@ -56,8 +57,28 @@ window.PRAttentionHistory = (() => {
     function filters() {
       return {
         companyId: value('[name=companyId]'), employeeId: value('[name=employeeId]'),
-        dateFrom: value('[name=dateFrom]'), dateTo: value('[name=dateTo]'), status: value('[name=status]'),
+        employeeNumber: value('[name=employeeNumber]').trim(), dateFrom: value('[name=dateFrom]'), dateTo: value('[name=dateTo]'), status: value('[name=status]'), followupStatus: value('[name=followupStatus]'),
       };
+    }
+
+    function validSummary(data) {
+      const keys = ['total','complete','incomplete','people','untracked','open','inProgress','concluded'];
+      return data && keys.every(key => Number.isSafeInteger(data[key]) && data[key] >= 0) &&
+        data.complete + data.incomplete === data.total && data.people <= data.total &&
+        data.untracked + data.open + data.inProgress + data.concluded === data.total;
+    }
+
+    function drawSummary() {
+      const node = query('[data-attention-dashboard]');
+      if (!summary) { node.innerHTML = '<p class="platform-note">Os indicadores serão exibidos após a consulta.</p>'; return; }
+      const s = summary;
+      const pie = (label, slices) => {
+        let end = 0;
+        const stops = slices.map(slice => { const start=end;end+=s.total ? slice[1]/s.total*100 : 0;return slice[2]+' '+start+'% '+end+'%'; });
+        const description = slices.map(([name,n]) => name+': '+number(n)).join('; ');
+        return `<section class="attention-chart"><h3>${E(label)}</h3><div class="attention-chart-content"><div class="attention-pie ${s.total ? '' : 'empty'}" role="img" aria-label="${E(label+': '+description)}" style="background:${s.total ? 'conic-gradient('+stops.join(',')+')' : '#e6edf3'}"></div><ul>${slices.map(([name,n,color]) => `<li><span class="attention-legend" style="background:${color}" aria-hidden="true"></span><span>${E(name)}</span><strong>${E(number(n))}</strong></li>`).join('')}</ul></div></section>`;
+      };
+      node.innerHTML = `<div class="attention-kpis" aria-label="Indicadores de todas as avaliações filtradas">${[['Avaliações recebidas',s.total],['Colaboradores',s.people],['Avaliações completas',s.complete],['Acompanhamentos em aberto',s.open+s.inProgress]].map(([label,n])=>`<article><span>${E(label)}</span><strong>${E(number(n))}</strong></article>`).join('')}</div><div class="attention-charts">${pie('Conclusão das avaliações',[['Completas',s.complete,'#245c98'],['Incompletas',s.incomplete,'#d4a24b']])}${pie('Acompanhamento pela gestão',[['Sem acompanhamento',s.untracked,'#a5b4c4'],['Aberto',s.open,'#b87438'],['Em andamento',s.inProgress,'#317cc1'],['Concluído',s.concluded,'#39826b']])}</div><p class="platform-note">Indicadores de todos os registros encontrados com os filtros aplicados. Conclusão e acompanhamento são controles operacionais; não definem aptidão para condução.</p>`;
     }
 
     function validAssessment(row, cid) {
@@ -71,9 +92,11 @@ window.PRAttentionHistory = (() => {
       ++listToken;
       closeDetail();
       rows = [];
+      summary = null;
       nextOffset = null;
       if (companyChanged) personOptions();
       query('[data-attention-results]').replaceChildren();
+      drawSummary();
       query('[data-attention-count]').textContent = '';
       query('[data-attention-more]').hidden = true;
       query('[data-attention-apply]').disabled = false;
@@ -82,7 +105,7 @@ window.PRAttentionHistory = (() => {
 
     function drawRows() {
       if (!current()) return;
-      query('[data-attention-count]').textContent = rows.length + ' avaliação(ões) carregada(s).';
+      query('[data-attention-count]').textContent = rows.length + ' de ' + (summary ? number(summary.total) : '—') + ' avaliação(ões) carregada(s).';
       query('[data-attention-results]').innerHTML = rows.map((row, index) => {
         const metrics = row.metrics;
         const targets = numeric(metrics.acertos) && numeric(metrics.total_alvos)
@@ -93,6 +116,7 @@ window.PRAttentionHistory = (() => {
           <dl class="attention-measurements compact"><div><dt>Duração</dt><dd>${E(time(row.duration_ms))}</dd></div><div><dt>Alvos concluídos</dt><dd>${E(targets)}</dd></div><div><dt>Erros de sequência</dt><dd>${E(number(metrics.erros))}</dd></div></dl>
           ${row.status === 'incompleta' ? '<p class="attention-partial">Avaliação encerrada antes da conclusão. As métricas são parciais.</p>' : ''}
           <p class="platform-note">Aplicativo ${E(text(row.app_version))} · protocolo ${E(text(row.protocol_version))}</p>
+          <p class="attention-followup-label">Acompanhamento: <strong>${E(followupState(row.followup_status))}</strong></p>
           <button type="button" data-attention-detail="${index}">Consultar avaliação</button>
         </article>`;
       }).join('') || '<p class="attention-empty">Nenhuma avaliação encontrada neste acesso e período. A ausência de registro não indica descumprimento.</p>';
@@ -103,7 +127,7 @@ window.PRAttentionHistory = (() => {
       });
     }
 
-    async function load(append = false) {
+    async function load(append = false, keepDetail = false) {
       if (!current()) return;
       const selected = filters();
       if (!companyMap.has(selected.companyId)) return status('Selecione uma empresa deste acesso.', true);
@@ -113,9 +137,11 @@ window.PRAttentionHistory = (() => {
       const offset = append ? nextOffset : 0;
       if (append && offset === null) return;
       const expected = ++listToken;
-      closeDetail();
+      if (!keepDetail) closeDetail();
       if (!append) {
         rows = [];
+        summary = null;
+        drawSummary();
         nextOffset = null;
         query('[data-attention-results]').replaceChildren();
         query('[data-attention-count]').textContent = '';
@@ -124,9 +150,9 @@ window.PRAttentionHistory = (() => {
       query('[data-attention-apply]').disabled = true;
       status(append ? 'Carregando mais avaliações…' : 'Consultando histórico central…');
       try {
-        const data = await PR.call('attention-history-list', { ...selected, offset, limit: 50 }, true);
+        const data = await PR.call('attention-dashboard-list', { ...selected, offset, limit: 50 }, true);
         if (!current() || expected !== listToken) return;
-        if (!Array.isArray(data?.rows) || !Number.isInteger(data.moduleVersion) || data.moduleVersion < 51 ||
+        if (!Array.isArray(data?.rows) || !Number.isInteger(data.moduleVersion) || data.moduleVersion < 54 || !validSummary(data.summary) ||
             data.rows.some(row => !validAssessment(row, selected.companyId)) ||
             (data.nextOffset !== null && (!Number.isInteger(data.nextOffset) || data.nextOffset <= offset))) {
           throw Error('O histórico retornou uma resposta inválida. Atualize a consulta ou solicite a ativação do módulo.');
@@ -134,6 +160,8 @@ window.PRAttentionHistory = (() => {
         const combined = append ? [...rows, ...data.rows] : data.rows;
         rows = [...new Map(combined.map(row => [row.id, row])).values()];
         nextOffset = data.nextOffset;
+        summary = data.summary;
+        drawSummary();
         for (const row of data.rows) {
           const key = row.company_id + ':' + row.employee_id;
           if (row.employee_id && !people.has(key)) people.set(key, {
@@ -203,12 +231,64 @@ window.PRAttentionHistory = (() => {
             <h3>Métricas registradas</h3><dl class="attention-measurements">${fields.map(([label, result]) => `<div><dt>${E(label)}</dt><dd>${E(result)}</dd></div>`).join('')}</dl>
             <h3>Tempo por bloco da sequência</h3><dl class="attention-measurements quartiles">${[0, 1, 2, 3].map(index => `<div><dt>Bloco ${index + 1}</dt><dd>${E(time(quartiles[index]))}</dd></div>`).join('')}</dl><p class="platform-note">Um bloco não concluído aparece como —. Estes registros não representam liberação para condução.</p>
             <details class="attention-touches"><summary>Consultar toques registrados (${touches.length})</summary><div class="table-scroll"><table class="platform-table"><thead><tr><th>Ordem</th><th>Instante</th><th>Número tocado</th><th>Esperado</th><th>Registro</th></tr></thead><tbody>${touches.map(touch => `<tr><td>${E(number(touch.seq))}</td><td>${E(time(touch.tMs))}</td><td>${E(number(touch.touched))}</td><td>${E(number(touch.expected))}</td><td>${touch.correct === true ? 'Acerto' : touch.correct === false ? 'Erro' : '—'}</td></tr>`).join('')}</tbody></table></div>${touches.length ? '' : '<p>Nenhum toque informado nesta avaliação.</p>'}</details>
-            <p class="platform-note attention-record-id">ID da avaliação: ${E(assessment.id)}</p>`;
+            <p class="platform-note attention-record-id">ID da avaliação: ${E(assessment.id)}</p><section class="attention-followup" data-attention-followup><h3>Acompanhamento pela gestão</h3><p role="status">Carregando acompanhamento…</p></section>`;
+          await loadFollowup();
         } catch (error) {
           if (!active()) return;
           body.innerHTML = '<p role="alert">' + E(error.message || 'Não foi possível carregar a avaliação.') + '</p><button type="button" data-attention-retry>Tentar novamente</button>';
           body.querySelector('[data-attention-retry]').onclick = fetchDetail;
         }
+      }
+
+      async function loadFollowup() {
+        if (!active()) return;
+        const area = body.querySelector('[data-attention-followup]');
+        if (!area) return;
+        try {
+          const data = await PR.call('attention-followup-detail', {companyId:row.company_id,id:row.id}, true);
+          if (!active() || !area.isConnected) return;
+          renderFollowup(area, data);
+        } catch (error) {
+          if (!active() || !area.isConnected) return;
+          area.innerHTML = '<h3>Acompanhamento pela gestão</h3><p role="alert">'+E(error.message || 'Não foi possível consultar o acompanhamento.')+'</p><button type="button" data-followup-retry>Tentar novamente</button>';
+          area.querySelector('[data-followup-retry]').onclick = loadFollowup;
+        }
+      }
+
+      function renderFollowup(area, data) {
+        if (!Number.isInteger(data?.moduleVersion) || data.moduleVersion < 54 || !Array.isArray(data.events) ||
+            data.events.some(event => event.assessment_id !== row.id || event.company_id !== row.company_id || !Number.isSafeInteger(event.revision) || event.revision < 1 || !['aberta','em_andamento','concluida'].includes(event.status)) ||
+            (data.current === null ? data.events.length !== 0 : (!data.current || data.current.assessment_id !== row.id || data.current.company_id !== row.company_id || !Number.isSafeInteger(data.current.revision) || !['aberta','em_andamento','concluida'].includes(data.current.status) || data.events[0]?.revision !== data.current.revision || data.events[0]?.status !== data.current.status))) {
+          throw Error('Não foi possível conferir o acompanhamento desta avaliação. Atualize a consulta.');
+        }
+        const revision = data.current?.revision || 0;
+        area.innerHTML = `<h3>Acompanhamento pela gestão</h3><p class="platform-note">Registre orientações e providências operacionais. Não inclua diagnósticos ou prontuários. Este acompanhamento não altera o resultado da avaliação.</p><p>Situação atual: <strong>${E(followupState(data.current?.status))}</strong></p>
+          <form data-followup-form><label>Situação do acompanhamento<select name="followupState"><option value="aberta">Aberto</option><option value="em_andamento">Em andamento</option><option value="concluida">Concluído</option></select></label><label>Descrição da atualização<textarea name="followupNote" maxlength="4000" rows="4" required placeholder="Descreva a orientação, providência ou conclusão."></textarea></label><div class="attention-filter-actions"><button type="submit">Salvar acompanhamento</button><button type="button" data-followup-refresh>Atualizar acompanhamento</button></div><p data-followup-message role="status" aria-live="polite"></p></form>
+          <details class="attention-followup-history"><summary>Histórico do acompanhamento (${data.events.length})</summary>${data.events.map(event=>`<article><div class="attention-card-heading"><strong>${E(followupState(event.status))}</strong><span>Revisão ${E(event.revision)}</span></div><p class="attention-followup-note">${E(event.note)}</p><p class="platform-note">${E(event.actor_name || 'Gestor autorizado')} · ${E(timestamp(event.created_at))}</p></article>`).join('') || '<p>Nenhum acompanhamento registrado.</p>'}</details>`;
+        const form = area.querySelector('[data-followup-form]');
+        form.elements.followupState.value = data.current?.status || 'aberta';
+        area.querySelector('[data-followup-refresh]').onclick = loadFollowup;
+        form.onsubmit = async event => {
+          event.preventDefault();
+          const note = form.elements.followupNote.value.trim(), message = form.querySelector('[data-followup-message]');
+          if (!note) { message.setAttribute('role','alert');message.textContent='Descreva a atualização do acompanhamento.';return; }
+          const button = form.querySelector('[type=submit]'), refresh = form.querySelector('[data-followup-refresh]');
+          if (button.disabled) return;
+          button.disabled = true;refresh.disabled = true;
+          message.setAttribute('role','status');message.textContent='Salvando acompanhamento…';
+          try {
+            const result = await PR.call('attention-followup-save', {companyId:row.company_id,id:row.id,status:form.elements.followupState.value,note,expectedRevision:revision}, true);
+            if (!active() || !area.isConnected) return;
+            renderFollowup(area, result);
+            const done = area.querySelector('[data-followup-message]');done.textContent='Acompanhamento salvo. O resultado original foi preservado.';
+            await load(false, true);
+          } catch (error) {
+            if (!active() || !area.isConnected) return;
+            message.setAttribute('role','alert');message.textContent=error.message || 'Não foi possível confirmar o salvamento. Atualize o acompanhamento antes de tentar novamente.';
+          } finally {
+            if (active() && form.isConnected) { button.disabled=false;refresh.disabled=false; }
+          }
+        };
       }
       await fetchDetail();
     }
@@ -216,9 +296,9 @@ window.PRAttentionHistory = (() => {
     return {
       async open(employeeId = '') {
         if (!current()) return;
-        container.innerHTML = `<section class="platform-box"><h2>Histórico de avaliações de atenção</h2><p>Consulte as avaliações recebidas do aplicativo, por colaborador e período. Registros ainda pendentes no aparelho aparecem depois da confirmação do envio.</p><p><a class="attention-open-app" href="triagem/" target="_blank" rel="noopener">Abrir aplicativo de avaliações</a></p>
-          <form class="attention-filters"><label>Empresa<select name="companyId">${[...companyMap.values()].map(item => `<option value="${E(item.id)}" ${item.id === company.id ? 'selected' : ''}>${E(item.name)}</option>`).join('')}</select></label><label>Colaborador<select name="employeeId"></select></label><label>Data inicial<input name="dateFrom" type="date"></label><label>Data final<input name="dateTo" type="date"></label><label>Situação da avaliação<select name="status"><option value="">Todas</option><option value="completa">Completa</option><option value="incompleta">Incompleta</option></select></label><div class="attention-filter-actions"><button type="submit" data-attention-apply>Aplicar filtros</button><button type="button" class="secondary" data-attention-clear>Limpar filtros</button></div></form>
-          <p data-attention-status role="status" aria-live="polite"></p><p data-attention-count class="platform-note"></p><div data-attention-results></div><button type="button" data-attention-more hidden>Carregar mais avaliações</button></section>`;
+        container.innerHTML = `<section class="platform-box"><h2>Sistema Apto</h2><p>Acompanhe as avaliações de atenção recebidas do aplicativo, por colaborador e período. Registros pendentes no aparelho aparecem após a confirmação do envio.</p><p><a class="attention-open-app" href="triagem/" target="_blank" rel="noopener">Abrir aplicativo de avaliações</a></p>
+          <form class="attention-filters"><label>Empresa<select name="companyId">${[...companyMap.values()].map(item => `<option value="${E(item.id)}" ${item.id === company.id ? 'selected' : ''}>${E(item.name)}</option>`).join('')}</select></label><label>Colaborador<select name="employeeId"></select></label><label>Matrícula exata<input name="employeeNumber" type="text" maxlength="160" placeholder="Todas as matrículas"></label><label>Data inicial<input name="dateFrom" type="date"></label><label>Data final<input name="dateTo" type="date"></label><label>Situação da avaliação<select name="status"><option value="">Todas</option><option value="completa">Completa</option><option value="incompleta">Incompleta</option></select></label><label>Acompanhamento<select name="followupStatus"><option value="">Todos</option><option value="sem_acompanhamento">Sem acompanhamento</option><option value="aberta">Aberto</option><option value="em_andamento">Em andamento</option><option value="concluida">Concluído</option></select></label><div class="attention-filter-actions"><button type="submit" data-attention-apply>Aplicar filtros</button><button type="button" class="secondary" data-attention-clear>Limpar filtros</button></div></form>
+          <p data-attention-status role="status" aria-live="polite"></p><div data-attention-dashboard aria-label="Indicadores do Sistema Apto"></div><h3 class="attention-results-title">Avaliações recebidas</h3><p data-attention-count class="platform-note"></p><div data-attention-results></div><button type="button" data-attention-more hidden>Carregar mais avaliações</button></section>`;
         host.replaceChildren(container);
         personOptions(employeeId);
         query('form').onsubmit = event => { event.preventDefault(); load(); };
@@ -228,7 +308,7 @@ window.PRAttentionHistory = (() => {
         query('[data-attention-clear]').onclick = () => {
           query('[name=companyId]').value = company.id;
           personOptions();
-          for (const name of ['dateFrom', 'dateTo', 'status']) query('[name=' + name + ']').value = '';
+          for (const name of ['employeeNumber','dateFrom', 'dateTo', 'status','followupStatus']) query('[name=' + name + ']').value = '';
           load();
         };
         query('[data-attention-more]').onclick = () => load(true);

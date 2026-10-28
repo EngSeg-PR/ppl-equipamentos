@@ -1,5 +1,5 @@
 function nativeChecklist(r){return r?.model?.reportLayout?.type==='excel-original';}
-function captureNativeStaff(){document.querySelectorAll('[data-procedure-staff]').forEach(select=>{const f=current.model.identifiers.find(f=>f.name===select.dataset.procedureStaff),person=PRContext.employees.find(p=>p.id===select.value);current.fields[f.name]=person?.name||'';current.fields[f.name+'_id']=person?.id||'';if(f.relatedEmployee){current.fields[f.relatedEmployee]=person?.employee_number||'';const out=document.querySelector('[name="'+f.relatedEmployee+'"]');if(out)out.value=current.fields[f.relatedEmployee];}});}
+function captureNativeStaff(){document.querySelectorAll('[data-procedure-staff]').forEach(select=>{const f=current.model.identifiers.find(f=>f.name===select.dataset.procedureStaff);if(f)captureAuxiliaryProcedureStaff(select,f);});}
 function nativeResponseCapture(){if(!nativeChecklist(current))return;current.answers.forEach((a,n)=>{a.sourceValue=document.querySelector('[name="source-'+n+'"]:checked')?.value||document.querySelector('select[name="source-'+n+'"]')?.value||'';});}
 function decorateNativeChecklist(r,draft){
  if(!nativeChecklist(r))return;const layout=r.model.reportLayout,form=document.querySelector('#form'),articles=[...form.querySelectorAll('article.item')];

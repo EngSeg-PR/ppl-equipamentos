@@ -1,4 +1,4 @@
-/* Coleta pública; sessão de gestão somente em memória. Sem SDK externo. */
+/* Fila de evidências com acesso de campo; sessão de gestão somente em memória. Sem SDK externo. */
 (()=>{
  const config=window.PPL_CLOUD_CONFIG||{};
  function publicKeyValid(key){if(/^sb_publishable_[A-Za-z0-9_-]+$/.test(key||''))return true;try{return JSON.parse(atob(key.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))).role==='anon';}catch{return false;}}
@@ -18,6 +18,11 @@
   if(!configured)throw Error('Integração ainda não configurada.');
   const expected=epoch,headers={apikey:config.publicKey,'Content-Type':'application/json'};
   if(privateCall)headers.Authorization='Bearer '+await token();
+  if(!privateCall&&action==='submit'){
+   const companyId=data.record?.company?.id||window.PRContext?.company?.id;
+   const executorToken=window.PRExecutor?.token(companyId);
+   if(executorToken)headers['X-PPL-Executor']=executorToken;
+  }
   const response=await timedFetch(endpoint,{method:'POST',headers,body:JSON.stringify({action,...data}),cache:'no-store'},120000);
   if(privateCall&&(epoch!==expected||!session))throw Error('Sessão encerrada.');
   if(!response.ok){const error=await response.json().catch(()=>({}));if(privateCall&&[401,403].includes(response.status))logout();throw Error(error.error||'Falha de conexão. Tente novamente.');}
@@ -46,7 +51,7 @@
  window.PPL_RECEIVE_RECORD=async r=>{const result=await api('submit',{record:r},false);if(result.key!==r.key||!Number.isFinite(Date.parse(result.received_at)))throw Error('Confirmação de recebimento inválida.');await receipt('put',{key:r.key,received_at:result.received_at,pdf_ready:result.pdf_ready});window.dispatchEvent(new Event('ppl-cloud-received'));return result;};
  function logout(){epoch++;pendingLogin=false;session=null;profile=null;for(const url of pdfURLs)URL.revokeObjectURL(url);pdfURLs=[];$('#management').innerHTML='';if(!$('#management').hidden)loginScreen();}
  function loginScreen(){
-  managementMode(true);$('#management').innerHTML=`<div class="panel access-preview"><h2>Acesso de gestão</h2><p>Exclusivo para Paulo Ricardo Reis e gestores autorizados. O executante preenche pela tela inicial, sem conta.</p>${configured?'<form id="cloud-login"><label>E-mail<input name="email" type="email" autocomplete="username" required></label><label>Senha<input name="password" type="password" autocomplete="current-password" required></label><button class="primary">Entrar no painel</button><p id="cloud-login-message" role="status"></p></form>':'<div class="notice"><strong>Integração em preparação.</strong> O painel será liberado após configurar o projeto Supabase e testar os acessos. Os registros continuam preservados neste aparelho.</div>'}</div>`;
+  managementMode(true);$('#management').innerHTML=`<div class="panel access-preview"><h2>Acesso de gestão</h2><p>Exclusivo para Paulo Ricardo Reis e gestores autorizados. O executante entra pela área da empresa com seu nome e matrícula.</p>${configured?'<form id="cloud-login"><label>E-mail<input name="email" type="email" autocomplete="username" required></label><label>Senha<input name="password" type="password" autocomplete="current-password" required></label><button class="primary">Entrar no painel</button><p id="cloud-login-message" role="status"></p></form>':'<div class="notice"><strong>Integração em preparação.</strong> O painel será liberado após configurar o projeto Supabase e testar os acessos. Os registros continuam preservados neste aparelho.</div>'}</div>`;
   const form=$('#cloud-login');if(form)form.onsubmit=async e=>{e.preventDefault();const attempt=++epoch;pendingLogin=true;const button=form.querySelector('button');button.disabled=true;try{const fields=new FormData(form),data=await authRequest('token?grant_type=password',{email:String(fields.get('email')).trim(),password:fields.get('password')});if(attempt!==epoch)throw Error('Entrada cancelada.');session={...data,expiresAt:Date.now()+data.expires_in*1000};const access=await api('session');profile=access.profile;form.reset();await dashboard();}catch(error){if(attempt===epoch){session=null;profile=null;const host=$('#cloud-login-message');if(host)host.textContent=error.message;}}finally{if(attempt===epoch)pendingLogin=false;button.disabled=false;}};
  }
  window.PPL_OWNER_COMPANIES={isOwner:()=>!!session&&profile?.role==='owner',call:(action,data={})=>api(action,data),back:dashboard};
@@ -87,7 +92,7 @@
  status(configured?(navigator.onLine?'Envio central disponível. Registros offline serão enviados quando houver conexão.':'Pendente de sincronização: sem internet. O PDF está disponível para geração local; envio automático quando a conexão retornar.'):'Centralização em preparação. Registros e PDFs permanecem neste aparelho.');
  document.addEventListener('click',e=>{if((session||pendingLogin)&&e.target.closest('#checklist-nav,#pending-nav,#choose-equipment,.brand'))logout();},true);
  window.addEventListener('offline',()=>{if(session)logout();status('Pendente de sincronização: sem internet. Gere e salve seu PDF neste aparelho. O envio será retomado automaticamente quando houver conexão.');});
- window.addEventListener('online',()=>sync(true));window.addEventListener('ppl-record-ready',()=>sync());setInterval(()=>sync(),90000);setTimeout(()=>sync(),2000);
+ window.addEventListener('online',()=>sync(true));window.addEventListener('ppl-record-ready',()=>sync());window.addEventListener('prs-executor-changed',()=>sync(true));setInterval(()=>sync(),90000);setTimeout(()=>sync(),2000);
  setInterval(()=>{if(session)api('session').catch(()=>logout());},60000);
  addEventListener('pageshow',()=>sync());document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync();});
 })();

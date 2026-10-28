@@ -1,8 +1,40 @@
-function procedureIdentifier(f){
- if(f.type==='staff'){const rows=window.PRContext?.employees||[];return '<label>'+esc(f.label)+'<select name="auxstaff-'+esc(f.name)+'" data-procedure-staff="'+esc(f.name)+'" required><option value="">Selecione o funcionário cadastrado</option>'+rows.map(s=>'<option value="'+esc(s.id)+'" '+(current.fields[f.name+'_id']===s.id?'selected':'')+'>'+esc(s.name)+'</option>').join('')+'</select></label>';}
- return '<label>'+esc(f.label)+'<input name="'+esc(f.name)+'" type="'+(f.type==='date'?'date':'text')+'" value="'+esc(current.fields[f.name]||'')+'" '+(f.type==='readonly'?'readonly class="staff-auto"':'')+' '+(f.required?'required':'')+'></label>';
+/* Additional technical roles are independent from the authenticated author. */
+function procedureStaffRows(field,record=current){
+ const rows=new Map([...(window.PRExecutor?.people?.()||[]),...(window.PRContext?.employees||[])].map(p=>[p.id,{...p}]));
+ const id=record.fields[field.name+'_id'],name=record.fields[field.name];
+ if(id&&name&&!rows.has(id))rows.set(id,{id,name});
+ return [...rows.values()].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
 }
-function captureProcedureStaff(){if(nativeChecklist(current)){captureNativeStaff();return;}if(!current?.model.reportLayout)return;document.querySelectorAll('[data-procedure-staff]').forEach(select=>{const field=select.dataset.procedureStaff,person=PRContext.employees.find(s=>s.id===select.value);current.fields[field]=person?.name||'';current.fields[field+'_id']=person?.id||'';current.fields.v_scaffoldEmployee=person?.employee_number||'';const output=document.querySelector('[name="v_scaffoldEmployee"]');if(output)output.value=current.fields.v_scaffoldEmployee;});}
+function procedureRelatedStaff(name){
+ return (current.model.identifiers||[]).find(f=>f.type==='staff'&&(f.relatedEmployee===name||f.name==='v_scaffoldInspector'&&name==='v_scaffoldEmployee'));
+}
+function procedureIdentifier(f){
+ if(f.type==='staff'){const rows=procedureStaffRows(f);return '<label>'+esc(f.label)+'<select name="auxstaff-'+esc(f.name)+'" data-procedure-staff="'+esc(f.name)+'" required><option value="">Selecione o funcionário cadastrado</option>'+rows.map(s=>'<option value="'+esc(s.id)+'" '+(current.fields[f.name+'_id']===s.id?'selected':'')+'>'+esc(s.name)+'</option>').join('')+'</select></label>';}
+ const auxiliary=!!window.PRExecutor?.required()&&!!procedureRelatedStaff(f.name);
+ return '<label>'+esc(f.label)+'<input name="'+esc(f.name)+'" type="'+(f.type==='date'?'date':'text')+'" value="'+esc(current.fields[f.name]||'')+'" '+(f.type==='readonly'&&!auxiliary?'readonly class="staff-auto"':'')+' '+(f.required||auxiliary?'required':'')+'>'+(auxiliary?'<small>Matrícula do responsável adicional. Para outro colaborador, informe conforme o cadastro.</small>':'')+'</label>';
+}
+function captureAuxiliaryProcedureStaff(select,definition){
+ const field=definition.name,related=definition.relatedEmployee||(field==='v_scaffoldInspector'?'v_scaffoldEmployee':''),oldId=current.fields[field+'_id'];
+ const person=procedureStaffRows(definition).find(p=>p.id===select.value);
+ if(!person){
+  // A missing option is not authorization to erase a previous technical identity.
+  if(oldId&&current.fields[field]&&!select.value)return;
+  current.fields[field]='';current.fields[field+'_id']='';return;
+ }
+ current.fields[field]=oldId===person.id&&current.fields[field]?current.fields[field]:person.name;
+ current.fields[field+'_id']=person.id;
+ if(related){
+  const output=document.querySelector('[name="'+related+'"]');
+  if(person.employee_number!==undefined){current.fields[related]=person.employee_number;if(output)output.value=person.employee_number;}
+  else if(oldId!==person.id){current.fields[related]='';if(output)output.value='';}
+  else if(output)current.fields[related]=output.value.trim();
+ }
+}
+function captureProcedureStaff(){
+ if(nativeChecklist(current)){captureNativeStaff();return;}
+ if(!current?.model.reportLayout)return;
+ document.querySelectorAll('[data-procedure-staff]').forEach(select=>{const definition=(current.model.identifiers||[]).find(f=>f.name===select.dataset.procedureStaff);if(definition)captureAuxiliaryProcedureStaff(select,definition);});
+}
 function decorateProcedureForm(r,draft){
  const layout=r.model.reportLayout;if(layout?.type!=='procedure-table')return;const form=document.querySelector('#form'),existing=[...form.querySelectorAll('article.item')];const header=document.createElement('section');header.className='panel procedure-original';header.innerHTML='<div class="procedure-source-heading"><h2>'+esc(layout.procedureTitle)+'</h2>'+(layout.sourceLogoData?'<img src="'+esc(layout.sourceLogoData)+'" alt="Vale — marca do documento de origem">':'<b>VALE</b>')+'</div><p>'+esc(layout.procedureCode)+', Rev.'+esc(layout.revision)+': '+esc(layout.revisionDate)+'</p><h3>'+esc(layout.annexTitle)+'</h3><div id="procedure-main-fields" class="procedure-head-grid"></div><div id="procedure-service-fields"></div><div id="procedure-inspector-fields" class="procedure-head-grid three"></div><div id="procedure-daily-fields" class="procedure-head-grid three"></div><div class="procedure-guidance"><strong>ORIENTAÇÕES:</strong>'+layout.guidance.map(x=>'<p>'+esc(x)+'</p>').join('')+'</div>';form.prepend(header);
  const move=(name,target,label)=>{const input=form.querySelector('[name="'+name+'"]'),host=input?.closest('label');if(host){if(label&&host.firstChild?.nodeType===3)host.firstChild.textContent=label;header.querySelector(target).append(host);}};
