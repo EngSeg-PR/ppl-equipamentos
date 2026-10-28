@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'brand.dart';
+import 'employee_entry.dart';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
@@ -303,6 +304,7 @@ class _Login extends StatefulWidget {
 }
 
 class _LoginState extends State<_Login> {
+  bool _gestao = false;
   final _email = TextEditingController(), _senha = TextEditingController();
   final _form = GlobalKey<FormState>();
   @override
@@ -337,7 +339,7 @@ class _LoginState extends State<_Login> {
           ),
           const SizedBox(height: 16),
           const Text(
-            'Avalie, acompanhe e consulte o histórico da sua equipe.',
+            'Avalie sua atenção e acompanhe seu histórico na PRS. REIS.',
             style: TextStyle(fontSize: 18, height: 1.5),
           ),
           const SizedBox(height: 24),
@@ -346,7 +348,7 @@ class _LoginState extends State<_Login> {
           ),
         ],
       );
-      final acesso = Container(
+      final acessoGestao = Container(
         padding: EdgeInsets.all(amplo ? 32 : 22),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -425,6 +427,24 @@ class _LoginState extends State<_Login> {
           ],
         ),
       );
+      final acesso = !_gestao && widget.c.aceitaColaborador
+          ? EntradaColaborador(
+              controller: widget.c,
+              abrirGestao: () => setState(() => _gestao = true),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                acessoGestao,
+                if (widget.c.aceitaColaborador)
+                  TextButton(
+                    onPressed: widget.c.ocupado
+                        ? null
+                        : () => setState(() => _gestao = false),
+                    child: const Text('Voltar ao acesso do colaborador'),
+                  ),
+              ],
+            );
       return _Pagina(
         maxWidth: 1160,
         children: [
@@ -478,6 +498,7 @@ class _CadastroState extends State<_Cadastro> {
   @override
   Widget build(BuildContext context) {
     final c = widget.c, ctx = widget.c.contexto!;
+    if (ctx.acessoPessoal) employee = ctx.usuarioId;
     return _Pagina(
       children: [
         Text(
@@ -507,25 +528,33 @@ class _CadastroState extends State<_Cadastro> {
                     if (id != null) unawaited(c.trocarEmpresa(id));
                   },
           ),
-        DropdownButtonFormField<String>(
-          key: const Key('colaborador'),
-          initialValue: employee,
-          isExpanded: true,
-          decoration: const InputDecoration(
-            labelText: 'Colaborador cadastrado',
-          ),
-          items: [
-            for (final e in ctx.colaboradores)
-              DropdownMenuItem(
-                value: e['id'] as String,
-                child: Text(
-                  '${e['name']} · ${e['employee_number']}',
-                  overflow: TextOverflow.ellipsis,
+        if (ctx.acessoPessoal)
+          TextFormField(
+            key: const Key('colaborador-pessoal'),
+            initialValue: ctx.nomeUsuario,
+            readOnly: true,
+            decoration: const InputDecoration(labelText: 'Colaborador'),
+          )
+        else
+          DropdownButtonFormField<String>(
+            key: const Key('colaborador'),
+            initialValue: employee,
+            isExpanded: true,
+            decoration: const InputDecoration(
+              labelText: 'Colaborador cadastrado',
+            ),
+            items: [
+              for (final e in ctx.colaboradores)
+                DropdownMenuItem(
+                  value: e['id'] as String,
+                  child: Text(
+                    '${e['name']} · ${e['employee_number']}',
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-              ),
-          ],
-          onChanged: (id) => setState(() => employee = id),
-        ),
+            ],
+            onChanged: (id) => setState(() => employee = id),
+          ),
         if (ctx.colaboradores.isEmpty)
           const _Mensagem(
             'Não há colaboradores ativos disponíveis. Atualize o cadastro pela plataforma.',
@@ -606,7 +635,11 @@ class _CadastroState extends State<_Cadastro> {
           key: const Key('abrir-historico'),
           onPressed: c.abrirHistorico,
           icon: const Icon(Icons.history),
-          label: Text('Histórico neste aparelho (${c.registros.length})'),
+          label: Text(
+            ctx.acessoPessoal
+                ? 'Meu histórico (${c.registros.length})'
+                : 'Histórico neste aparelho (${c.registros.length})',
+          ),
         ),
         const _Mensagem(
           'Ambiente de teste interno. Os resultados registram tempo e sequência de toques, sem diagnóstico ou liberação para condução.',
@@ -787,7 +820,9 @@ class _Historico extends StatelessWidget {
   Widget build(BuildContext context) => _Pagina(
     children: [
       Text(
-        'Histórico neste aparelho',
+        c.contexto?.acessoPessoal == true
+            ? 'Meu histórico'
+            : 'Histórico neste aparelho',
         style: Theme.of(context).textTheme.headlineMedium,
       ),
       const Text(
@@ -798,13 +833,23 @@ class _Historico extends StatelessWidget {
         onPressed: c.sincronizando ? null : () => c.sincronizar(manual: true),
         icon: const Icon(Icons.sync),
         label: Text(
-          c.sincronizando ? 'Confirmando envios…' : 'Sincronizar pendentes',
+          c.sincronizando
+              ? 'Confirmando envios…'
+              : c.contexto?.acessoPessoal == true
+              ? 'Atualizar histórico e enviar pendentes'
+              : 'Sincronizar pendentes',
         ),
       ),
       if (c.erro != null) _Mensagem(c.erro!, erro: true),
       if (c.aviso != null) _Mensagem(c.aviso!),
-      if (c.registros.isEmpty)
-        const Text('Nenhuma avaliação salva neste acesso e aparelho.'),
+      if (c.carregandoHistorico)
+        const Center(child: CircularProgressIndicator()),
+      if (c.registros.isEmpty && !c.carregandoHistorico)
+        Text(
+          c.contexto?.acessoPessoal == true
+              ? 'Nenhuma avaliação disponível no seu histórico.'
+              : 'Nenhuma avaliação salva neste acesso e aparelho.',
+        ),
       for (final item in c.registros)
         Card(
           margin: EdgeInsets.zero,
@@ -882,6 +927,13 @@ class _Historico extends StatelessWidget {
               ),
             ),
           ),
+        ),
+      if (c.proximoOffsetHistorico != null)
+        OutlinedButton(
+          onPressed: c.carregandoHistorico
+              ? null
+              : () => c.carregarHistoricoPessoal(mais: true),
+          child: const Text('Carregar avaliações anteriores'),
         ),
       OutlinedButton(
         onPressed: c.voltar,

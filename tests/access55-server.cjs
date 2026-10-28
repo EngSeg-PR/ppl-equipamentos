@@ -1,0 +1,42 @@
+/* PostgreSQL descartável + handler55 completo. Zero acesso de produção. */
+const assert=require('node:assert/strict');
+const {createHarness,assessment,ids}=require('./attention51-server.cjs');
+const harnessOptions={sourceFile:'supabase/acesso-v55/ppl-api-dashboard.ts',migrations:['supabase/executantes-v54/ATIVAR-v54.sql','supabase/acesso-v55/ATIVAR-v55.sql']};
+async function test(){const h=await createHarness(harnessOptions);let checks=0;
+ const expect=(a,b)=>{assert.deepEqual(a,b);checks++;};
+ const read=async r=>{const d=await r.json();assert.equal(r.status,200,JSON.stringify(d));checks++;return d;};
+ const own=(a,b={},token='')=>h.call(a,b,'',token);
+ const other='88888888-8888-4888-8888-888888888888',mate='99999999-9999-4999-8999-999999999999';
+ try{
+ await h.db.query("INSERT INTO ppl_employees(id,company_id,name,employee_number,job_title) VALUES($1,$2,'OUTRO TESTE','0002','CONDUTOR'),($3,$4,'COLEGA TESTE','0003','CONDUTOR')",[other,ids.other,mate,ids.company]);
+ const directory=await read(await own('executor-directory'));expect(directory.employees.length,2);expect(Object.keys(directory.employees[0]).sort(),['id','name']);
+ expect((await read(await own('executor-directory',{companyId:ids.other}))).employees.map(e=>e.id),[other]);
+ expect((await own('executor-login',{employeeId:ids.employee,password:'errada'})).status,401);
+ expect((await own('executor-login',{companyId:ids.other,employeeId:ids.employee,password:'QA-1'})).status,401);
+ const login=await read(await own('executor-login',{employeeId:ids.employee,password:'QA-1'})),token=login.executorToken;
+ const ctx=await read(await own('attention-employee-context',{},token));expect(ctx.principal.role,'employee');expect(ctx.employees.map(e=>e.id),[ids.employee]);expect(ctx.companies.length,1);
+ expect((await own('attention-context',{},token)).status,401);expect((await own('attention-history-list',{},token)).status,401);
+ expect((await own('attention-employee-history',{employeeId:mate},token)).status,403);
+ expect((await own('attention-employee-history',{companyId:ids.other},token)).status,401);
+ expect((await own('attention-employee-history')).status,401);expect((await own('attention-employee-history',{},'a'.repeat(64))).status,401);
+ const a=assessment();await read(await own('attention-employee-submit',{assessment:a},token));expect((await read(await own('attention-employee-submit',{assessment:a},token))).status,'duplicada');
+ expect((await own('attention-employee-submit',{assessment:assessment({employeeId:mate})},token)).status,403);
+ expect((await own('attention-employee-submit',{assessment:assessment({touches:[]})},token)).status,400);
+ await assert.rejects(()=>h.scoped('SELECT ppl_attention_employee_submit_v55($1,$2,$3)',[ids.company,ids.employee,assessment({employeeId:mate})],null,true));checks++;
+ await read(await h.call('attention-submit',{assessment:assessment({employeeId:mate})},'OWNER'));await read(await h.call('attention-submit',{assessment:assessment()},'OWNER'));
+ const history=await read(await own('attention-employee-history',{},token));expect(history.rows.length,2);expect(history.rows.every(r=>r.employee_id===ids.employee),true);
+ expect((await read(await h.call('attention-history-list',{},'OWNER'))).rows.length,3);
+ expect((await read(await h.call('attention-dashboard-list',{},'OWNER'))).summary.total,3);
+ expect((await read(await h.call('attention-followup-save',{id:a.id,status:'aberta',note:'Somente teste',expectedRevision:0},'OWNER'))).current.revision,1);
+ const second=await read(await own('executor-login',{companyId:ids.other,employeeId:other,password:'0002'}));
+ expect((await read(await own('attention-employee-history',{companyId:ids.other},second.executorToken))).rows,[]);
+ expect((await own('executor-login',{companyId:ids.other,employeeId:other,password:'2'})).status,401);
+ await h.db.query('UPDATE ppl_employees SET employee_number=$1 WHERE id=$2',['NOVO',ids.employee]);expect((await own('attention-employee-context',{},token)).status,401);
+ await h.db.query('UPDATE ppl_employees SET active=false WHERE id=$1',[other]);expect((await own('attention-employee-context',{companyId:ids.other},second.executorToken)).status,401);
+ const again=await read(await own('executor-login',{employeeId:ids.employee,password:'NOVO'}));await own('executor-logout',{},again.executorToken);expect((await own('attention-employee-history',{},again.executorToken)).status,401);
+ const expired=await read(await own('executor-login',{employeeId:ids.employee,password:'NOVO'}));await h.db.query("UPDATE ppl_executor_sessions SET issued_at=now()-interval '3 hours',expires_at=now()-interval '1 hour'");expect((await own('attention-employee-history',{},expired.executorToken)).status,401);
+ for(let i=0;i<8;i++)await own('executor-login',{employeeId:mate,password:'errada'});expect((await own('executor-login',{employeeId:mate,password:'0003'})).status,429);
+ await assert.rejects(()=>h.scoped('SELECT ppl_attention_employee_submit_v55($1,$2,$3)',[ids.company,ids.employee,a],'OWNER'));checks++;
+ console.log('PASS acesso55: '+checks+' verificações; autenticação54 reutilizada, duas empresas, histórico próprio, gestão e acompanhamento preservados.');
+ }finally{await h.close();}}
+module.exports={harnessOptions};if(require.main===module)test().catch(e=>{console.error(e);process.exitCode=1;});

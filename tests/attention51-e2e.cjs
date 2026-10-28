@@ -43,7 +43,7 @@ async function main(){
     });
     const app=await context.newPage(),errors=[];app.on('pageerror',e=>errors.push(e.message));
     async function enable(page){const placeholder=page.locator('flt-semantics-placeholder');await placeholder.waitFor({state:'attached',timeout:60000});await placeholder.evaluate(el=>el.click());}
-    await app.goto('http://127.0.0.1:8765');await enable(app);
+    await app.goto('http://127.0.0.1:8765');await enable(app);await app.getByRole('button',{name:'Acesso da gestão',exact:true}).click();
     await app.getByRole('textbox',{name:'E-mail da gestão'}).click();
     await app.getByRole('textbox',{name:'E-mail da gestão'}).pressSequentially('operador@teste.invalid',{delay:25});
     await app.getByRole('textbox',{name:'Senha',exact:true}).click();

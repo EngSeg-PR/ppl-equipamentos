@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:triagem_core/triagem_core.dart';
+
 import '../../data/local_store.dart';
 import '../../data/models.dart';
 import '../../data/portal_api.dart';
+import '../../data/employee_access.dart';
 import '../ensaio/ensaio_controller.dart' show RelogioEnsaio, RelogioStopwatch;
 
 enum TelaHistorico {
@@ -15,18 +18,18 @@ enum TelaHistorico {
   teste,
   salvando,
   resultado,
-  historico
+  historico,
 }
 
 class HistoricoController extends ChangeNotifier {
-  HistoricoController(
-      {required this.repositorio,
-      required this.portal,
-      RelogioEnsaio? relogio,
-      List<int> Function(int)? criarGrade,
-      this.sincronizacaoAutomatica = true})
-      : relogio = relogio ?? RelogioStopwatch(),
-        criarGrade = criarGrade ?? ((n) => gerarGrade(n: n));
+  HistoricoController({
+    required this.repositorio,
+    required this.portal,
+    RelogioEnsaio? relogio,
+    List<int> Function(int)? criarGrade,
+    this.sincronizacaoAutomatica = true,
+  }) : relogio = relogio ?? RelogioStopwatch(),
+       criarGrade = criarGrade ?? ((n) => gerarGrade(n: n));
   final RepositorioHistorico repositorio;
   final ServicoPortal portal;
   final RelogioEnsaio relogio;
@@ -34,6 +37,9 @@ class HistoricoController extends ChangeNotifier {
   final bool sincronizacaoAutomatica;
   ContextoAtencao? contexto;
   List<AvaliacaoLocal> registros = [];
+  bool carregandoHistorico = false;
+  int? proximoOffsetHistorico;
+  bool get aceitaColaborador => portal is AcessoColaborador;
   AvaliacaoLocal? atual;
   Map<String, dynamic>? colaborador;
   String unidade = '', equipe = '';
@@ -57,10 +63,10 @@ class HistoricoController extends ChangeNotifier {
   }
 
   bool get emAvaliacao => [
-        TelaHistorico.preparando,
-        TelaHistorico.teste,
-        TelaHistorico.salvando
-      ].contains(tela);
+    TelaHistorico.preparando,
+    TelaHistorico.teste,
+    TelaHistorico.salvando,
+  ].contains(tela);
   List<int> get grade => _engine?.grade ?? const [];
   int get proximo => _engine?.esperado ?? 1;
   int get acertos => (proximo - 1).clamp(0, grade.length).toInt();
@@ -108,6 +114,82 @@ class HistoricoController extends ChangeNotifier {
     if (sincronizacaoAutomatica && contexto != null) unawaited(sincronizar());
   }
 
+  Future<void> entrarColaborador(
+    String empresaId,
+    String colaboradorId,
+    String matricula,
+  ) async {
+    if (ocupado || portal is! AcessoColaborador) return;
+    ocupado = true;
+    erro = null;
+    ++_epoch;
+    _avisar();
+    try {
+      await (portal as AcessoColaborador).entrarColaborador(
+        empresaId,
+        colaboradorId,
+        matricula,
+      );
+      await _carregarContexto(empresaId);
+    } catch (e) {
+      erro = e.toString();
+      contexto = null;
+      registros = [];
+      await portal.sair();
+    } finally {
+      ocupado = false;
+      _avisar();
+    }
+    if (sincronizacaoAutomatica && contexto != null) unawaited(sincronizar());
+  }
+
+  Future<void> carregarHistoricoPessoal({bool mais = false}) async {
+    final ctx = contexto;
+    if (ctx == null ||
+        !ctx.acessoPessoal ||
+        portal is! AcessoColaborador ||
+        carregandoHistorico ||
+        (mais && proximoOffsetHistorico == null)) {
+      return;
+    }
+    final epoch = _epoch, offset = mais ? proximoOffsetHistorico! : 0;
+    carregandoHistorico = true;
+    _avisar();
+    try {
+      final pagina = await (portal as AcessoColaborador).historicoPessoal(
+        ctx,
+        offset: offset,
+      );
+      if (epoch != _epoch || contexto?.escopo != ctx.escopo) return;
+      final existentes = {
+        for (final item in await repositorio.listar(ctx.escopo)) item.id: item,
+      };
+      for (final item in pagina.registros) {
+        if (epoch != _epoch) return;
+        if (item.escopo != ctx.escopo ||
+            item.json['employeeId'] != ctx.usuarioId) {
+          throw const ErroPortal('Histórico fora do seu acesso.', 403);
+        }
+        // Cópias locais e envios pendentes nunca são substituídos pela consulta.
+        if (!existentes.containsKey(item.id)) await _gravar(item);
+      }
+      if (epoch != _epoch) return;
+      proximoOffsetHistorico = pagina.proximoOffset;
+      registros = await repositorio.listar(ctx.escopo);
+      if (epoch == _epoch) aviso = 'Histórico pessoal atualizado. Confira a situação de envio de cada avaliação.';
+    } catch (e) {
+      if (epoch == _epoch) {
+        aviso =
+            'Não foi possível consultar o histórico central. As cópias locais foram preservadas. $e';
+      }
+    } finally {
+      if (epoch == _epoch) {
+        carregandoHistorico = false;
+        _avisar();
+      }
+    }
+  }
+
   Future<void> _carregarContexto([String? empresa]) async {
     final epoch = _epoch;
     final uid = portal.usuarioId;
@@ -129,13 +211,17 @@ class HistoricoController extends ChangeNotifier {
       throw const ErroPortal('Sessão alterada.', 401);
     }
     if (!offline) await repositorio.salvarContexto(loaded);
-    await repositorio.cofre
-        .gravar('prs_attention_company_$uid', loaded.empresaId);
+    await repositorio.cofre.gravar(
+      'prs_attention_company_$uid',
+      loaded.empresaId,
+    );
     final saved = await repositorio.listar(loaded.escopo);
     for (final item in saved.where((a) => a.emAndamento)) {
       await repositorio.salvar(item.recuperarInterrompida());
     }
     if (epoch != _epoch) return;
+    proximoOffsetHistorico = null;
+    carregandoHistorico = false;
     contexto = loaded;
     registros = await repositorio.listar(loaded.escopo);
     tela = TelaHistorico.inicio;
@@ -165,6 +251,8 @@ class HistoricoController extends ChangeNotifier {
     if (emAvaliacao || ocupado || sincronizando) return;
     ++_epoch;
     contexto = null;
+    proximoOffsetHistorico = null;
+    carregandoHistorico = false;
     registros = [];
     atual = null;
     colaborador = null;
@@ -274,8 +362,9 @@ class HistoricoController extends ChangeNotifier {
     final item = atual!;
     return item.alterar({
       'durationMs': elapsed,
-      'checkpointAt':
-          item.inicio.add(Duration(milliseconds: elapsed)).toIso8601String(),
+      'checkpointAt': item.inicio
+          .add(Duration(milliseconds: elapsed))
+          .toIso8601String(),
       'touches': [
         for (final t in _engine!.toques)
           {
@@ -283,8 +372,8 @@ class HistoricoController extends ChangeNotifier {
             'tMs': t.tMs,
             'touched': t.tocado,
             'expected': t.esperado,
-            'correct': t.acerto
-          }
+            'correct': t.acerto,
+          },
       ],
       'metrics': AvaliacaoLocal.metricasDe(_engine!.toques, grade, elapsed),
       if (status != null) 'status': status,
@@ -309,14 +398,16 @@ class HistoricoController extends ChangeNotifier {
     }
     _engine!.registrarToque(numero, relogio.milissegundos);
     atual = _checkpoint();
-    unawaited(_gravar(atual!).catchError((Object e) {
-      erro =
-          'Falha ao salvar um toque. O trecho disponível será preservado: $e';
-      if (tela == TelaHistorico.teste) {
-        unawaited(concluir('Interrupção por falha de armazenamento'));
-      }
-      _avisar();
-    }));
+    unawaited(
+      _gravar(atual!).catchError((Object e) {
+        erro =
+            'Falha ao salvar um toque. O trecho disponível será preservado: $e';
+        if (tela == TelaHistorico.teste) {
+          unawaited(concluir('Interrupção por falha de armazenamento'));
+        }
+        _avisar();
+      }),
+    );
     if (_engine!.concluida) {
       unawaited(concluir());
     } else if (_engine!.toques.length >= 2000) {
@@ -329,11 +420,14 @@ class HistoricoController extends ChangeNotifier {
     if (tela != TelaHistorico.teste) return;
     _timer?.cancel();
     relogio.parar();
-    final result =
-        _engine!.fechar(cronometroIniciado ? relogio.milissegundos : 0);
+    final result = _engine!.fechar(
+      cronometroIniciado ? relogio.milissegundos : 0,
+    );
     atual = _checkpoint(result.status.name, result.duracaoMs);
-    atual = atual!.alterar(
-        {'finishedAt': atual!.json['checkpointAt'], 'interruption': motivo});
+    atual = atual!.alterar({
+      'finishedAt': atual!.json['checkpointAt'],
+      'interruption': motivo,
+    });
     tela = TelaHistorico.salvando;
     _avisar();
     await tentarSalvar();
@@ -375,6 +469,7 @@ class HistoricoController extends ChangeNotifier {
     if (emAvaliacao) return;
     tela = TelaHistorico.historico;
     _avisar();
+    unawaited(carregarHistoricoPessoal());
   }
 
   void voltar() {
@@ -410,36 +505,40 @@ class HistoricoController extends ChangeNotifier {
               response['id'] != original.id ||
               (response['moduleVersion'] as num? ?? 0) < 51) {
             throw const ErroPortal(
-                'O servidor não confirmou a avaliação correta.', 503);
+              'O servidor não confirmou a avaliação correta.',
+              503,
+            );
           }
           updated = original.alterar({
             'syncState': SituacaoEnvio.sincronizado.name,
             'syncError': null,
-            'receivedAt': response['received_at']
+            'receivedAt': response['received_at'],
           });
           _tentativas.remove(original.id);
           _retentarEm.remove(original.id);
         } on ErroPortal catch (e) {
           if (epoch != _epoch) break;
           updated = original.alterar({
-            'syncState': (e.permanente
-                    ? SituacaoEnvio.falhaPermanente
-                    : SituacaoEnvio.pendente)
-                .name,
-            'syncError': e.mensagem
+            'syncState':
+                (e.permanente
+                        ? SituacaoEnvio.falhaPermanente
+                        : SituacaoEnvio.pendente)
+                    .name,
+            'syncError': e.mensagem,
           });
           final count = (_tentativas[original.id] ?? 0) + 1;
           _tentativas[original.id] = count;
           _retentarEm[original.id] = DateTime.now().add(
-              Duration(seconds: min(900, 10 * pow(2, min(count, 6)).toInt())));
+            Duration(seconds: min(900, 10 * pow(2, min(count, 6)).toInt())),
+          );
         }
         await _gravar(updated);
         if (atual?.id == updated.id) atual = updated;
       }
       if (epoch == _epoch) {
         registros = await repositorio.listar(ctx.escopo);
-        aviso =
-            'Consulta de envios concluída. Confira a situação de cada avaliação.';
+        aviso = 'Consulta de envios concluída. Confira a situação de cada avaliação.';
+        if (ctx.acessoPessoal) await carregarHistoricoPessoal();
       }
     } catch (e) {
       if (epoch == _epoch) erro = 'Não foi possível confirmar os envios: $e';

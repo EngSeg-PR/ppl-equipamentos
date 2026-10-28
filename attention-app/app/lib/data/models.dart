@@ -27,6 +27,7 @@ class ContextoAtencao {
   String get nomeUsuario => objeto(json['principal'])['name'] as String? ?? '';
   String get empresaId => objeto(json['company'])['id'] as String;
   String get nomeEmpresa => objeto(json['company'])['name'] as String;
+  bool get acessoPessoal => objeto(json['principal'])['role'] == 'employee';
   List<Map<String, dynamic>> get empresas =>
       (json['companies'] as List).map(objeto).toList();
   List<Map<String, dynamic>> get colaboradores =>

@@ -12,7 +12,7 @@ function execute(file, args) {
   const result = spawnSync(file, args, { windowsHide:true, stdio:'ignore', timeout:60000 });
   if (result.error || result.status !== 0) throw Error(path.basename(file) + ': ' + (result.error || result.status));
 }
-async function createHarness() {
+async function createHarness(options=process.env.PRS_ACCESS55?{sourceFile:'supabase/acesso-v55/ppl-api-dashboard.ts',migrations:['supabase/executantes-v54/ATIVAR-v54.sql','supabase/acesso-v55/ATIVAR-v55.sql']}:{}) {
   const out = path.join(workspace, 'work', 'attention51-' + Date.now()); fs.mkdirSync(out, {recursive:true});
   const data = path.join(out, 'data'), ctl = path.join(pgRoot, 'bin/pg_ctl.exe'), port = Number(process.env.PRS_PG_PORT || 55473);
   execute(path.join(pgRoot, 'bin/initdb.exe'), ['-D',data,'-U','postgres','-A','trust','--encoding=UTF8','--no-locale','--no-sync']);
@@ -40,6 +40,8 @@ async function createHarness() {
     `);
     const migration = fs.readFileSync(path.join(root,'supabase/triagem-v51/ATIVAR-v51.sql'),'utf8');
     await db.query(migration); await db.query(migration);
+    for(const file of options.migrations||[]){const sql=fs.readFileSync(path.join(root,file),'utf8');await db.query(sql);await db.query(sql);}
+    await db.query("CREATE OR REPLACE FUNCTION public.ppl_can_read_company(c uuid,u text,t text) RETURNS boolean LANGUAGE sql STABLE SECURITY DEFINER SET search_path='' AS $$ SELECT public.ppl_attention_actor_allowed_v51(auth.uid(),c,u,t) $$");
     async function scoped(sql,args=[],token=null,rpc=false) {
       const client = await pool.connect();
       try {
@@ -76,10 +78,10 @@ async function createHarness() {
       async rpc(name,params){try{const keys=Object.keys(params),result=await scoped(`SELECT public.${identifier(name)}(${keys.map((k,i)=>identifier(k)+'=>$'+(i+1)).join(',')}) AS value`,Object.values(params),token,!token);return {data:result.rows[0].value,error:null};}catch(error){return {data:null,error};}},
     };}
     let handler;
-    const source=fs.readFileSync(path.join(root,'supabase/triagem-v51/ppl-api-dashboard.ts'),'utf8').replace("import {createClient} from 'npm:@supabase/supabase-js@2';",'');
-    const context={createClient,Deno:{env:{get:key=>key==='PPL_ALLOWED_ORIGINS'?'http://127.0.0.1:8766,http://127.0.0.1:8765':'TEST'},serve:fn=>handler=fn},Response,Request,TextDecoder,TextEncoder,Uint8Array,Date,crypto,atob,structuredClone,Map,Set};
+    const source=fs.readFileSync(path.join(root,options.sourceFile||'supabase/triagem-v51/ppl-api-dashboard.ts'),'utf8').replace("import {createClient} from 'npm:@supabase/supabase-js@2';",'');
+    const context={createClient,Deno:{env:{get:key=>key==='PPL_ALLOWED_ORIGINS'?'http://127.0.0.1:8766,http://127.0.0.1:8765':'TEST'},serve:fn=>handler=fn},Response,Request,TextDecoder,TextEncoder,Uint8Array,Date,crypto,atob,btoa,structuredClone,Map,Set};
     vm.createContext(context);vm.runInContext(stripTypeScriptTypes(source,{mode:'transform'}),context);
-    const call=(action,body={},token='OWNER')=>handler(new Request('https://test.invalid',{method:'POST',headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{})},body:JSON.stringify({action,companyId:ids.company,...body})}));
+    const call=(action,body={},token='OWNER',executorToken='')=>handler(new Request('https://test.invalid',{method:'POST',headers:{'content-type':'application/json',...(token?{authorization:'Bearer '+token}:{}),...(executorToken?{'X-PPL-Executor':executorToken}:{})},body:JSON.stringify({action,companyId:ids.company,...body})}));
     return {db,pool,handler,call,out,scoped,async close(){await pool.end();await db.end();execute(ctl,['-D',data,'-m','fast','-w','stop']);}};
   } catch(e){await pool.end().catch(()=>{});await db.end().catch(()=>{});execute(ctl,['-D',data,'-m','fast','-w','stop']);throw e;}
 }
